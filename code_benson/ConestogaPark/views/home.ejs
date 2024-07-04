@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/css/style.css"> <!-- make sure you are pointing to the correct css folder-->
+    <title>Canada Day</title>
+</head>
+<body>
+     <!-- zhiqun xie , 8915726  -->
+    <header>
+        <h1>Canada Day</h1>
+    </header>
+    <nav>
+        <ul>
+            <li> <a href="/">Home</a> </li>
+            <li> <a href="/add">Add New Product</a> </li>
+            <li> <a href="/login">Admin Login</a>   </li>
+            <li> <a href="/logout">Logout</a>       </li>
+        </ul>
+    </nav>
+    <main>
+        <h2>Gift Card Gallery</h2>
+        <section class="gallery">
+<!-- repeat this div each time you want to add a new gift Card  -->
+<% if(typeof cardList !== 'undefined'){ %>           
+
+<% for (let card of cardList ){ %>
+                <div class="card">
+                    <img src="/images/<%= card.imgpath %>.jpg"> <!-- <-- Add image . Make sure you are pointing to the correct image folder-->
+                    <p>Price:$<%= card.price %> </p>      <!-- <-- Add Price --> 
+                    <p>Description:<%= card.description %></p>  <!--  <-- Add Description -->
+                </div>
+            <% } %>
+<% } %>
+         </section> 
+    </main>
+ 
+<!-- add footer here using EJS -->
+<%- include('footer'); -%>
+
+    
+</body>
+</html>

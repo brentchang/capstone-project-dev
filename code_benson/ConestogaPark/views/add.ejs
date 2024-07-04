@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/style.css">
+    <title>Canada Day</title>
+</head>
+<body>
+    <header>
+        <h1>Control Panel Add Products</h2>
+    </header>
+    <nav>
+        <ul>
+            <li> <a href="/">Home</a> </li>
+            <li> <a href="/add">Add New Product</a> </li>
+            <li> <a href="/login">Admin Login</a>   </li>
+            <li> <a href="/logout">Logout</a>       </li>
+        </ul>
+    </nav>
+    <main>
+        <h2>Add New Products</h2> 
+<!-- form to add new product -->
+        <form action="/add" method="post">
+            <fieldset>
+                <legend>Product Information</legend>
+            <div class="formdata">
+                <label for="image">image Path</label>
+                <input type="text" name="imgpath" id="image">
+            </div>
+            <div class="formdata">
+                <label for="price">Price</label>
+                <input type="text" name="price" id="price">
+            </div>
+            <div class="formdata">
+                <label for="desc">Description</label>
+                <input type="text" name="description" id="desc">
+            </div>
+            <div class="formdata">
+                <input type="submit" name="send" id="send" value="Add Product"><br><br>
+            
+                    <p class="red"><!-- You Can Add Custom message here --></p>
+               
+            </div>
+            </fieldset>
+        </form>
+    </main>
+<!-- add footer here using EJS -->
+<%- include('footer'); -%>
+</body>
+</html>
