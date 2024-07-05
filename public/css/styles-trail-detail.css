@@ -1,0 +1,284 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    background-color: #f5f5f5;
+    color: #333;
+}
+
+header {
+    background-color: #fff;
+    padding: 20px 0;
+    border-bottom: 1px solid #ddd;
+}
+
+.header-container {
+    display: flex;
+    /* justify-content: space-between; */
+    align-items: center;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+.logo {
+    font-size: 24px;
+    font-weight: bold;
+    color: #f66e6e;
+}
+
+nav ul {
+    list-style-type: none;
+    display: flex;
+    gap: 20px;
+    margin-left: 50px;
+    padding: 0;
+}
+
+nav a {
+    text-decoration: none;
+    color: #333;
+    /* font-weight: bold; */
+}
+.breadcumb a {
+    text-decoration: none;
+    color: #333;
+    /* font-weight: bold; */
+}
+
+.auth {
+    margin-left: auto;
+}
+
+.auth a {
+    text-decoration: none;
+    color: black;
+    margin-left: 15px;
+    /* font-weight: bold; */
+}
+
+.auth a:nth-child(2) {
+    text-decoration: none;
+    padding: 10px;
+    border: 1px solid black;
+    border-radius: 30px;
+    color: black;
+    margin-left: 15px;
+    /* font-weight: bold; */
+}
+
+main {
+    max-width: 1200px;
+    margin: 20px auto;
+    padding: 0 20px;
+}
+
+.tour-details h1 {
+    font-size: 32px;
+    color: #333;
+}
+
+.tour-details p {
+    font-size: 18px;
+    color: #666;
+}
+
+.gallery {
+    display: grid;
+    grid-template-columns: 3fr 1fr 1fr;
+    grid-template-rows: repeat(2, 1fr);
+    gap: 10px;
+    margin-top: 20px;
+}
+
+.gallery-item:nth-child(1) {
+    grid-row: span 2;
+}
+
+.gallery-item:nth-child(2) {
+    grid-column: span 2;
+}
+
+.gallery-item img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 8px;
+}
+
+.grid {
+    display: grid;
+    grid-template-columns: 3fr 1fr;
+    gap: 10px;
+}
+.row {
+    display: flex;
+    gap: 10px;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+.info {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 30px;
+    padding-top: 20px;
+}
+
+.info-item {
+    flex: 1;
+}
+
+body > main > div > div > section.overview > div > div > div > div.icon{
+    padding: 10px;
+    width: 20px;
+    border: 1px solid #E7E6E6;
+    border-radius: 15px;
+}
+
+.icon > i {
+    font-size: 20px;
+    color: #555555;
+}
+
+.info-item > div > div > p {
+    line-height: 1;
+    margin-top: 0;
+    margin-bottom: 0;
+}
+
+.info-item span {
+    display: block;
+    font-weight: bold;
+    color: #333;
+}
+
+.overview h2, .inclusions h2, .availability h2 {
+    font-size: 24px;
+    margin: 40px 0 20px;
+    color: #333;
+}
+
+.overview p, .inclusions div {
+    font-size: 16px;
+    color: #666;
+    line-height: 1.6;
+}
+
+.overview ul {
+    list-style-type: disc;
+    padding-left: 20px;
+    color: #666;
+}
+
+.flex {
+    display: flex;
+    gap: 10px;
+}
+
+.inclusions .included-items {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.inclusions .included-items div {
+    flex: 1 1 calc(33.333% - 10px);
+    background: #fff;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    text-align: center;
+    color: #333;
+    font-weight: bold;
+}
+
+.included-items ul {
+    list-style-type: "✔ ";
+}
+.not-included-items ul {
+    list-style-type: "✘ ";
+}
+
+.availability .calendar {
+    display: flex;
+    /* justify-content: center; */
+    margin-top: 20px;
+}
+
+.booking-form {
+    border: 1px solid #ddd;
+    padding: 20px;
+    border-radius: 8px;
+    background-color: #fff;
+    max-width: 300px;
+    margin: 40px auto;
+}
+
+.booking-form label {
+    display: block;
+    margin-bottom: 5px;
+    /* font-weight: bold; */
+    color: #333;
+}
+
+.booking-form input[type="date"],
+.booking-form input[type="number"] {
+    width: 90%;
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+}
+
+.booking-form .extra {
+    display: flex;
+    align-items: center;
+    margin-bottom: 15px;
+}
+
+.booking-form .extra input {
+    margin-right: 10px;
+}
+
+.booking-form .total {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 15px;
+    border-top: 1px solid #ddd;
+    padding-top: 10px;
+}
+
+.booking-form button {
+    width: 100%;
+    background-color: #EB662B;
+    color: #fff;
+    border: none;
+    padding: 10px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+.booking-form button:hover {
+    background-color: #e05a5a;
+}
+
+footer {
+    background-color: #05073C;
+    color: #fff;
+    /* text-align: center; */
+    padding: 20px;
+}
+
+footer a {
+    color: #fff;
+    text-decoration: none;
+}
+
+.footer-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 60px;
+}
