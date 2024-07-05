@@ -1,0 +1,168 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f5f5f5;
+    color: #333;
+}
+
+header {
+    background-color: #fff;
+    padding: 20px 0;
+    border-bottom: 1px solid #ddd;
+}
+
+.header-container {
+    display: flex;
+    /* justify-content: space-between; */
+    align-items: center;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+.logo {
+    font-size: 24px;
+    font-weight: bold;
+    color: #f66e6e;
+}
+
+nav ul {
+    list-style-type: none;
+    display: flex;
+    gap: 20px;
+    margin-left: 50px;
+    padding: 0;
+}
+
+nav a {
+    text-decoration: none;
+    color: #333;
+    /* font-weight: bold; */
+}
+
+.auth {
+    margin-left: auto;
+}
+
+.auth a {
+    text-decoration: none;
+    color: black;
+    margin-left: 15px;
+    /* font-weight: bold; */
+}
+
+.auth a:nth-child(2) {
+    text-decoration: none;
+    padding: 10px;
+    border: 1px solid black;
+    border-radius: 30px;
+    color: black;
+    margin-left: 15px;
+    /* font-weight: bold; */
+}
+
+main {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: calc(100vh - 200px);
+    padding: 20px;
+}
+
+.confirmation-container {
+    max-width: 800px;
+    text-align: center;
+    background-color: #f5f5f5;
+    padding: 20px;
+    border-radius: 8px;
+}
+
+.confirmation-box {
+    background-color: #fff;
+    padding: 40px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.confirmation-box .icon {
+    font-size: 48px;
+    color: #4caf50;
+    margin-bottom: 20px;
+}
+
+.confirmation-box h2 {
+    font-size: 24px;
+    color: #333;
+    margin-bottom: 10px;
+}
+
+.confirmation-box p {
+    font-size: 16px;
+    color: #666;
+}
+
+.order-details {
+    text-align: left;
+    margin: 20px 0;
+}
+
+.order-details p {
+    display: flex;
+    justify-content: space-between;
+    font-size: 16px;
+    color: #333;
+}
+
+.actions {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    margin-top: 20px;
+}
+
+.actions a {
+    text-decoration: none;
+    padding: 10px 20px;
+    border-radius: 4px;
+    font-weight: bold;
+}
+
+.actions .modify {
+    background-color: #007bff;
+    color: #fff;
+}
+
+.actions .cancel {
+    background-color: #fff;
+    color: #f66e6e;
+    border: 1px solid #f66e6e;
+}
+
+.see-orders {
+    margin-top: 20px;
+}
+
+.see-orders a {
+    text-decoration: none;
+    color: #333;
+    font-size: 14px;
+}
+
+footer {
+    background-color: #05073C;
+    color: #fff;
+    /* text-align: center; */
+    padding: 20px;
+}
+
+footer a {
+    color: #fff;
+    text-decoration: none;
+}
+
+.footer-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 60px;
+}
