@@ -1,0 +1,22 @@
+{
+    "database-config": {
+        "localhost":"4.172.200.182",
+        "username":"root",
+        "password":"rek.RRCW!+j6",
+        "database":"conestoga_provincial_park_test"
+    },
+    "ports-config" : {
+        "webServerPort" : 8080,
+        "apiServerPort" : 2000
+    },
+    "views-path-config" : {
+        "login" : "../views/loginPage.ejs",
+        "landing" : "../views/landingPage.ejs",
+        "orderList" : "../views/orderListPage.ejs",
+        "bookSuccess" : "../views/book-thanks.html",
+        "trailDetail" : "../views/trail-detail.html"
+    },
+    "api-urls-config" : {
+        "urlUserLoginValidation" : "http://localhost:2000/api/user-login"
+    }
+}

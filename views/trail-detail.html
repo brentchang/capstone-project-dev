@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>White River Suspension Bridge Trail</title>
+    <link rel="stylesheet" href="/styles/styles-trail-detail.css">
+    <!-- font awesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <!-- fullcalendar for calendar -->
+    <link href='https://cdn.jsdelivr.net/npm/fullcalendar@5.10.1/main.min.css' rel='stylesheet' />
+    <script src='https://cdn.jsdelivr.net/npm/fullcalendar@5.10.1/main.min.js'></script>
+    <script src='https://cdn.jsdelivr.net/npm/fullcalendar@5.10.1/locales-all.min.js'></script>
+</head>
+<body>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            var calendarEl = document.getElementById('calendar');
+            var calendar = new FullCalendar.Calendar(calendarEl, {
+                initialView: 'dayGridMonth',
+                headerToolbar: {
+                    left: 'prev,next today',
+                    center: 'title',
+                    right: 'dayGridMonth,timeGridWeek,timeGridDay'
+                },
+                events: [
+                    {
+                        title: 'Available',
+                        start: '2024-07-06',
+                        end: '2024-07-31',
+                        display: 'background',
+                        color: '#ff9f89'
+                    }
+                ]
+            });
+            calendar.render();
+        });
+    </script>
+    <header>
+        <div class="header-container">
+            <div class="logo">Viatours</div>
+            <nav>
+                <ul>
+                    <li><a href="/landing">Home</a></li>
+                    <li><a href="#">Weather</a></li>
+                </ul>
+            </nav>
+            <div class="auth">
+                <a href="#">Sign up</a>
+                <a href="/login">Log in</a>
+            </div>
+    </header>
+
+    <main>
+        <section class="tour-details">
+            <!-- breadcumb -->
+            <div class="breadcumb">
+                <a href="/landing">Home</a>
+                <span>></span>
+                <a href="#">White River Suspension Bridge Trail</a>
+            </div>
+            <h1>White River Suspension Bridge Trail</h1>
+            <div>
+                <i class="fa-solid fa-location-dot"></i>
+                <span>Pukaskwa National Park</span>
+            </div>
+            <div class="gallery">
+                <div class="gallery-item">
+                    <img src="/images/detail-main.png" alt="trail">
+                </div>
+                <div class="gallery-item">
+                    <img src="/images/detail-1.png" alt="trail">
+                </div>
+                <div class="gallery-item">
+                    <img src="/images/detail-2.png" alt="trail">
+                </div>
+                <div class="gallery-item">
+                    <img src="/images/detail-3.png" alt="trail">
+                </div>
+            </div>
+        </section>
+
+        <div class="grid">
+            <div class="main-content">
+                <section class="overview">
+                    <div class="info">
+                        <div class="info-item">
+                            <div class="row">
+                                <div class="icon">
+                                    <i class="fa-solid fa-location-dot"></i>
+                                </div>
+                                <div class="text">
+                                    <span>Duration</span>
+                                    <p>4 days</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="info-item">
+                            <div class="row">
+                                <div class="icon">
+                                    <i class="fa-solid fa-user-group"></i>
+                                </div>
+                                <div class="text">
+                                    <span>Group Size</span>
+                                    <p>6 people</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="info-item">
+                            <div class="row">
+                                <div class="icon">
+                                    <i class="fa-solid fa-clock"></i>
+                                </div>
+                                <div class="text">
+                                    <span>Length</span>
+                                    <p>160km (return)</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <h2>Tour Overview</h2>
+                    <p>The Phi Phi archipelago is a must-visit while in Phuket, and this speedboat trip whisks you around the islands in one day. Swim over the coral reefs of Pileh Lagoon, have lunch at Phi Phi Leh, snorkel at Bamboo Island, and visit Monkey Beach and Maya Bay, immortalized in "The Beach." Boat transfers, snacks, buffet lunch, snorkeling equipment, and Phuket hotel pickup and drop-off included.</p>
+                    <h3>Tour Highlights</h3>
+                    <ul>
+                        <li>Experience the thrill of a speedboat to the stunning Phi Phi Islands</li>
+                        <li>Be amazed by the variety of marine life in the archipelago</li>
+                        <li>Enjoy relaxing in paradise with white sand beaches and azure turquoise water</li>
+                        <li>Feel the comfort of a tour limited to 35 passengers</li>
+                        <li>Catch a glimpse of the wild monkeys around Monkey Beach</li>
+                    </ul>
+                </section>
+
+                <section class="inclusions">
+                    <h2>What's included</h2>
+                    <div class="flex">
+                        <div class="included-items">
+                            <ul>
+                                <li>Beverages, drinking water, morning tea and buffet lunch</li>
+                                <li>Local taxies</li>
+                                <li>Hotel pickup and drop-off by air-conditioned minivan</li>
+                                <li>Insurance/Transfer to a private pier</li>
+                                <li>Soft drinks</li>
+                                <li>Tour Guide</li>
+                            </ul>
+                        </div>
+                        <div class="not-included-items">
+                            <ul>
+                                <li>Towel</li>
+                                <li>Tips</li>
+                                <li>Alcoholic Beverages</li>
+                            </ul>
+                        </div>
+                    </div>
+                </section>
+
+                <section class="availability">
+                    <h2>Availability Calendar</h2>
+                    <div class="calendar">
+                        <div class="dates" id="calendar">
+                            <!-- Calendar dates go here -->
+                        </div>
+                    </div>
+                </section>
+            </div>
+
+            <aside>
+                <form class="booking-form" action="/book-success" method="get">
+                    <div class="form-container">
+                        <label for="from">From</label>
+                        <input type="date" id="from" name="from" value="2024-02-05">
+                        <label for="to">To</label>
+                        <input type="date" id="to" name="to" value="2024-03-14">
+                        <h3>Tickets</h2>
+                        <label for="adults">Adult</label>
+                        <input type="number" id="adults" name="adults" value="3">
+                        <label for="children">Children</label>
+                        <input type="number" id="children" name="children" value="3">
+                        <h3>Add Extra</h2>
+                        <div class="extra">
+                            <input type="checkbox" id="parking" name="parking">
+                            <label for="parking">Add parking</label>
+                        </div>
+                        <div class="total">
+                            <span>Total:</span>
+                            <span>6 people</span>
+                        </div>
+                        <button type="submit">Book Now</button>
+                    </div>
+                </form>
+            </aside>
+        </div>
+    </main>
+
+    <footer>
+        <div class="footer-container">
+            <h3>Contact</h3>
+            <address>328 Queensberry Street, North Melbourne VIC 3051, Australia.</address>
+            <a href="mailto:hi@viatours.com">hi@viatours.com</a>
+            <p>&copy; Copyright Viatours 2024</p>
+        </div>
+    </footer>
+</body>
+</html>

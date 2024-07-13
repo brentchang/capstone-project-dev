@@ -1,0 +1,847 @@
+a {
+    text-decoration: none; /* 去除下划线 */
+    color: inherit;        /* 使用父元素的颜色 */
+}
+
+.mediaViewInfo {
+    --web-view-name: orderListPage;
+    --web-view-id: orderListPage;
+    --web-scale-on-resize: true;
+    --web-enable-deep-linking: true;
+}
+
+:root {
+    --web-view-ids: orderListPage;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    border: none;
+}
+
+#orderListPage {
+    position: absolute;
+    /* width: 1895px; */
+    /* benson */
+    width: 100%;
+    height: 1710px;
+    background-color: rgba(255, 255, 255, 1);
+    overflow: hidden;
+    --web-view-name: orderListPage;
+    --web-view-id: orderListPage;
+    --web-scale-on-resize: true;
+    --web-enable-deep-linking: true;
+}
+
+#Viatours {
+    left: 219px;
+    top: 45px;
+    position: absolute;
+    overflow: visible;
+    width: 135px;
+    white-space: nowrap;
+    text-align: left;
+    font-family: Segoe UI;
+    font-style: normal;
+    font-weight: bold;
+    font-size: 34px;
+    color: rgba(213, 102, 42, 1);
+}
+
+#Home {
+    left: 469px;
+    top: 59px;
+    position: absolute;
+    overflow: visible;
+    width: 65px;
+    white-space: nowrap;
+    text-align: left;
+    font-family: Segoe UI;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 24px;
+    color: rgba(3, 15, 118, 1);
+}
+
+#Weather {
+    left: 618px;
+    top: 59px;
+    position: absolute;
+    overflow: visible;
+    width: 90px;
+    white-space: nowrap;
+    text-align: left;
+    font-family: Segoe UI;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 24px;
+    color: rgba(3, 15, 118, 1);
+}
+
+#Orders {
+    left: 780px;
+    top: 59px;
+    position: absolute;
+    overflow: visible;
+    width: 73px;
+    white-space: nowrap;
+    text-align: left;
+    font-family: Segoe UI;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 24px;
+    color: rgba(213, 102, 42, 1);
+}
+
+#hi_Brent {
+    left: 1434px;
+    top: 59px;
+    position: absolute;
+    overflow: visible;
+    width: 89px;
+    white-space: nowrap;
+    text-align: left;
+    font-family: Segoe UI;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 24px;
+    color: rgba(3, 15, 118, 1);
+}
+
+#Group_1 {
+    position: absolute;
+    width: 136px;
+    height: 56px;
+    left: 1563px;
+    top: 43px;
+    overflow: visible;
+}
+
+#Rectangle_1 {
+    fill: rgba(255, 255, 255, 1);
+    stroke: rgba(3, 15, 118, 1);
+    stroke-width: 1px;
+    stroke-linejoin: miter;
+    stroke-linecap: butt;
+    stroke-miterlimit: 4;
+    shape-rendering: auto;
+}
+
+.Rectangle_1 {
+    position: absolute;
+    overflow: visible;
+    width: 136px;
+    height: 56px;
+    left: 0px;
+    top: 0px;
+}
+
+#Logout {
+    left: 1597px;
+    top: 52px;
+    position: absolute;
+    overflow: visible;
+    width: 76px;
+    white-space: nowrap;
+    text-align: left;
+    font-family: Segoe UI;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 24px;
+    color: rgba(3, 15, 118, 1);
+}
+
+#Line_1 {
+    opacity: 0.49;
+    fill: transparent;
+    stroke: rgba(215, 201, 201, 1);
+    stroke-width: 1px;
+    stroke-linejoin: miter;
+    stroke-linecap: butt;
+    stroke-miterlimit: 4;
+    shape-rendering: auto;
+}
+
+.Line_1 {
+    overflow: visible;
+    position: absolute;
+    width: 1480px;
+    height: 1px;
+    left: 219.5px;
+    top: 115.5px;
+    transform: matrix(1, 0, 0, 1, 0, 0);
+}
+
+#Rectangle_12 {
+    fill: rgba(5, 15, 60, 1);
+}
+
+.Rectangle_12 {
+    position: absolute;
+    overflow: visible;
+    width: 100%;
+    height: 333px;
+    left: 0px;
+
+    top: 1380px;
+}
+
+#Contact {
+    left: 349px;
+    top: 1474px;
+    position: absolute;
+    overflow: visible;
+    width: 85px;
+    white-space: nowrap;
+    text-align: left;
+    font-family: Segoe UI;
+    font-style: normal;
+    font-weight: bold;
+    font-size: 24px;
+    color: rgba(255, 255, 255, 1);
+}
+
+#n_28_Queensberry_StreetNorth_M {
+    left: 349px;
+    top: 1546px;
+    position: absolute;
+    overflow: visible;
+    width: 523px;
+    white-space: nowrap;
+    text-align: left;
+    font-family: Segoe UI;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 20px;
+    color: rgba(255, 255, 255, 1);
+}
+
+#Copyright_Viatours_2024 {
+    left: 349px;
+    top: 1639px;
+    position: absolute;
+    overflow: visible;
+    width: 234px;
+    white-space: nowrap;
+    text-align: left;
+    font-family: Segoe UI;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 20px;
+    color: rgba(255, 255, 255, 1);
+}
+
+#Home__Orders {
+    left: 227px;
+    top: 161px;
+    position: absolute;
+    overflow: visible;
+    width: 167px;
+    white-space: nowrap;
+    text-align: left;
+    font-family: Segoe UI;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 24px;
+    color: rgba(10, 9, 9, 1);
+}
+
+#Rectangle_21 {
+    fill: rgba(255, 255, 255, 1);
+    stroke: rgba(213, 102, 42, 1);
+    stroke-width: 1px;
+    stroke-linejoin: miter;
+    stroke-linecap: butt;
+    stroke-miterlimit: 4;
+    shape-rendering: auto;
+}
+
+.Rectangle_21 {
+    position: absolute;
+    overflow: visible;
+    width: 331px;
+    height: 53px;
+    left: 1337px;
+    top: 688px;
+}
+
+#Path_1 {
+    fill: rgba(0, 0, 0, 1);
+}
+
+.Path_1 {
+    overflow: visible;
+    position: absolute;
+    width: 14px;
+    height: 20px;
+    left: 872px;
+    top: 613px;
+    transform: matrix(1, 0, 0, 1, 0, 0);
+}
+
+#Group_13 {
+    position: absolute;
+    width: 1453px;
+    height: 529px;
+    left: 246px;
+    top: 240px;
+    overflow: visible;
+}
+
+#Orders_z {
+    left: 0px;
+    top: 0px;
+    position: absolute;
+    overflow: visible;
+    width: 153px;
+    white-space: nowrap;
+    text-align: left;
+    font-family: Segoe UI;
+    font-style: normal;
+    font-weight: bold;
+    font-size: 48px;
+    color: rgba(3, 15, 118, 1);
+}
+
+#Rectangle_17 {
+    fill: rgba(255, 255, 255, 1);
+    stroke: rgba(197, 188, 188, 0.549);
+    stroke-width: 1px;
+    stroke-linejoin: miter;
+    stroke-linecap: butt;
+    stroke-miterlimit: 4;
+    shape-rendering: auto;
+}
+
+.Rectangle_17 {
+    position: absolute;
+    overflow: visible;
+    width: 1453px;
+    height: 452px;
+    left: 0px;
+    top: 77px;
+}
+
+#Rectangle_18 {
+    position: absolute;
+    width: 389px;
+    height: 330px;
+    left: 28px;
+    top: 169px;
+    overflow: visible;
+}
+
+#Rectangle_19 {
+    fill: rgba(255, 255, 255, 1);
+}
+
+.Rectangle_19 {
+    position: absolute;
+    overflow: visible;
+    width: 619px;
+    height: 330px;
+    left: 426px;
+    top: 169px;
+}
+
+#Rectangle_20 {
+    fill: rgba(255, 255, 255, 1);
+}
+
+.Rectangle_20 {
+    position: absolute;
+    overflow: visible;
+    width: 361px;
+    height: 330px;
+    left: 1065px;
+    top: 169px;
+}
+
+#Order_number__1001 {
+    left: 28px;
+    top: 110px;
+    position: absolute;
+    overflow: visible;
+    width: 257px;
+    white-space: nowrap;
+    text-align: left;
+    font-family: Segoe UI;
+    font-style: normal;
+    font-weight: bold;
+    font-size: 28px;
+    color: rgba(3, 15, 118, 1);
+}
+
+#White_River_Suspension_Bridge_ {
+    left: 461px;
+    top: 284px;
+    position: absolute;
+    overflow: visible;
+    width: 492px;
+    white-space: nowrap;
+    text-align: left;
+    font-family: Segoe UI;
+    font-style: normal;
+    font-weight: bold;
+    font-size: 30px;
+    color: rgba(3, 15, 118, 1);
+}
+
+#length_180km_times__4_days {
+    left: 461px;
+    top: 349px;
+    position: absolute;
+    overflow: visible;
+    width: 197px;
+    white-space: nowrap;
+    text-align: left;
+    font-family: Segoe UI;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 29px;
+    color: rgba(3, 15, 118, 1);
+}
+
+#Line_11 {
+    fill: transparent;
+    stroke: rgba(112, 112, 112, 1);
+    stroke-width: 1px;
+    stroke-linejoin: miter;
+    stroke-linecap: butt;
+    stroke-miterlimit: 4;
+    shape-rendering: auto;
+}
+
+.Line_11 {
+    overflow: visible;
+    position: absolute;
+    width: 1px;
+    height: 330px;
+    left: 1045.5px;
+    top: 169.5px;
+    transform: matrix(1, 0, 0, 1, 0, 0);
+}
+
+#start_from_ {
+    left: 1177.5px;
+    top: 180.5px;
+    position: absolute;
+    overflow: visible;
+    width: 139px;
+    white-space: nowrap;
+    text-align: left;
+    font-family: Segoe UI;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 30px;
+    color: rgba(10, 9, 9, 1);
+}
+
+#Oct_272024 {
+    left: 1151.5px;
+    top: 231.5px;
+    position: absolute;
+    overflow: visible;
+    width: 190px;
+    white-space: nowrap;
+    text-align: left;
+    font-family: Segoe UI;
+    font-style: normal;
+    font-weight: bold;
+    font-size: 32px;
+    color: rgba(10, 9, 9, 1);
+}
+
+#n__days_3_nights {
+    left: 1166.5px;
+    top: 284.5px;
+    position: absolute;
+    overflow: visible;
+    width: 160px;
+    white-space: nowrap;
+    text-align: left;
+    font-family: Segoe UI;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 24px;
+    color: rgba(10, 9, 9, 1);
+}
+
+#n__parking_spot {
+    left: 1169.5px;
+    top: 327.5px;
+    position: absolute;
+    overflow: visible;
+    width: 154px;
+    white-space: nowrap;
+    text-align: left;
+    font-family: Segoe UI;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 24px;
+    color: rgba(10, 9, 9, 1);
+}
+
+#n__people {
+    left: 1199.5px;
+    top: 369.5px;
+    position: absolute;
+    overflow: visible;
+    width: 94px;
+    white-space: nowrap;
+    text-align: left;
+    font-family: Segoe UI;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 24px;
+    color: rgba(10, 9, 9, 1);
+}
+
+#Modify_booking {
+    left: 1172.5px;
+    top: 417.5px;
+    position: absolute;
+    overflow: visible;
+    width: 170px;
+    white-space: nowrap;
+    text-align: left;
+    font-family: Segoe UI;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 24px;
+    color: rgba(213, 102, 42, 1);
+}
+
+#Cancel_booking {
+    left: 1171px;
+    top: 467px;
+    position: absolute;
+    overflow: visible;
+    width: 165px;
+    white-space: nowrap;
+    text-align: left;
+    font-family: Segoe UI;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 24px;
+    color: rgba(227, 19, 52, 1);
+}
+
+#Path_2 {
+    fill: rgba(149, 137, 137, 1);
+}
+
+.Path_2 {
+    overflow: visible;
+    position: absolute;
+    width: 17.412px;
+    height: 26.819px;
+    left: 461px;
+    top: 236px;
+    transform: matrix(1, 0, 0, 1, 0, 0);
+}
+
+#conestoga_park {
+    left: 509.5px;
+    top: 230.819px;
+    position: absolute;
+    overflow: visible;
+    width: 168px;
+    white-space: nowrap;
+    text-align: left;
+    font-family: Segoe UI;
+    font-style: normal;
+    font-weight: bold;
+    font-size: 24px;
+    color: rgba(149, 137, 137, 1);
+}
+
+#Past_Orders {
+    left: 246px;
+    top: 801px;
+    position: absolute;
+    overflow: visible;
+    width: 260px;
+    white-space: nowrap;
+    text-align: left;
+    font-family: Segoe UI;
+    font-style: normal;
+    font-weight: bold;
+    font-size: 48px;
+    color: rgba(10, 9, 9, 1);
+}
+
+#Rectangle_17_bi {
+    fill: rgba(245, 245, 245, 0.988);
+}
+
+.Rectangle_17_bi {
+    position: absolute;
+    overflow: visible;
+    width: 1453px;
+    height: 452px;
+    left: 246px;
+    top: 878px;
+}
+
+#Rectangle_18_bj {
+    position: absolute;
+    width: 389px;
+    height: 330px;
+    left: 274px;
+    top: 970px;
+    overflow: visible;
+}
+
+#Order_number__1000 {
+    left: 274px;
+    top: 911px;
+    position: absolute;
+    overflow: visible;
+    width: 262px;
+    white-space: nowrap;
+    text-align: left;
+    font-family: Segoe UI;
+    font-style: normal;
+    font-weight: bold;
+    font-size: 28px;
+    color: rgba(3, 15, 118, 1);
+}
+
+#White_River_Suspension_Bridge__bl {
+    left: 707px;
+    top: 1085px;
+    position: absolute;
+    overflow: visible;
+    width: 492px;
+    white-space: nowrap;
+    text-align: left;
+    font-family: Segoe UI;
+    font-style: normal;
+    font-weight: bold;
+    font-size: 30px;
+    color: rgba(3, 15, 118, 1);
+}
+
+#length_180km_times__4_days_bm {
+    left: 707px;
+    top: 1150px;
+    position: absolute;
+    overflow: visible;
+    width: 197px;
+    white-space: nowrap;
+    text-align: left;
+    font-family: Segoe UI;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 29px;
+    color: rgba(3, 15, 118, 1);
+}
+
+#Line_11_bn {
+    fill: transparent;
+    stroke: rgba(112, 112, 112, 1);
+    stroke-width: 1px;
+    stroke-linejoin: miter;
+    stroke-linecap: butt;
+    stroke-miterlimit: 4;
+    shape-rendering: auto;
+}
+
+.Line_11_bn {
+    overflow: visible;
+    position: absolute;
+    width: 1px;
+    height: 330px;
+    left: 1291.5px;
+    top: 970.5px;
+    transform: matrix(1, 0, 0, 1, 0, 0);
+}
+
+#start_from__bo {
+    left: 1423.5px;
+    top: 981.5px;
+    position: absolute;
+    overflow: visible;
+    width: 139px;
+    white-space: nowrap;
+    text-align: left;
+    font-family: Segoe UI;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 30px;
+    color: rgba(10, 9, 9, 1);
+}
+
+#Sept_272023 {
+    left: 1397.5px;
+    top: 1032.5px;
+    position: absolute;
+    overflow: visible;
+    width: 205px;
+    white-space: nowrap;
+    text-align: left;
+    font-family: Segoe UI;
+    font-style: normal;
+    font-weight: bold;
+    font-size: 32px;
+    color: rgba(10, 9, 9, 1);
+}
+
+#n__days_3_nights_bq {
+    left: 1412.5px;
+    top: 1085.5px;
+    position: absolute;
+    overflow: visible;
+    width: 160px;
+    white-space: nowrap;
+    text-align: left;
+    font-family: Segoe UI;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 24px;
+    color: rgba(10, 9, 9, 1);
+}
+
+#n__parking_spot_br {
+    left: 1415.5px;
+    top: 1128.5px;
+    position: absolute;
+    overflow: visible;
+    width: 154px;
+    white-space: nowrap;
+    text-align: left;
+    font-family: Segoe UI;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 24px;
+    color: rgba(10, 9, 9, 1);
+}
+
+#n__people_bs {
+    left: 1445.5px;
+    top: 1170.5px;
+    position: absolute;
+    overflow: visible;
+    width: 94px;
+    white-space: nowrap;
+    text-align: left;
+    font-family: Segoe UI;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 24px;
+    color: rgba(10, 9, 9, 1);
+}
+
+#Path_2_bt {
+    fill: rgba(149, 137, 137, 1);
+}
+
+.Path_2_bt {
+    overflow: visible;
+    position: absolute;
+    width: 17.412px;
+    height: 26.818px;
+    left: 707px;
+    top: 1037px;
+    transform: matrix(1, 0, 0, 1, 0, 0);
+}
+
+#conestoga_park_bu {
+    left: 755.5px;
+    top: 1031.819px;
+    position: absolute;
+    overflow: visible;
+    width: 168px;
+    white-space: nowrap;
+    text-align: left;
+    font-family: Segoe UI;
+    font-style: normal;
+    font-weight: bold;
+    font-size: 24px;
+    color: rgba(149, 137, 137, 1);
+}
+
+#Group_15 {
+    position: absolute;
+    width: 126px;
+    height: 29px;
+    left: 310px;
+    top: 454px;
+    overflow: visible;
+}
+
+#Rectangle_22 {
+    fill: rgba(213, 102, 42, 1);
+    stroke: rgba(112, 112, 112, 1);
+    stroke-width: 1px;
+    stroke-linejoin: miter;
+    stroke-linecap: butt;
+    stroke-miterlimit: 4;
+    shape-rendering: auto;
+}
+
+.Rectangle_22 {
+    position: absolute;
+    overflow: visible;
+    width: 126px;
+    height: 29px;
+    left: 0px;
+    top: 0px;
+}
+
+#Upcoming {
+    left: 23px;
+    top: 0px;
+    position: absolute;
+    overflow: visible;
+    width: 83px;
+    white-space: nowrap;
+    text-align: left;
+    font-family: Segoe UI;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 18px;
+    color: rgba(255, 255, 255, 1);
+}
+
+#Rectangle_22_by {
+    fill: rgba(255, 255, 255, 1);
+    stroke: rgba(112, 112, 112, 1);
+    stroke-width: 1px;
+    stroke-linejoin: miter;
+    stroke-linecap: butt;
+    stroke-miterlimit: 4;
+    shape-rendering: auto;
+}
+
+.Rectangle_22_by {
+    position: absolute;
+    overflow: visible;
+    width: 126px;
+    height: 29px;
+    left: 305px;
+    top: 1003px;
+}
+
+#History {
+    left: 340px;
+    top: 1003px;
+    position: absolute;
+    overflow: visible;
+    width: 57px;
+    white-space: nowrap;
+    text-align: left;
+    font-family: Segoe UI;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 18px;
+    color: rgba(10, 9, 9, 1);
+}
+
+
+html {
+    zoom: 89%;
+}

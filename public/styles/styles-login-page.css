@@ -1,0 +1,410 @@
+a {
+    text-decoration: none; /* 去除下划线 */
+    color: inherit;        /* 使用父元素的颜色 */
+}
+
+.mediaViewInfo {
+    --web-view-name: loginPage;
+    --web-view-id: loginPage;
+    --web-scale-on-resize: true;
+    --web-enable-deep-linking: true;
+}
+:root {
+    --web-view-ids: loginPage;
+}
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    border: none;
+}
+#loginPage {
+    position: absolute;
+    /* width: 1895px; */
+    /* benson */
+    width: 100%;
+    height: 1076px;
+    background-color: rgba(255,255,255,1);
+    overflow: hidden;
+    --web-view-name: loginPage;
+    --web-view-id: loginPage;
+    --web-scale-on-resize: true;
+    --web-enable-deep-linking: true;
+}
+#Viatours {
+    left: 219px;
+    top: 45px;
+    position: absolute;
+    overflow: visible;
+    width: 135px;
+    white-space: nowrap;
+    text-align: left;
+    font-family: Segoe UI;
+    font-style: normal;
+    font-weight: bold;
+    font-size: 34px;
+    color: rgba(213,102,42,1);
+}
+#Home {
+    left: 469px;
+    top: 59px;
+    position: absolute;
+    overflow: visible;
+    width: 65px;
+    white-space: nowrap;
+    text-align: left;
+    font-family: Segoe UI;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 24px;
+    color: rgba(10,9,9,1);
+}
+#Weather {
+    left: 618px;
+    top: 59px;
+    position: absolute;
+    overflow: visible;
+    width: 90px;
+    white-space: nowrap;
+    text-align: left;
+    font-family: Segoe UI;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 24px;
+    color: rgba(112,112,112,1);
+}
+#Signup {
+    left: 1434px;
+    top: 56px;
+    position: absolute;
+    overflow: visible;
+    width: 75px;
+    white-space: nowrap;
+    text-align: left;
+    font-family: Segoe UI;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 24px;
+    color: rgba(112,112,112,1);
+}
+#Line_1 {
+    opacity: 0.49;
+    fill: transparent;
+    stroke: rgba(215,201,201,1);
+    stroke-width: 1px;
+    stroke-linejoin: miter;
+    stroke-linecap: butt;
+    stroke-miterlimit: 4;
+    shape-rendering: auto;
+}
+.Line_1 {
+    overflow: visible;
+    position: absolute;
+    width: 1480px;
+    height: 1px;
+    left: 219.5px;
+    top: 115.5px;
+    transform: matrix(1,0,0,1,0,0);
+}
+#Group_9 {
+    position: absolute;
+    width: 100%;
+    height: 333px;
+    left: 1px;
+    top: 745px;
+    overflow: visible;
+}
+#Rectangle_12 {
+    fill: rgba(5,15,60,1);
+}
+.Rectangle_12 {
+    position: absolute;
+    overflow: visible;
+    width: 100%;
+    height: 333px;
+    left: 0px;
+    top: 0px;
+}
+#Contact {
+    left: 195px;
+    top: 72px;
+    position: absolute;
+    overflow: visible;
+    width: 85px;
+    white-space: nowrap;
+    text-align: left;
+    font-family: Segoe UI;
+    font-style: normal;
+    font-weight: bold;
+    font-size: 24px;
+    color: rgba(255,255,255,1);
+}
+#n_28_Queensberry_StreetNorth_M {
+    left: 195px;
+    top: 144px;
+    position: absolute;
+    overflow: visible;
+    width: 523px;
+    white-space: nowrap;
+    text-align: left;
+    font-family: Segoe UI;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 20px;
+    color: rgba(255,255,255,1);
+}
+#Copyright_Viatours_2024 {
+    left: 195px;
+    top: 237px;
+    position: absolute;
+    overflow: visible;
+    width: 234px;
+    white-space: nowrap;
+    text-align: left;
+    font-family: Segoe UI;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 20px;
+    color: rgba(255,255,255,1);
+}
+#Group_2 {
+    position: absolute;
+    width: 136px;
+    height: 56px;
+    left: 1563px;
+    top: 43px;
+    overflow: visible;
+}
+#Group_1 {
+    position: absolute;
+    width: 136px;
+    height: 56px;
+    left: 0px;
+    top: 0px;
+    overflow: visible;
+}
+#Login {
+    left: 39px;
+    top: 12px;
+    position: absolute;
+    overflow: visible;
+    width: 60px;
+    white-space: nowrap;
+    text-align: left;
+    font-family: Segoe UI;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 24px;
+    color: rgba(10,9,9,1);
+}
+#Rectangle_1 {
+    fill: transparent;
+    stroke: rgba(112,112,112,1);
+    stroke-width: 1px;
+    stroke-linejoin: miter;
+    stroke-linecap: butt;
+    stroke-miterlimit: 4;
+    shape-rendering: auto;
+}
+.Rectangle_1 {
+    position: absolute;
+    overflow: visible;
+    width: 136px;
+    height: 56px;
+    left: 0px;
+    top: 0px;
+}
+#Rectangle_13 {
+    fill: rgba(245,245,245,0.988);
+}
+.Rectangle_13 {
+    position: absolute;
+    overflow: visible;
+    width: 1125px;
+    height: 573px;
+    left: 371px;
+    top: 172px;
+}
+#Rectangle_14 {
+    fill: rgba(255,255,255,0.988);
+}
+.Rectangle_14 {
+    position: absolute;
+    overflow: visible;
+    width: 687px;
+    height: 448px;
+    left: 590px;
+    top: 253px;
+}
+#Login_to_your_account {
+    left: 717px;
+    top: 264px;
+    position: absolute;
+    overflow: visible;
+    width: 434px;
+    white-space: nowrap;
+    text-align: left;
+    font-family: Segoe UI;
+    font-style: normal;
+    font-weight: bold;
+    font-size: 42px;
+    color: rgba(10,9,9,1);
+}
+#Group_10 {
+    position: absolute;
+    width: 523px;
+    height: 82px;
+    left: 680px;
+    top: 346px;
+    overflow: visible;
+}
+#Email_ {
+    left: 0px;
+    top: 0px;
+    position: absolute;
+    overflow: visible;
+    width: 69px;
+    white-space: nowrap;
+    text-align: left;
+    font-family: Segoe UI;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 24px;
+    color: rgba(10,9,9,1);
+}
+#Rectangle_15 {
+    fill: rgba(255,255,255,1);
+    stroke: rgba(112,112,112,1);
+    stroke-width: 1px;
+    stroke-linejoin: miter;
+    stroke-linecap: butt;
+    stroke-miterlimit: 4;
+    shape-rendering: auto;
+}
+.Rectangle_15 {
+    position: absolute;
+    overflow: visible;
+    width: 523px;
+    height: 44px;
+    left: 0px;
+    top: 38px;
+}
+#Password_ {
+    left: 680px;
+    top: 442px;
+    position: absolute;
+    overflow: visible;
+    width: 112px;
+    white-space: nowrap;
+    text-align: left;
+    font-family: Segoe UI;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 24px;
+    color: rgba(10,9,9,1);
+}
+#Rectangle_15_ {
+    fill: rgba(255,255,255,1);
+    stroke: rgba(112,112,112,1);
+    stroke-width: 1px;
+    stroke-linejoin: miter;
+    stroke-linecap: butt;
+    stroke-miterlimit: 4;
+    shape-rendering: auto;
+}
+.Rectangle_15_ {
+    position: absolute;
+    overflow: visible;
+    width: 523px;
+    height: 44px;
+    left: 680px;
+    top: 480px;
+}
+#Enter_your_password {
+    left: 700px;
+    top: 488px;
+    position: absolute;
+    overflow: visible;
+    width: 206px;
+    white-space: nowrap;
+    text-align: left;
+    font-family: Segoe UI;
+    font-style: normal;
+    font-weight: lighter;
+    font-size: 24px;
+    color: rgba(196,192,192,0.98);
+}
+#abcgmailcom {
+    left: 700px;
+    top: 387px;
+    position: absolute;
+    overflow: visible;
+    width: 164px;
+    white-space: nowrap;
+    text-align: left;
+    font-family: Segoe UI;
+    font-style: normal;
+    font-weight: lighter;
+    font-size: 24px;
+    color: rgba(196,192,192,0.98);
+}
+#btn {
+    position: absolute;
+    width: 520px;
+    height: 57px;
+    left: 688px;
+    top: 558px;
+    overflow: visible;
+}
+#Rectangle_16 {
+    fill: rgba(213,102,42,1);
+}
+.Rectangle_16 {
+    position: absolute;
+    overflow: visible;
+    width: 520px;
+    height: 57px;
+    left: 0px;
+    top: 0px;
+}
+#Login_Now_ {
+    left: 198px;
+    top: 13px;
+    position: absolute;
+    overflow: visible;
+    width: 126px;
+    white-space: nowrap;
+    text-align: left;
+    font-family: Segoe UI;
+    font-style: normal;
+    font-weight: bold;
+    font-size: 24px;
+    color: rgba(255,255,255,1);
+}
+#Login_Now_Submit{
+    text-align: left;
+    font-family: Segoe UI;
+    font-style: normal;
+    font-weight: bold;
+    font-size: 24px;
+    color: rgba(255,255,255,1);
+    background-color: rgba(213,102,42,1);
+}
+
+
+#do_not_have_an_account_sign_up {
+    left: 767px;
+    top: 644px;
+    position: absolute;
+    overflow: visible;
+    width: 329px;
+    white-space: nowrap;
+    text-align: left;
+    font-family: Segoe UI;
+    font-style: normal;
+    font-weight: lighter;
+    font-size: 24px;
+    color: rgba(10,9,9,1);
+}
+
+html {zoom: 89%;}
