@@ -31,9 +31,15 @@ const getOrderListPageAction = async (req, res) => {
     const orderListPage = viewPaths.orderList;
     const fpath = path.join(__dirname, orderListPage);
     const activeOrder = await getActiveOrder(req.session.username)
-    console.log(activeOrder);
+   // console.log(activeOrder);
 
-    res.render(fpath,  { username: req.session.username , activeOrder : activeOrder });
+    const pastOrders = await getPastOrders(req.session.username)
+    console.log(pastOrders);
+
+    res.render(fpath,  {    username: req.session.username ,
+                            activeOrder : activeOrder, 
+                            pastOrders : pastOrders 
+                       });
 };
 
 // access: /logout
@@ -94,6 +100,20 @@ async function getUserByUserName(uname) {
     WHERE user.username = ? and conestoga_provincial_park_test.order.status_code = 0
     `, [uname])
     return rows[0]
+  }
+
+  async function getPastOrders(uname) {
+    const [rows] = await pool.query(`
+    SELECT conestoga_provincial_park_test.order.*, trail.* , 
+    DATE_FORMAT(conestoga_provincial_park_test.order.from_date, "%b. %d, %Y") AS date_str ,
+    DATEDIFF(conestoga_provincial_park_test.order.to_date, conestoga_provincial_park_test.order.from_date) AS days
+    FROM user 
+    left join user_order on user_order.user_id = user.id
+    left join conestoga_provincial_park_test.order on user_order.order_id = conestoga_provincial_park_test.order.id
+    left join trail on trail.id = conestoga_provincial_park_test.order.trail_id
+    WHERE user.username = ? and conestoga_provincial_park_test.order.status_code = 1
+    `, [uname])
+    return rows
   }
 
 module.exports = {

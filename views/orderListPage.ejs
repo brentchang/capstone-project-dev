@@ -137,13 +137,13 @@
             srcset="/images/Rectangle_18_bj.png 1x, /images/Rectangle_18_bj@2x.png 2x">
 
         <div id="Order_number__1000">
-            <span>Order number : 1000</span>
+            <span>Order number : <%= pastOrders[0].order_num %></span>
         </div>
         <div id="White_River_Suspension_Bridge__bl">
-            <span>White River Suspension Bridge Trail </span>
+            <span><%= pastOrders[0].trail_name %> </span>
         </div>
         <div id="length_180km_times__4_days_bm">
-            <span>length 180km<br />times ： <%= activeOrder.days  %> days</span>
+            <span>length <%= pastOrders[0].length %>km<br />times ： <%= pastOrders[0].days %> days</span>
         </div>
         <svg class="Line_11_bn" viewBox="0 0 1 330">
             <path id="Line_11_bn" d="M 0 330 L 0 0">
@@ -153,16 +153,16 @@
             <span>start from </span>
         </div>
         <div id="Sept_272023">
-            <span>Sept. 27,2023</span>
+            <span><%= pastOrders[0].date_str %></span>
         </div>
         <div id="n__days_3_nights_bq">
-            <span>4 days 3 nights</span>
+            <span><%= pastOrders[0].days %> days <%= pastOrders[0].days - 1 %> nights</span>
         </div>
         <div id="n__parking_spot_br">
-            <span>1 parking spot</span>
+            <span><%= pastOrders[0].parking_or_not %> parking spot</span>
         </div>
         <div id="n__people_bs">
-            <span>6 people</span>
+            <span> <%= activeOrder.adult_num + activeOrder.child_num %>  people</span>
         </div>
         <svg class="Path_2_bt" viewBox="5 2 17.412 26.819">
             <path id="Path_2_bt"
