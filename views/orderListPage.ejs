@@ -84,13 +84,13 @@
                 </rect>
             </svg>
             <div id="Order_number__1001">
-                <span>Order number : 1001</span>
+                <span>Order number : <%= activeOrder.order_num %></span>
             </div>
             <div id="White_River_Suspension_Bridge_">
-                <span>White River Suspension Bridge Trail </span>
+                <span><%= activeOrder.trail_name %> </span>
             </div>
             <div id="length_180km_times__4_days">
-                <span>length 180km<br />times ： 4 days</span>
+                <span>length <%= activeOrder.length %>km<br />times ： <%= activeOrder.days %> days</span>
             </div>
             <svg class="Line_11" viewBox="0 0 1 330">
                 <path id="Line_11" d="M 0 330 L 0 0">
@@ -100,21 +100,21 @@
                 <span>start from </span>
             </div>
             <div id="Oct_272024">
-                <span>Oct. 27,2024</span>
+                <span><%= activeOrder.date_str %></span>
             </div>
             <div id="n__days_3_nights">
-                <span>4 days 3 nights</span>
+                <span> <%= activeOrder.days %> days <%= activeOrder.days -1 %>  nights</span>
             </div>
             <div id="n__parking_spot">
-                <span>1 parking spot</span>
+                <span><%= activeOrder.parking_or_not %> parking spot</span>
             </div>
             <div id="n__people">
-                <span>6 people</span>
+                <span><%= activeOrder.adult_num + activeOrder.child_num %> people</span>
             </div>
-            <div id="Modify_booking">
+            <div id="Modify_booking" style="cursor: pointer;">
                 <span>Modify booking</span>
             </div>
-            <div id="Cancel_booking">
+            <div id="Cancel_booking"  style="cursor: pointer;">
                 <span>Cancel booking</span>
             </div>
             <svg class="Path_2" viewBox="5 2 17.412 26.819">
@@ -123,7 +123,7 @@
                 </path>
             </svg>
             <div id="conestoga_park">
-                <span>conestoga park</span>
+                <span><%= activeOrder.location %></span>
             </div>
         </div>
         <div id="Past_Orders">
@@ -143,7 +143,7 @@
             <span>White River Suspension Bridge Trail </span>
         </div>
         <div id="length_180km_times__4_days_bm">
-            <span>length 180km<br />times ： 4 days</span>
+            <span>length 180km<br />times ： <%= activeOrder.days  %> days</span>
         </div>
         <svg class="Line_11_bn" viewBox="0 0 1 330">
             <path id="Line_11_bn" d="M 0 330 L 0 0">
