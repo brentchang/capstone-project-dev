@@ -1,410 +1,355 @@
-a {
-    text-decoration: none; /* 去除下划线 */
-    color: inherit;        /* 使用父元素的颜色 */
-}
-
-.mediaViewInfo {
-    --web-view-name: loginPage;
-    --web-view-id: loginPage;
-    --web-scale-on-resize: true;
-    --web-enable-deep-linking: true;
-}
-:root {
-    --web-view-ids: loginPage;
-}
-* {
+body {
+    font-family: Arial, sans-serif;
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+    background-color: #f5f5f5;
+    color: #333;
+}
+
+
+a{
+    text-decoration: none;
+    color: #333;
+}
+
+header {
+    background-color: #fff;
+    padding: 20px 0;
+    border-bottom: 1px solid #ddd;
+}
+
+.header-container {
+    display: flex;
+    /* justify-content: space-between; */
+    align-items: center;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+.landing-pic-area{
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+
+.logo {
+    font-size: 24px;
+    font-weight: bold;
+    color: #f66e6e;
+}
+
+nav ul {
+    list-style-type: none;
+    display: flex;
+    gap: 20px;
+    margin-left: 50px;
+    padding: 0;
+}
+
+nav a {
+    text-decoration: none;
+    color: #333;
+    /* font-weight: bold; */
+}
+.breadcumb a {
+    text-decoration: none;
+    color: #333;
+    /* font-weight: bold; */
+}
+
+.auth {
+    margin-left: auto;
+}
+
+.auth a {
+    text-decoration: none;
+    color: black;
+    margin-left: 15px;
+    /* font-weight: bold; */
+}
+
+.auth a:nth-child(2) {
+    text-decoration: none;
+    padding: 10px;
+    border: 1px solid black;
+    border-radius: 30px;
+    color: black;
+    margin-left: 15px;
+    /* font-weight: bold; */
+}
+
+main {
+    max-width: 1200px;
+    margin: 20px auto;
+    padding: 0 20px;
+}
+
+.tour-details h1 {
+    font-size: 32px;
+    color: #333;
+}
+
+.tour-details p {
+    font-size: 18px;
+    color: #666;
+}
+
+.gallery {
+    display: grid;
+    grid-template-columns: 3fr 1fr 1fr;
+    grid-template-rows: repeat(2, 1fr);
+    gap: 10px;
+    margin-top: 20px;
+}
+
+.gallery-item:nth-child(1) {
+    grid-row: span 2;
+}
+
+.gallery-item:nth-child(2) {
+    grid-column: span 2;
+}
+
+.gallery-item img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 8px;
+}
+
+.grid {
+    display: grid;
+    grid-template-columns: 3fr 1fr;
+    gap: 10px;
+}
+.row {
+    display: flex;
+    gap: 10px;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+.info {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 30px;
+    padding-top: 20px;
+}
+
+.info-item {
+    flex: 1;
+}
+
+body > main > div > div > section.overview > div > div > div > div.icon{
+    padding: 10px;
+    width: 20px;
+    border: 1px solid #E7E6E6;
+    border-radius: 15px;
+}
+
+.icon > i {
+    font-size: 20px;
+    color: #555555;
+}
+
+.info-item > div > div > p {
+    line-height: 1;
+    margin-top: 0;
+    margin-bottom: 0;
+}
+
+.info-item span {
+    display: block;
+    font-weight: bold;
+    color: #333;
+}
+
+.overview h2, .inclusions h2, .availability h2 {
+    font-size: 24px;
+    margin: 40px 0 20px;
+    color: #333;
+}
+
+.overview p, .inclusions div {
+    font-size: 16px;
+    color: #666;
+    line-height: 1.6;
+}
+
+.overview ul {
+    list-style-type: disc;
+    padding-left: 20px;
+    color: #666;
+}
+
+.flex {
+    display: flex;
+    gap: 10px;
+}
+
+.inclusions .included-items {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.inclusions .included-items div {
+    flex: 1 1 calc(33.333% - 10px);
+    background: #fff;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    text-align: center;
+    color: #333;
+    font-weight: bold;
+}
+
+.included-items ul {
+    list-style-type: "✔ ";
+}
+.not-included-items ul {
+    list-style-type: "✘ ";
+}
+
+.availability .calendar {
+    display: flex;
+    /* justify-content: center; */
+    margin-top: 20px;
+}
+
+.booking-form {
+    border: 1px solid #ddd;
+    padding: 20px;
+    border-radius: 8px;
+    background-color: #fff;
+    max-width: 300px;
+    margin: 40px auto;
+}
+
+.booking-form label {
+    display: block;
+    margin-bottom: 5px;
+    /* font-weight: bold; */
+    color: #333;
+}
+
+.booking-form input[type="date"],
+.booking-form input[type="number"] {
+    width: 90%;
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+}
+
+.booking-form .extra {
+    display: flex;
+    align-items: center;
+    margin-bottom: 15px;
+}
+
+.booking-form .extra input {
+    margin-right: 10px;
+}
+
+.booking-form .total {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 15px;
+    border-top: 1px solid #ddd;
+    padding-top: 10px;
+}
+
+.booking-form button {
+    width: 100%;
+    background-color: #EB662B;
+    color: #fff;
     border: none;
-}
-#loginPage {
-    position: absolute;
-    /* width: 1895px; */
-    /* benson */
-    width: 100%;
-    height: 1076px;
-    background-color: rgba(255,255,255,1);
-    overflow: hidden;
-    --web-view-name: loginPage;
-    --web-view-id: loginPage;
-    --web-scale-on-resize: true;
-    --web-enable-deep-linking: true;
-}
-#Viatours {
-    left: 219px;
-    top: 45px;
-    position: absolute;
-    overflow: visible;
-    width: 135px;
-    white-space: nowrap;
-    text-align: left;
-    font-family: Segoe UI;
-    font-style: normal;
+    padding: 10px;
+    border-radius: 4px;
+    cursor: pointer;
     font-weight: bold;
-    font-size: 34px;
-    color: rgba(213,102,42,1);
 }
-#Home {
-    left: 469px;
-    top: 59px;
-    position: absolute;
-    overflow: visible;
-    width: 65px;
-    white-space: nowrap;
-    text-align: left;
-    font-family: Segoe UI;
-    font-style: normal;
-    font-weight: normal;
-    font-size: 24px;
-    color: rgba(10,9,9,1);
+
+.booking-form button:hover {
+    background-color: #e05a5a;
 }
-#Weather {
-    left: 618px;
-    top: 59px;
-    position: absolute;
-    overflow: visible;
-    width: 90px;
-    white-space: nowrap;
-    text-align: left;
-    font-family: Segoe UI;
-    font-style: normal;
-    font-weight: normal;
-    font-size: 24px;
-    color: rgba(112,112,112,1);
+
+footer {
+    background-color: #05073C;
+    color: #fff;
+    /* text-align: center; */
+    padding: 20px;
 }
-#Signup {
-    left: 1434px;
-    top: 56px;
-    position: absolute;
-    overflow: visible;
-    width: 75px;
-    white-space: nowrap;
-    text-align: left;
-    font-family: Segoe UI;
-    font-style: normal;
-    font-weight: normal;
-    font-size: 24px;
-    color: rgba(112,112,112,1);
+
+footer a {
+    color: #fff;
+    text-decoration: none;
 }
-#Line_1 {
-    opacity: 0.49;
-    fill: transparent;
-    stroke: rgba(215,201,201,1);
-    stroke-width: 1px;
-    stroke-linejoin: miter;
-    stroke-linecap: butt;
-    stroke-miterlimit: 4;
-    shape-rendering: auto;
-}
-.Line_1 {
-    overflow: visible;
-    position: absolute;
-    width: 1480px;
-    height: 1px;
-    left: 219.5px;
-    top: 115.5px;
-    transform: matrix(1,0,0,1,0,0);
-}
-#Group_9 {
-    position: absolute;
-    width: 100%;
-    height: 333px;
-    left: 1px;
-    top: 745px;
-    overflow: visible;
-}
-#Rectangle_12 {
-    fill: rgba(5,15,60,1);
-}
-.Rectangle_12 {
-    position: absolute;
-    overflow: visible;
-    width: 100%;
-    height: 333px;
-    left: 0px;
-    top: 0px;
-}
-#Contact {
-    left: 195px;
-    top: 72px;
-    position: absolute;
-    overflow: visible;
-    width: 85px;
-    white-space: nowrap;
-    text-align: left;
-    font-family: Segoe UI;
-    font-style: normal;
-    font-weight: bold;
-    font-size: 24px;
-    color: rgba(255,255,255,1);
-}
-#n_28_Queensberry_StreetNorth_M {
-    left: 195px;
-    top: 144px;
-    position: absolute;
-    overflow: visible;
-    width: 523px;
-    white-space: nowrap;
-    text-align: left;
-    font-family: Segoe UI;
-    font-style: normal;
-    font-weight: normal;
-    font-size: 20px;
-    color: rgba(255,255,255,1);
-}
-#Copyright_Viatours_2024 {
-    left: 195px;
-    top: 237px;
-    position: absolute;
-    overflow: visible;
-    width: 234px;
-    white-space: nowrap;
-    text-align: left;
-    font-family: Segoe UI;
-    font-style: normal;
-    font-weight: normal;
-    font-size: 20px;
-    color: rgba(255,255,255,1);
-}
-#Group_2 {
-    position: absolute;
-    width: 136px;
-    height: 56px;
-    left: 1563px;
-    top: 43px;
-    overflow: visible;
-}
-#Group_1 {
-    position: absolute;
-    width: 136px;
-    height: 56px;
-    left: 0px;
-    top: 0px;
-    overflow: visible;
-}
-#Login {
-    left: 39px;
-    top: 12px;
-    position: absolute;
-    overflow: visible;
-    width: 60px;
-    white-space: nowrap;
-    text-align: left;
-    font-family: Segoe UI;
-    font-style: normal;
-    font-weight: normal;
-    font-size: 24px;
-    color: rgba(10,9,9,1);
-}
-#Rectangle_1 {
-    fill: transparent;
-    stroke: rgba(112,112,112,1);
-    stroke-width: 1px;
-    stroke-linejoin: miter;
-    stroke-linecap: butt;
-    stroke-miterlimit: 4;
-    shape-rendering: auto;
-}
-.Rectangle_1 {
-    position: absolute;
-    overflow: visible;
-    width: 136px;
-    height: 56px;
-    left: 0px;
-    top: 0px;
-}
-#Rectangle_13 {
-    fill: rgba(245,245,245,0.988);
-}
-.Rectangle_13 {
-    position: absolute;
-    overflow: visible;
-    width: 1125px;
-    height: 573px;
-    left: 371px;
-    top: 172px;
-}
-#Rectangle_14 {
-    fill: rgba(255,255,255,0.988);
-}
-.Rectangle_14 {
-    position: absolute;
-    overflow: visible;
-    width: 687px;
-    height: 448px;
-    left: 590px;
-    top: 253px;
-}
-#Login_to_your_account {
-    left: 717px;
-    top: 264px;
-    position: absolute;
-    overflow: visible;
-    width: 434px;
-    white-space: nowrap;
-    text-align: left;
-    font-family: Segoe UI;
-    font-style: normal;
-    font-weight: bold;
-    font-size: 42px;
-    color: rgba(10,9,9,1);
-}
-#Group_10 {
-    position: absolute;
-    width: 523px;
-    height: 82px;
-    left: 680px;
-    top: 346px;
-    overflow: visible;
-}
-#Email_ {
-    left: 0px;
-    top: 0px;
-    position: absolute;
-    overflow: visible;
-    width: 69px;
-    white-space: nowrap;
-    text-align: left;
-    font-family: Segoe UI;
-    font-style: normal;
-    font-weight: normal;
-    font-size: 24px;
-    color: rgba(10,9,9,1);
-}
-#Rectangle_15 {
-    fill: rgba(255,255,255,1);
-    stroke: rgba(112,112,112,1);
-    stroke-width: 1px;
-    stroke-linejoin: miter;
-    stroke-linecap: butt;
-    stroke-miterlimit: 4;
-    shape-rendering: auto;
-}
-.Rectangle_15 {
-    position: absolute;
-    overflow: visible;
-    width: 523px;
-    height: 44px;
-    left: 0px;
-    top: 38px;
-}
-#Password_ {
-    left: 680px;
-    top: 442px;
-    position: absolute;
-    overflow: visible;
-    width: 112px;
-    white-space: nowrap;
-    text-align: left;
-    font-family: Segoe UI;
-    font-style: normal;
-    font-weight: normal;
-    font-size: 24px;
-    color: rgba(10,9,9,1);
-}
-#Rectangle_15_ {
-    fill: rgba(255,255,255,1);
-    stroke: rgba(112,112,112,1);
-    stroke-width: 1px;
-    stroke-linejoin: miter;
-    stroke-linecap: butt;
-    stroke-miterlimit: 4;
-    shape-rendering: auto;
-}
-.Rectangle_15_ {
-    position: absolute;
-    overflow: visible;
-    width: 523px;
-    height: 44px;
-    left: 680px;
-    top: 480px;
-}
-#Enter_your_password {
-    left: 700px;
-    top: 488px;
-    position: absolute;
-    overflow: visible;
-    width: 206px;
-    white-space: nowrap;
-    text-align: left;
-    font-family: Segoe UI;
-    font-style: normal;
-    font-weight: lighter;
-    font-size: 24px;
-    color: rgba(196,192,192,0.98);
-}
-#abcgmailcom {
-    left: 700px;
-    top: 387px;
-    position: absolute;
-    overflow: visible;
-    width: 164px;
-    white-space: nowrap;
-    text-align: left;
-    font-family: Segoe UI;
-    font-style: normal;
-    font-weight: lighter;
-    font-size: 24px;
-    color: rgba(196,192,192,0.98);
-}
-#btn {
-    position: absolute;
-    width: 520px;
-    height: 57px;
-    left: 688px;
-    top: 558px;
-    overflow: visible;
-}
-#Rectangle_16 {
-    fill: rgba(213,102,42,1);
-}
-.Rectangle_16 {
-    position: absolute;
-    overflow: visible;
-    width: 520px;
-    height: 57px;
-    left: 0px;
-    top: 0px;
-}
-#Login_Now_ {
-    left: 198px;
-    top: 13px;
-    position: absolute;
-    overflow: visible;
-    width: 126px;
-    white-space: nowrap;
-    text-align: left;
-    font-family: Segoe UI;
-    font-style: normal;
-    font-weight: bold;
-    font-size: 24px;
-    color: rgba(255,255,255,1);
-}
-#Login_Now_Submit{
-    text-align: left;
-    font-family: Segoe UI;
-    font-style: normal;
-    font-weight: bold;
-    font-size: 24px;
-    color: rgba(255,255,255,1);
-    background-color: rgba(213,102,42,1);
+
+.footer-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 60px;
 }
 
 
-#do_not_have_an_account_sign_up {
-    left: 767px;
-    top: 644px;
-    position: absolute;
-    overflow: visible;
-    width: 329px;
-    white-space: nowrap;
-    text-align: left;
-    font-family: Segoe UI;
-    font-style: normal;
-    font-weight: lighter;
-    font-size: 24px;
-    color: rgba(10,9,9,1);
+.wrapper-grey{
+    width: 75%;
+    height: 415px;
+    margin-bottom: 75px;
+    margin-top: 75px;
+    margin-left: 200px;
+    margin-right: 200px;
+    background-color: #ddd;
+    display: grid;
+    place-items:center;
+    border-radius: 10px;
+
 }
 
-html {zoom: 89%;}
+.login{
+    width: 75%;
+    height: 75%;
+    background-color: #fff;
+    border-radius: 10px;
+    /* margin: 0 auto;
+    margin-top: 35px;
+    padding-top: 50px; */
+}
+
+.login-container {
+    max-width: 400px;
+    margin: 100px auto;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+}
+.login-title {
+    font-weight: bold;
+    font-size: 24px;
+    margin-bottom: 20px;
+    text-align: center;
+}
+.btn-login {
+    background-color: #ff5722;
+    border-color: #ff5722;
+    color: white;
+    font-size: 16px;
+}
+.signup-link {
+    text-align: center;
+    margin-top: 10px;
+}
+.signup-link a {
+    color: #ff5722;
+}
+
+.tour-details {
+    display: flex;
+    justify-content: center;
+}

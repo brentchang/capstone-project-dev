@@ -1,194 +1,113 @@
 <!DOCTYPE html>
-<html>
-
+<html lang="en">
 <head>
-    <meta charset="utf-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>orderListPage</title>
-    <link rel="stylesheet" href="/styles/styles-order-list-page.css">
-    <script id="applicationScript" src="/js/order-list-page.js"></script>
+    <title>My Orders</title>
+        <!-- font awesome for icons -->
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+         <link rel="stylesheet" href="/styles/styles-order-list-page.css">
+         <script id="applicationScript" src="/js/order-list-page.js"></script>
 </head>
-
 <body>
-    <div id="orderListPage">
-        <div id="Viatours">
-            <span>Viatours</span>
-        </div>
-        <div id="Home">
-            <span><a href="/landing">Home</a></span>
-        </div>
-        <div id="Weather">
-            <span><a href="#">Weather</a></span>
-        </div>
-        <div id="hi_Brent">
-            <span>hi, <%= username %>!</span>
-        </div>
-        <div id="Group_1">
-            <svg class="Rectangle_1">
-                <rect id="Rectangle_1" rx="28" ry="28" x="0" y="0" width="136" height="56">
-                </rect>
-            </svg>
-        </div>
-        <a href="/logout">
-            <div id="Logout">
-                <span><a href="/logout">Logout</a></span>
+   
+    <header>
+        <div class="header-container">
+            <div class="logo">Viatours</div>
+            <nav>
+                <ul>
+                    <li><a href="/landing">Home</a></li>
+                    <li><a href="#">Weather</a></li>
+                </ul>
+            </nav>
+            <div class="auth">
+                <a href="#">Sign up</a>
+                <a href="/login">Log in</a>
             </div>
-        </a>
-        <svg class="Line_1" viewBox="0 0 1480 1">
-            <path id="Line_1" d="M 0 0 L 1480 0">
-            </path>
-        </svg>
-        <svg class="Rectangle_12">
-            <rect id="Rectangle_12" rx="0" ry="0" x="0" y="0" width="100%" height="333">
-            </rect>
-        </svg>
-        <div id="Contact">
-            <span>Contact</span>
-        </div>
-        <div id="n_28_Queensberry_StreetNorth_M">
-            <span>328 Queensberry Street,North Melbourne Vic3051,Australia<br />hi@viatours.com</span>
-        </div>
-        <div id="Copyright_Viatours_2024">
-            <span>@Copyright Viatours 2024</span>
-        </div>
-        <div id="Home__Orders">
-            <span>Home > Orders</span>
-        </div>
-        <svg class="Rectangle_21">
-            <rect id="Rectangle_21" rx="8" ry="8" x="0" y="0" width="331" height="53">
-            </rect>
-        </svg>
-        <svg class="Path_1" viewBox="5 2 14 20">
-            <path id="Path_1"
-                d="M 12 2 C 8.130000114440918 2 5 5.130000114440918 5 9 C 5 14.25 12 22 12 22 C 12 22 19 14.25 19 9 C 19 5.130000114440918 15.86999988555908 2 12 2 Z M 12 11.5 C 10.61999988555908 11.5 9.5 10.38000011444092 9.5 9 C 9.5 7.619999885559082 10.61999988555908 6.5 12 6.5 C 13.38000011444092 6.5 14.5 7.619999885559082 14.5 9 C 14.5 10.38000011444092 13.38000011444092 11.5 12 11.5 Z">
-            </path>
-        </svg>
-        <div id="Group_13">
-            <div id="Orders_z">
-                <span>Orders</span>
-            </div>
-            <svg class="Rectangle_17">
-                <rect id="Rectangle_17" rx="26" ry="26" x="0" y="0" width="1453" height="452">
-                </rect>
-            </svg>
-            <img id="Rectangle_18" src="/images/Rectangle_18.png"
-                srcset="/images/Rectangle_18.png 1x, /images/Rectangle_18@2x.png 2x">
+    </header>
 
-            <svg class="Rectangle_19">
-                <rect id="Rectangle_19" rx="0" ry="0" x="0" y="0" width="619" height="330">
-                </rect>
-            </svg>
-            <svg class="Rectangle_20">
-                <rect id="Rectangle_20" rx="0" ry="0" x="0" y="0" width="361" height="330">
-                </rect>
-            </svg>
-            <div id="Order_number__1001">
-                <span>Order number : <%= activeOrder.order_num %></span>
+    <main>
+        <section class="tour-details">
+            <!-- breadcumb -->
+            <div class="breadcumb">
+                <a href="/landing">Home</a>
+                <span>></span>
+                <a href="#">Orders</a>
             </div>
-            <div id="White_River_Suspension_Bridge_">
-                <span><%= activeOrder.trail_name %> </span>
-            </div>
-            <div id="length_180km_times__4_days">
-                <span>length <%= activeOrder.length %>km<br />times ： <%= activeOrder.days %> days</span>
-            </div>
-            <svg class="Line_11" viewBox="0 0 1 330">
-                <path id="Line_11" d="M 0 330 L 0 0">
-                </path>
-            </svg>
-            <div id="start_from_">
-                <span>start from </span>
-            </div>
-            <div id="Oct_272024">
-                <span><%= activeOrder.date_str %></span>
-            </div>
-            <div id="n__days_3_nights">
-                <span> <%= activeOrder.days %> days <%= activeOrder.days -1 %>  nights</span>
-            </div>
-            <div id="n__parking_spot">
-                <span><%= activeOrder.parking_or_not %> parking spot</span>
-            </div>
-            <div id="n__people">
-                <span><%= activeOrder.adult_num + activeOrder.child_num %> people</span>
-            </div>
-            <div id="Modify_booking" style="cursor: pointer;">
-                <span>Modify booking</span>
-            </div>
-            <div id="Cancel_booking"  style="cursor: pointer;">
-                <span>Cancel booking</span>
-            </div>
-            <svg class="Path_2" viewBox="5 2 17.412 26.819">
-                <path id="Path_2"
-                    d="M 13.70599365234375 2 C 8.892823219299316 2 4.999999523162842 6.197098731994629 4.999999523162842 11.38648319244385 C 4.999999523162842 18.42634582519531 13.70599365234375 28.81852340698242 13.70599365234375 28.81852340698242 C 13.70599365234375 28.81852340698242 22.4119873046875 18.42634582519531 22.4119873046875 11.38648319244385 C 22.4119873046875 6.197098731994629 18.5191650390625 2 13.70599365234375 2 Z M 13.70599365234375 14.73879909515381 C 11.98966884613037 14.73879909515381 10.59671020507812 13.23696136474609 10.59671020507812 11.38648319244385 C 10.59671020507812 9.536005973815918 11.98966884613037 8.034168243408203 13.70599365234375 8.034168243408203 C 15.42231845855713 8.034168243408203 16.81527519226074 9.536005973815918 16.81527519226074 11.38648319244385 C 16.81527519226074 13.23696136474609 15.42231845855713 14.73879909515381 13.70599365234375 14.73879909515381 Z">
-                </path>
-            </svg>
-            <div id="conestoga_park">
-                <span><%= activeOrder.location %></span>
-            </div>
-        </div>
-        <div id="Past_Orders">
-            <span>Past Orders</span>
-        </div>
-        <svg class="Rectangle_17_bi">
-            <rect id="Rectangle_17_bi" rx="26" ry="26" x="0" y="0" width="1453" height="452">
-            </rect>
-        </svg>
-        <img id="Rectangle_18_bj" src="/images/Rectangle_18_bj.png"
-            srcset="/images/Rectangle_18_bj.png 1x, /images/Rectangle_18_bj@2x.png 2x">
 
-        <div id="Order_number__1000">
-            <span>Order number : <%= pastOrders[0].order_num %></span>
+
+            <h1>Orders</h1>
+             <div class="wrapper">
+                <div class="order-number">Order number: <%= activeOrder.order_num %></div>
+                <div class="order-flex">
+                    <div class="order-flex-item order-flex-item-1">
+                        <img src="/images/home-trail1.png" alt="">
+                    </div>
+                    <div class="order-flex-item order-flex-item-2">
+                        <div class="mid-text-1">
+                            <i class="fa-solid fa-location-dot"></i>
+                                <span><%= activeOrder.location %></span>
+                        </div>
+                        <div class="mid-text-2 trail-name"><%= activeOrder.trail_name %></div>
+                        <div class="mid-text-3">Length: <%= activeOrder.length %> km</div>
+                        <div class="mid-text-4">Times: <%= activeOrder.days %> days</div>
+                    </div>
+                    <div class="order-flex-item order-flex-item-3">
+                        <div class="left-text-1">Start From</div>
+                        <div class="left-text-2"><%= activeOrder.date_str %></div>
+                        <div class="left-text-3"><%= activeOrder.days %> days <%= activeOrder.days-1 %> night</div>
+                        <div class="left-text-4"><%= activeOrder.parking_or_not %> parking space</div>
+                        <div class="left-text-5"><%= activeOrder.adult_num + activeOrder.child_num %> people</div>  
+                        <a href="#">
+                            <div class="btn-modify">
+                                Modify Booking
+                            </div>
+                        </a>
+                        <a href="#">
+                            <div class="btn-cancel">
+                                Cancel Booking
+                            </div>
+                        </a>
+                    </div>
+                </div>
+             </div>
+
+
+             <h1>Past Orders</h1>
+             <div class="wrapper wrapper-past">
+                <div class="order-number">Order number: <%= pastOrders[0].order_num %></div>
+                <div class="order-flex">
+                    <div class="order-flex-item order-flex-item-1">
+                        <img src="/images/home-trail1.png" alt="">
+                    </div>
+                    <div class="order-flex-item order-flex-item-2">
+                        <div class="txt mid-text-1">
+                            <i class="fa-solid fa-location-dot"></i>
+                                <span><%=  pastOrders[0].location %></span>
+                        </div>
+                        <div class="txt mid-text-2  trail-name"><%= pastOrders[0].trail_name %></div>
+                        <div class="txt mid-text-3">Length: <%= pastOrders[0].length %> km</div>
+                        <div class="txt mid-text-4">Times: <%= pastOrders[0].days %> days</div>
+                    </div>
+                    <div class="order-flex-item order-flex-item-3">
+                        <div class="txt left-text-1">Start From</div>
+                        <div class="txt left-text-2"><%= pastOrders[0].date_str %></div>
+                        <div class="txt left-text-3"><%= pastOrders[0].days %> days <%= pastOrders[0].days -1 %> night</div>
+                        <div class="txt left-text-4"><%= pastOrders[0].parking_or_not %> parking space</div>
+                        <div class="txt left-text-5"><%= activeOrder.adult_num + activeOrder.child_num %> people</div>  
+                    </div>
+                </div>
+             </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="footer-container">
+            <h3>Contact</h3>
+            <address>328 Queensberry Street, North Melbourne VIC 3051, Australia.</address>
+            <a href="mailto:hi@viatours.com">hi@viatours.com</a>
+            <p>&copy; Copyright Viatours 2024</p>
         </div>
-        <div id="White_River_Suspension_Bridge__bl">
-            <span><%= pastOrders[0].trail_name %> </span>
-        </div>
-        <div id="length_180km_times__4_days_bm">
-            <span>length <%= pastOrders[0].length %>km<br />times ： <%= pastOrders[0].days %> days</span>
-        </div>
-        <svg class="Line_11_bn" viewBox="0 0 1 330">
-            <path id="Line_11_bn" d="M 0 330 L 0 0">
-            </path>
-        </svg>
-        <div id="start_from__bo">
-            <span>start from </span>
-        </div>
-        <div id="Sept_272023">
-            <span><%= pastOrders[0].date_str %></span>
-        </div>
-        <div id="n__days_3_nights_bq">
-            <span><%= pastOrders[0].days %> days <%= pastOrders[0].days - 1 %> nights</span>
-        </div>
-        <div id="n__parking_spot_br">
-            <span><%= pastOrders[0].parking_or_not %> parking spot</span>
-        </div>
-        <div id="n__people_bs">
-            <span> <%= activeOrder.adult_num + activeOrder.child_num %>  people</span>
-        </div>
-        <svg class="Path_2_bt" viewBox="5 2 17.412 26.819">
-            <path id="Path_2_bt"
-                d="M 13.70599365234375 2 C 8.892823219299316 2 4.999999523162842 6.197098731994629 4.999999523162842 11.38648319244385 C 4.999999523162842 18.42634582519531 13.70599365234375 28.81852340698242 13.70599365234375 28.81852340698242 C 13.70599365234375 28.81852340698242 22.4119873046875 18.42634582519531 22.4119873046875 11.38648319244385 C 22.4119873046875 6.197098731994629 18.5191650390625 2 13.70599365234375 2 Z M 13.70599365234375 14.73879909515381 C 11.98966884613037 14.73879909515381 10.59671020507812 13.23696136474609 10.59671020507812 11.38648319244385 C 10.59671020507812 9.536005973815918 11.98966884613037 8.034168243408203 13.70599365234375 8.034168243408203 C 15.42231845855713 8.034168243408203 16.81527519226074 9.536005973815918 16.81527519226074 11.38648319244385 C 16.81527519226074 13.23696136474609 15.42231845855713 14.73879909515381 13.70599365234375 14.73879909515381 Z">
-            </path>
-        </svg>
-        <div id="conestoga_park_bu">
-            <span>conestoga park</span>
-        </div>
-        <div id="Group_15">
-            <svg class="Rectangle_22">
-                <rect id="Rectangle_22" rx="13" ry="13" x="0" y="0" width="126" height="29">
-                </rect>
-            </svg>
-            <div id="Upcoming">
-                <span>Upcoming</span>
-            </div>
-        </div>
-        <svg class="Rectangle_22_by">
-            <rect id="Rectangle_22_by" rx="13" ry="13" x="0" y="0" width="126" height="29">
-            </rect>
-        </svg>
-        <div id="History">
-            <span>History</span>
-        </div>
-    </div>
+    </footer>
 </body>
-
 </html>
