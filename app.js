@@ -69,3 +69,8 @@ webServer.listen(ports.webServerPort, () => {
 APIServer.listen(ports.apiServerPort, () => {
     console.log(`API Server is running at http://127.0.0.1:${ports.apiServerPort}`);
 })
+
+// export the DB connection 
+module.exports = {
+    connection
+}

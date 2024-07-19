@@ -1,4 +1,4 @@
-const {     
+const {
     getTrailDetail1Action,
     getTrailDetail2Action,
     getTrailDetail3Action,
@@ -11,6 +11,11 @@ const {
     getLogOutAction,
     postLoginAction
 } = require('./BensonController');
+const {
+    getSignUpPageAction,
+    postSignUpPageAction
+} = require('./SmarsController');
+
 
 module.exports = {
     // Benson Controller
@@ -24,5 +29,9 @@ module.exports = {
     getTrailDetail1Action,
     getTrailDetail2Action,
     getTrailDetail3Action,
-    getBookingSuccessAction
+    getBookingSuccessAction,
+
+    // Smars Controller
+    getSignUpPageAction,
+    postSignUpPageAction
 }
