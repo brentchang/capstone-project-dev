@@ -45,7 +45,7 @@ const getTrailDetail3Action = (req, res) => {
     })
 };
 
-const getBookingSuccessAction =  (req, res) => {
+const getBookingSuccessAction = (req, res) => {
     const bookSuccessPage = viewPaths.bookSuccess;
     const fpath = path.join(__dirname, bookSuccessPage);
 

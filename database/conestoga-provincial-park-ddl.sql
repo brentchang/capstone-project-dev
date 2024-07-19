@@ -1,3 +1,6 @@
+-- Create schema
+create schema conestoga_provincial_park_test;
+
 -- test env
 USE conestoga_provincial_park_test;
 
@@ -9,6 +12,7 @@ CREATE TABLE `user` (
     `email` VARCHAR(255) NOT NULL,
     `address` VARCHAR(500),
     `phone_num` VARCHAR(20),
+    `validation_pass` BOOLEAN NOT NULL,
     `created_time` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
     PRIMARY KEY (`id`),
     UNIQUE INDEX `idx_username` (`username`),
@@ -76,4 +80,10 @@ CREATE TABLE `campsite` (
     PRIMARY KEY (`id`)
 );
 
---
+CREATE TABLE email_validation (
+  id INT AUTO_INCREMENT,
+  email VARCHAR(255) NOT NULL,
+  validation_code VARCHAR(255) NOT NULL,
+  create_time DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (id)
+);
