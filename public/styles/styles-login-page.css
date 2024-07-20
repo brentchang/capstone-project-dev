@@ -317,8 +317,9 @@ footer a {
     background-color: #fff;
     border-radius: 10px;
     /* margin: 0 auto;
-    margin-top: 35px;
     padding-top: 50px; */
+    margin-top: 75px;
+    
 }
 
 .login-container {
@@ -336,7 +337,7 @@ footer a {
     text-align: center;
 }
 .btn-login {
-    background-color: #ff5722;
+    background-color: #ff5722 !important;
     border-color: #ff5722;
     color: white;
     font-size: 16px;
