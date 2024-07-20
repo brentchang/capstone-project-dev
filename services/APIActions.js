@@ -1,6 +1,17 @@
 const { Utils } = require('../utils/index');
 const { Services } = require('../services/index');
 
+/* 
+    这个文件中，定义了每个API具体实现的行为（Action），原理一致，
+    即获取到req后，
+    进行一系列处理，
+    最后返回res。
+
+    具体的处理，
+    如果涉及到业务逻辑，如检查邮箱是否存在、通过邮箱找到验证码等功能，则通过调用Services类取到静态方法
+    如果涉及到简单的通用处理，如对日期进行基础的格式化处理、生成6位数字字符串等功能，则通过调用Utils类取到静态方法
+*/
+
 // define RESTful APIs
 const apiServerConnectAction = async (req, res) => {
     res.status(200).json({ success: true, message: "this is API server" });
@@ -69,7 +80,7 @@ const generateValidationCodeAction = (req, res) => {
 };
 
 //  sign up validation : email address
-const validateEmailAction = (req, res) => {
+const signUpValidateEmailAction = (req, res) => {
     // get the email and validation code
     const { email, validationCode, currentTime } = req.body;
     if (!email || !validationCode) {
@@ -106,10 +117,41 @@ const validateEmailAction = (req, res) => {
         });
 }
 
+// create new account by the data provided from user
+const createNewAccountAction = async (req, res) => {
+    // get the data provided by user
+    const { 
+        username,
+        password, // format - validate by FE
+        email, // format - validate by FE
+        phoneNumber,  // format - validate by FE
+        address, // format - validate by FE
+    } = req.body;
+
+    // 获得当前时间
+    const date = new Date();
+    const formattedCurrentTime = Utils.DateUtils.formatDate(date);
+    const validationPassCode = true;
+
+    // 把数据写入User表
+    Services.userService.createNewAccount(username, password, email, address, phoneNumber, validationPassCode, formattedCurrentTime)
+        .then(result => {
+            if (result.inserted) {
+                res.json({ success: true, message: "The new account has been created successfully" });
+            } else {
+                res.json({ success: false, message: "The new account failed to be created" });
+            }
+        })
+        .catch(error => {
+            res.status(500).json({ success: false, message: error.message });
+        })
+}
+
 const APIActions = {
     apiServerConnectAction,
     signUpValidateUsernameAction,
     generateValidationCodeAction,
-    validateEmailAction
+    signUpValidateEmailAction,
+    createNewAccountAction
 }
 module.exports = APIActions;

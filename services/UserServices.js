@@ -25,7 +25,7 @@ class UserService {
                 if (error) {
                     reject(new Error('Database query failed'));
                 } else if (results.length > 0) {
-                    resolve({ exists: true , record: results[0]});
+                    resolve({ exists: true, record: results[0] });
                 } else {
                     resolve({ exists: false });
                 }
@@ -33,14 +33,36 @@ class UserService {
         });
     }
 
-    createValidationCode(email, validation_code, create_time){
+    createValidationCode(email, validation_code, create_time) {
         return new Promise((resolve, reject) => {
-            const query = 'INSERT INTO email_validation (email, validation_code, create_time) VALUES (?, ?, ?)';
+            const query = `INSERT INTO email_validation (email, validation_code, create_time) VALUES (?, ?, ?)`;
             this.connection.query(query, [email, validation_code, create_time], (error, results) => {
                 if (error) {
-                    reject(new Error('Database query failed'));
+                    reject(new Error('Create validation code failed when INSERT INTO table `email_validation`'));
                 } else {
-                    resolve({ inserted : true });
+                    resolve({ inserted: true });
+                }
+            });
+        });
+    }
+
+    createNewAccount(username, password, email, address, phone_num, validation_pass, current_date) {
+        return new Promise((resolve, reject) => {
+            const query =   `INSERT INTO user (
+                                username, 
+                                password, 
+                                email, 
+                                address, 
+                                phone_num, 
+                                validation_pass, 
+                                created_time
+                            ) VALUES (?, ?, ?, ?, ?, ?, ?);
+            `;
+            this.connection.query(query, [username, password, email, address, phone_num, validation_pass, current_date], (error, results) => {
+                if (error) {
+                    reject(new Error('Create new account failed when INSERT INTO table `user`'));
+                } else {
+                    resolve({ inserted: true });
                 }
             });
         });
