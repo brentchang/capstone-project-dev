@@ -16,8 +16,7 @@ const {
     postSignUpPageAction
 } = require('./SmarsController');
 
-
-module.exports = {
+const Controller = {
     // Benson Controller
     getLoginPageAction,
     getLandingPageAction,
@@ -34,4 +33,8 @@ module.exports = {
     // Smars Controller
     getSignUpPageAction,
     postSignUpPageAction
+}
+
+module.exports = {
+    Controller
 }
