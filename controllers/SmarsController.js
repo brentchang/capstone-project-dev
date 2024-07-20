@@ -6,8 +6,9 @@ const {
 
 const {
     "views-path-config": viewPaths,
-    "database-config": databaseConfig,
-    "api-urls-config": APIs
+    "WebServerBaseURL" : webServerBaseURL,
+    "APIServerBaseURL" : apiServerBaseURL,
+    "api-url-config" : apiUrls
 } = require('../config/config.json');
  
 
@@ -27,15 +28,71 @@ const getSignUpPageAction = async (req, res) => {
 }
 
 // post requesting for signing up new account
-const postSignUpPageAction = async (req, res) => {
+const postSignUpPageSubmitAction = async (req, res) => {
     // get the register information
+    const { username, password, email, phoneNumber, address, validationCode } = req.body;
+    const currentTime = new Date();
 
-    // call API: validate username if exists
+    try {
+        try {
+            // call API: validate username if exists
+            let response = await axios.post(apiServerBaseURL+apiUrls["validate-username"],{
+                    username: username
+            },{
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            });
+            if (response.data.success) {
+                console.log('username validated successfully');
+    
+                // call API: validate the user is real by email validation code
+                response = await axios.post(apiServerBaseURL+apiUrls["validate-email"],{
+                    email : email,
+                    validationCode : validationCode,
+                    currentTime : currentTime
+                },{
+                    headers: {
+                        'Content-Type': 'application/json'
+                    }
+                });
+                if (response.data.success) {
+                    console.log('email validated successfully');
+    
+                    // call API: write record into DB table `user`
+                    response = await axios.post(apiServerBaseURL+apiUrls["create-new-account"],{
+                            username: username,
+                            password: password,
+                            email : email,
+                            phoneNumber : phoneNumber,
+                            address : address
+                    },{
+                        headers: {
+                            'Content-Type': 'application/json'
+                        }
+                    });
+                    if (response.data.success) {
+                        console.log('new account created successfully');
+                        return res.status(200).send('All APIs executed successfully');
+                    }
+                    return res.status(400).send('account failed to create!' + response.data.message);
+                }
+                return res.status(400).send('email validation failed!' + response.data.message);
+            }
+            return res.status(400).send('username validation failed!' + response.data.message);
+        } catch (error) {
+            console.error('API request failed: ', error);
+            return res.status(500).send('Server error');
+        }
 
-    // call API: validate the user is real by email validation code
-
-    // call API: write record into DB table `user`
-
+        // // 返回最终结果
+        // res.send({
+        //     message: "All APIs called successfully.",
+        //     results: [result1, result2, result3]
+        // });
+    } catch (error) {
+        res.status(500).send({ error: error.message });
+    }
 }
 
 // send validation email
@@ -58,5 +115,5 @@ const getForgetPasswordAction = async (req, res) => {
 
 module.exports = {
     getSignUpPageAction,
-    postSignUpPageAction
+    postSignUpPageSubmitAction
 }

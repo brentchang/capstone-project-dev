@@ -8,6 +8,7 @@ const cors = require('cors');
 const session = require('express-session');
 const fileUpload = require('express-fileupload');
 const mysql2 = require('mysql2')
+const nodemailer = require('nodemailer');
 
 module.exports = {
     express,
@@ -19,5 +20,6 @@ module.exports = {
     cors,
     session,
     fileUpload,
-    mysql2
+    mysql2,
+    nodemailer
 };

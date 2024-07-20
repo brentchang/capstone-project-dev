@@ -18,7 +18,7 @@ router.get('/landing/trail-detail-2', Controller.getTrailDetail2Action);
 router.get('/landing/trail-detail-3', Controller.getTrailDetail3Action);
 router.get('/book-success', Controller.getBookingSuccessAction);
 router.get('/sign-up', Controller.getSignUpPageAction);
-router.post('/sign-up', Controller.postSignUpPageAction);
+router.post('/sign-up', Controller.postSignUpPageSubmitAction);
 
 // export JS module as a object
 module.exports = router; 

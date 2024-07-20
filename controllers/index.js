@@ -19,7 +19,7 @@ const {
 } = require('./BensonController');
 const {
     getSignUpPageAction,
-    postSignUpPageAction
+    postSignUpPageSubmitAction
 } = require('./SmarsController');
 
 const Controller = {
@@ -38,7 +38,7 @@ const Controller = {
 
     // Smars Controller
     getSignUpPageAction,
-    postSignUpPageAction
+    postSignUpPageSubmitAction
 }
 
 module.exports = {

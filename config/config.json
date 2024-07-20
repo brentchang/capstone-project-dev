@@ -1,4 +1,6 @@
 {
+    "WebServerBaseURL" : "http://127.0.0.1:8080",
+    "APIServerBaseURL" : "http://127.0.0.1:2000",
     "database-config": {
         "localhost":"34.130.134.253",
         "username":"root",
@@ -16,5 +18,24 @@
         "bookSuccess" : "../views/book-thanks.html",
         "trailDetail" : "../views/trail-detail.html",
         "signUp" : "../views/sign-up.html"
+    },
+    "api-url-config" : {
+        "connectTest" : "/api",
+        "validate-username" : "/api/sign-up/validation/username",
+        "validate-email" : "/api/sign-up/validation/email",
+        "generate-validation-code" : "/api/sign-up/generate-validation-code",
+        "create-new-account" : "/api/sign-up/create-new-account",
+        "send-email" : "/api/sign-up/send-email"
+    },
+    "email-sender" : {
+        "service" : "gmail",
+        "auth" : {
+            "user" : "hubin.smars@gmail.com", 
+            "pass" : "ipfesrgvvwlzbfts"          
+        }
+    },
+    "email-content" : {           
+        "subject": "Email Validation from Conestoga Provincial Park",  
+        "html": "<strong>This is an email sent from Conestoga Provincial Park! Below is your validation code.</strong>"  
     }
 }

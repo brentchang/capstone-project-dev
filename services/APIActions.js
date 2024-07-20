@@ -49,8 +49,24 @@ const generateValidationCodeAction = (req, res) => {
     Services.userService.findValidationCodeRecordByEmail(email)
         .then(result => {
             if (result.exists) {
-                // if email exists, meaning we already generate the validation code
-                res.json({ success: false, message: "Validation code already generated" });
+                // if email exists, meaning we already generate the validation code, we should refresh
+                // generate the new validation code
+                const newValidationCode = Utils.ValidationCodeUtils._6DigitsNumberValidationCodeGenerator();
+
+                // format the datetime
+                const date = new Date(currentTimeISO);
+                const formattedCurrentTime = Utils.DateUtils.formatDate(date);
+                Services.userService.updateValidationCode(email, newValidationCode, formattedCurrentTime)
+                    .then(result => {
+                        if (result.updated) {
+                            res.json({ success: true, message: "Validation code updated successfully", validation_code : newValidationCode });
+                        } else {
+                            res.json({ success: false, message: "Validation code failed to update " });
+                        }
+                    })
+                    .catch(error => {
+                        res.status(500).json({ success: false, message: error.message });
+                    });
             } else {
                 // email does not exist, meaning we can generate validation code
                 // generate the validation code
@@ -59,12 +75,12 @@ const generateValidationCodeAction = (req, res) => {
                 // format the datetime
                 const date = new Date(currentTimeISO);
                 const formattedCurrentTime = Utils.DateUtils.formatDate(date);
-
+                    
                 // generate validation code, inserting to DB
                 Services.userService.createValidationCode(email, validationCode, formattedCurrentTime)
                     .then(result => {
                         if (result.inserted) {
-                            res.json({ success: true, message: "Validation code generated successfully" });
+                            res.json({ success: true, message: "Validation code generated successfully", validation_code : validationCode });
                         } else {
                             res.json({ success: false, message: "Validation code failed to generated " });
                         }
@@ -147,11 +163,29 @@ const createNewAccountAction = async (req, res) => {
         })
 }
 
+const sendEmailAction = async (req, res) => {
+    const { email, validationCode } = req.body;
+
+    // call service to send email the validation code
+    Services.emailServices.sendEmailWithValidationCode(email, validationCode)
+        .then(result => {
+            if (result.sended) {
+                res.json({ success: true, message: `The email has been sent successfully ${result.info}` });
+            } else {
+                res.json({ success: false, message: `The email failed to be sent ${result.info}` });
+            }
+        })
+        .catch(error => {
+            res.status(500).json({ success: false, message: error.message });
+        })
+}
+
 const APIActions = {
     apiServerConnectAction,
     signUpValidateUsernameAction,
     generateValidationCodeAction,
     signUpValidateEmailAction,
-    createNewAccountAction
+    createNewAccountAction,
+    sendEmailAction
 }
 module.exports = APIActions;
