@@ -42,13 +42,7 @@ APIServer.use(cors({
     ]
 }))
 
-// routers registration
-const loginPageRouter = require('./routers/router.js');
-webServer.use(loginPageRouter); // register login page router
-const APIs = require('./routers/APIs.js');
-APIServer.use('/api', APIs); // register API routers
-
-// connect the DB
+// connect the DB and export the connection 
 const connection = mysql2.createConnection({
     host: databaseConfig['localhost'],
     user: databaseConfig['username'],
@@ -61,6 +55,15 @@ connection.connect(error => {
     }
     console.log('Connected to the MySQL server.');
 });
+module.exports = {
+    connection
+}
+
+// routers registration
+const loginPageRouter = require('./routers/router.js');
+webServer.use(loginPageRouter); // register login page router
+const APIs = require('./routers/APIs.js');
+APIServer.use('/api', APIs); // register API routers
 
 // launch the app server
 webServer.listen(ports.webServerPort, () => {
@@ -70,7 +73,3 @@ APIServer.listen(ports.apiServerPort, () => {
     console.log(`API Server is running at http://127.0.0.1:${ports.apiServerPort}`);
 })
 
-// export the DB connection 
-module.exports = {
-    connection
-}

@@ -80,10 +80,10 @@ CREATE TABLE `campsite` (
     PRIMARY KEY (`id`)
 );
 
-CREATE TABLE email_validation (
-  id INT AUTO_INCREMENT,
-  email VARCHAR(255) NOT NULL,
-  validation_code VARCHAR(255) NOT NULL,
-  create_time DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  PRIMARY KEY (id)
+CREATE TABLE `email_validation` (
+    `id` INT AUTO_INCREMENT,
+    `email` VARCHAR(255) NOT NULL,
+    `validation_code` VARCHAR(255) NOT NULL,
+    `create_time` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    PRIMARY KEY (`id`)
 );
