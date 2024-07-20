@@ -16,8 +16,5 @@
         "bookSuccess" : "../views/book-thanks.html",
         "trailDetail" : "../views/trail-detail.html",
         "signUp" : "../views/sign-up.html"
-    },
-    "api-urls-config" : {
-        "urlUserLoginValidation" : "http://localhost:2000/api/user-login"
     }
 }
