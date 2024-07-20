@@ -447,6 +447,9 @@ footer a {
 
  .inside-line {
     margin-top: 35px;
+    color: rgb(188, 185, 185) ;
+    opacity: 35%;
+    
  }
 
  .trail-name{
@@ -538,4 +541,23 @@ footer a {
 
     margin-top: 65px;
     margin-bottom: 35px;
+}
+
+
+.avail-count {
+    text-align: right;
+}
+
+.left-2 {
+    border-right: 1px rgb(182, 181, 181) solid;
+}
+
+.landing-pic-left{
+    border-top-left-radius: 15px;
+    border-bottom-left-radius: 15px;
+}
+
+.landing-pic > img {
+    border-top-right-radius: 15px;
+    border-bottom-right-radius: 15px;
 }
