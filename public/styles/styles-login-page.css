@@ -3,7 +3,8 @@ body {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    background-color: #f5f5f5;
+    background-color: #f5f5f5 !important;
+    /* background-color: #3682c1 !important; */
     color: #333;
 }
 
@@ -359,3 +360,4 @@ footer a {
 button.btn-login{
     color: white !important;
 }
+
