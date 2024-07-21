@@ -96,10 +96,45 @@ const postSignUpPageSubmitAction = async (req, res) => {
 }
 
 // send validation email
-const postSendValidationEmailAction = async (req, res) => {
+const postSendValidationCodeAction = async (req, res) => {
     // get the email address
+    const { email } = req.body;
+    const currentTimeISO = new Date();
 
-    // call the email address validation api 
+    try {
+        // call API - 1: send email
+        let response = await axios.post(apiServerBaseURL+apiUrls["generate-validation-code"],{
+            email: email,
+            currentTimeISO : currentTimeISO
+        },{
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        });
+
+        if (response.data.success) {
+            // call API - 2: send email
+            const validationCode = response.data.validation_code;
+            response = await axios.post(apiServerBaseURL+apiUrls["send-email"],{
+                email: email,
+                validationCode : validationCode
+            },{
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            });    
+            if (response.data.success) {
+                return res.status(200).send('Sent vc to email successfully');
+            }
+            // fail for 2
+            return res.status(400).send('account failed to create!' + response.data.message);
+        }
+        // fail for 1
+        return res.status(400).send('account failed to create!' + response.data.message);
+    } catch (error) {
+        console.error('API request failed: ', error);
+        return res.status(500).send('Server error');
+    }
 }
 
 const getForgetPasswordAction = async (req, res) => {
@@ -115,5 +150,6 @@ const getForgetPasswordAction = async (req, res) => {
 
 module.exports = {
     getSignUpPageAction,
-    postSignUpPageSubmitAction
+    postSignUpPageSubmitAction,
+    postSendValidationCodeAction
 }
