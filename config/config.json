@@ -25,7 +25,10 @@
         "validate-email" : "/api/sign-up/validation/email",
         "generate-validation-code" : "/api/sign-up/generate-validation-code",
         "create-new-account" : "/api/sign-up/create-new-account",
-        "send-email" : "/api/sign-up/send-email"
+        "send-email" : "/api/sign-up/send-email",
+        "find-email-by-username": "/api/forget-password/find-email-by-username",
+        "validate-username-existing": "/api/forget-password/validate-username-existing",
+        "update-new-password" : "/api/forget-password/update-new-password"
     },
     "email-sender" : {
         "service" : "gmail",

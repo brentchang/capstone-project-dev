@@ -20,7 +20,9 @@ const {
 const {
     getSignUpPageAction,
     postSignUpPageSubmitAction,
-    postSendValidationCodeAction
+    postSendValidationCodeAction,
+    postSendValidationCodeByUsernameAction,
+    postUpdatePasswordAction
 } = require('./SmarsController');
 
 const Controller = {
@@ -40,7 +42,9 @@ const Controller = {
     // Smars Controller
     getSignUpPageAction,
     postSignUpPageSubmitAction,
-    postSendValidationCodeAction
+    postSendValidationCodeAction,
+    postSendValidationCodeByUsernameAction,
+    postUpdatePasswordAction
 }
 
 module.exports = {

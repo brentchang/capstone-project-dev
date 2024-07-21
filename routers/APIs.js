@@ -10,5 +10,9 @@ router.post('/sign-up/generate-validation-code', APIActions.generateValidationCo
 router.post('/sign-up/validation/email', APIActions.signUpValidateEmailAction);
 router.post('/sign-up/create-new-account', APIActions.createNewAccountAction);
 router.post('/sign-up/send-email', APIActions.sendEmailAction)
+router.post('/forget-password/find-email-by-username', APIActions.findEmailByUsernameAction)
+router.post('/forget-password/validate-username-existing', APIActions.ValidateUsernameExistingAction)
+router.post('/forget-password/update-new-password', APIActions.updatePasswordForUsernameAction)
+
 
 module.exports = router;

@@ -17,7 +17,7 @@ const apiServerConnectAction = async (req, res) => {
     res.status(200).json({ success: true, message: "this is API server" });
 };
 
-// sign up validation : if the username exists
+// sign up validation : if the username not exists, return success: true
 const signUpValidateUsernameAction = (req, res) => {
     const { username } = req.body;
     if (!username) {
@@ -31,6 +31,26 @@ const signUpValidateUsernameAction = (req, res) => {
                 res.json({ success: false, message: 'Username already exists' });
             } else {
                 res.json({ success: true, message: 'This is a new username, you can create this username' });
+            }
+        })
+        .catch(error => {
+            res.status(500).json({ success: false, message: error.message });
+        });
+};
+
+const ValidateUsernameExistingAction = (req, res) => {
+    const { username } = req.body;
+    if (!username) {
+        return res.status(400).json({ success: false, message: 'No username provided' });
+    }
+
+    // connect to DB, query username
+    Services.userService.checkUsernameExists(username)
+        .then(result => {
+            if (result.exists) {
+                res.json({ success: true, message: 'Username already exists' });
+            } else {
+                res.json({ success: false, message: 'This is a new username, you can create this username' });
             }
         })
         .catch(error => {
@@ -167,7 +187,7 @@ const sendEmailAction = async (req, res) => {
     const { email, validationCode } = req.body;
 
     // call service to send email the validation code
-    Services.emailServices.sendEmailWithValidationCode(email, validationCode)
+    Services.emailService.sendEmailWithValidationCode(email, validationCode)
         .then(result => {
             if (result.sended) {
                 res.json({ success: true, message: `The email has been sent successfully ${result.info}` });
@@ -180,12 +200,48 @@ const sendEmailAction = async (req, res) => {
         })
 }
 
+const findEmailByUsernameAction = (req, res) => {
+    const { username } = req.body;
+
+    // call services to get email by username
+    Services.emailService.getEmailByUsername(username)
+        .then(result => {
+            if (result.exists) {
+                res.json({ success: true, message: `The email found`, email : result.record.email });
+            } else {
+                res.json({ success: false, message: `The email not found` });
+            }
+        })
+        .catch(error => {
+            res.status(500).json({ success: false, message: error.message });
+        })
+}
+
+const updatePasswordForUsernameAction = async (req, res) => {
+    const { username, newPassword, updatedTime } = req.body;
+
+    Services.userService.updatePasswordForUsername(username, newPassword, updatedTime)
+        .then(result => {
+            if (result.updated) {
+                res.json({ success: true, message: `The password updated successfully` });
+            } else {
+                res.json({ success: false, message: `The password failed to update` });
+            }
+        })
+        .catch(error => {
+            res.status(500).json({ success: false, message: error.message });
+        })
+}
+
 const APIActions = {
     apiServerConnectAction,
     signUpValidateUsernameAction,
+    ValidateUsernameExistingAction,
     generateValidationCodeAction,
     signUpValidateEmailAction,
     createNewAccountAction,
-    sendEmailAction
+    sendEmailAction,
+    findEmailByUsernameAction,
+    updatePasswordForUsernameAction
 }
 module.exports = APIActions;

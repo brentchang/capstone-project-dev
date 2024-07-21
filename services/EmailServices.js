@@ -1,8 +1,12 @@
 const { nodemailer } = require('../config/dependencies')
 const config = require("../config/config.json")
 
-class EmailServices{
-    static sendEmailWithValidationCode(email, validationCode) {
+class EmailServices {
+    constructor(connection) {
+        this.connection = connection;
+    }
+
+    sendEmailWithValidationCode(email, validationCode) {
         return new Promise((resolve, reject) => {
             // generate html
             let html = config['email-content'].html; // basic html
@@ -21,7 +25,7 @@ class EmailServices{
             // console.log(mailOptions);// debug
 
             // 发送邮件
-            let transporter = nodemailer.createTransport( config['email-sender'] );
+            let transporter = nodemailer.createTransport(config['email-sender']);
             // console.log(`transporter`);
             // console.log(transporter);
             transporter.sendMail(mailOptions, (error, info) => {
@@ -30,6 +34,23 @@ class EmailServices{
                 } else {
                     console.log('Email sent: ' + info.response);
                     resolve({ sended: true, info: info.response });
+                }
+            });
+        });
+    }
+
+    getEmailByUsername(username) {
+        return new Promise((resolve, reject) => {
+            const query = 'SELECT email FROM user WHERE username = ?';
+            this.connection.query(query, [username], (error, results) => {
+                if (error) {
+                    console.log('debug error in 12312313');
+                    reject(new Error('Database query failed'));
+                } else if (results.length > 0) {
+                    console.log('debug error in 456456');
+                    resolve({ exists: true, record: results[0] });
+                } else {
+                    resolve({ exists: false });
                 }
             });
         });

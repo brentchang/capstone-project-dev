@@ -105,6 +105,28 @@ class UserService {
             });
         });
     }
+
+    updatePasswordForUsername(username, newPassword, updateTime) {
+        return new Promise((resolve, reject) => {
+            const query = `UPDATE user SET password = ? WHERE username = ?;`;
+            // console.log([validation_code, create_time, email])
+            this.connection.query(query, [newPassword, username], (error, results) => {
+                if (error) {
+                    return this.connection.rollback(() => {
+                        reject(new Error('Update password failed when update table `user`'));
+                    });
+                }
+                this.connection.commit(err => {
+                    if (err) {
+                        return this.connection.rollback(() => {
+                            reject(new Error('Transaction commit failed - Update password to table user '));
+                        });
+                    }
+                    resolve({ updated: true });
+                });
+            });
+        });
+    }
 }
 
 module.exports = UserService;

@@ -8,11 +8,13 @@ const { connection } = require('../app');
 const UserService = require('./userServices');
 const userService = new UserService(connection);
 
-const emailServices = require('./EmailServices');
+const EmailService = require('./EmailServices');
+const emailService = new EmailService(connection);
+
 
 const Services = {
     userService,
-    emailServices
+    emailService
 }
 
 module.exports = {
