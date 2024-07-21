@@ -44,10 +44,10 @@ class EmailServices {
             const query = 'SELECT email FROM user WHERE username = ?';
             this.connection.query(query, [username], (error, results) => {
                 if (error) {
-                    console.log('debug error in 12312313');
+                    // console.log('debug error in 12312313');
                     reject(new Error('Database query failed'));
                 } else if (results.length > 0) {
-                    console.log('debug error in 456456');
+                    // console.log('debug error in 456456');
                     resolve({ exists: true, record: results[0] });
                 } else {
                     resolve({ exists: false });

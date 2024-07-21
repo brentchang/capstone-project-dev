@@ -176,7 +176,7 @@ const postSendValidationCodeByUsernameAction = async (req, res) => {
                         'Content-Type': 'application/json'
                     }
                 });
-                if (response.data.status == 200) {
+                if (response.status == 200) {
                     return res.status(200).send('The validation code has been sent to your registered email! please check!')
                 }
                 return res.status(400).send('failed to send validation code!' + response.data.message);
