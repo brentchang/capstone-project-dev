@@ -15,8 +15,8 @@
         "login" : "../views/loginPage.ejs",
         "landing" : "../views/landingPage.ejs",
         "orderList" : "../views/orderListPage.ejs",
-        "bookSuccess" : "../views/book-thanks.html",
-        "trailDetail" : "../views/trail-detail.html",
+        "bookSuccess" : "../views/book-thanks.ejs",
+        "trailDetail" : "../views/trail-detail.ejs",
         "signUp" : "../views/sign-up.html",
         "forgetPassword" : "../views/forget-password.html"
     },
