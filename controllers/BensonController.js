@@ -46,7 +46,7 @@ const getOrderListPageAction = async (req, res) => {
 // access: /logout
 const getLogOutAction = (req, res) => {
     req.session.destroy();
-    res.redirect('/login');
+    res.redirect('/');
 }
 
 // operation: log in
