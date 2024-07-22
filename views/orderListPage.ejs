@@ -37,6 +37,7 @@
 
 
             <h1>Orders</h1>
+            <% if (activeOrder) { %>
              <div class="wrapper">
                 <div class="order-number">Order number: <%= activeOrder.order_num %></div>
                 <div class="order-flex">
@@ -71,33 +72,48 @@
                     </div>
                 </div>
              </div>
+             <% }else{ %>
+                <div class="wrapper">
+                    No orders yet.
 
+                </div>
+                
+                <% } %>
 
              <h1>Past Orders</h1>
-             <div class="wrapper wrapper-past">
-                <div class="order-number">Order number: <%= pastOrders[0].order_num %></div>
-                <div class="order-flex">
-                    <div class="order-flex-item order-flex-item-1">
-                        <img src="/images/home-trail1.png" alt="">
-                    </div>
-                    <div class="order-flex-item order-flex-item-2">
-                        <div class="txt mid-text-1">
-                            <i class="fa-solid fa-location-dot"></i>
-                                <span><%=  pastOrders[0].location %></span>
+
+             <% if (pastOrders && pastOrders.length>0) { %>
+                <% pastOrders.forEach(order => { %>
+                    <div class="wrapper wrapper-past">
+                        <div class="order-number">Order number: <%= order.order_num %></div>
+                        <div class="order-flex">
+                            <div class="order-flex-item order-flex-item-1">
+                                <img src="/images/home-trail1.png" alt="">
+                            </div>
+                            <div class="order-flex-item order-flex-item-2">
+                                <div class="txt mid-text-1">
+                                    <i class="fa-solid fa-location-dot"></i>
+                                        <span><%=  order.location %></span>
+                                </div>
+                                <div class="txt mid-text-2  trail-name"><%= order.trail_name %></div>
+                                <div class="txt mid-text-3">Length: <%= order.length %> km</div>
+                                <div class="txt mid-text-4">Times: <%= order.days %> days</div>
+                            </div>
+                            <div class="order-flex-item order-flex-item-3">
+                                <div class="txt left-text-1">Start From</div>
+                                <div class="txt left-text-2"><%= order.date_str %></div>
+                                <div class="txt left-text-3"><%= order.days %> days <%= order.days -1 %> night</div>
+                                <div class="txt left-text-4"><%= order.parking_or_not %> parking space</div>
+                                <div class="txt left-text-5"><%= activeOrder.adult_num + activeOrder.child_num %> people</div>  
+                            </div>
                         </div>
-                        <div class="txt mid-text-2  trail-name"><%= pastOrders[0].trail_name %></div>
-                        <div class="txt mid-text-3">Length: <%= pastOrders[0].length %> km</div>
-                        <div class="txt mid-text-4">Times: <%= pastOrders[0].days %> days</div>
                     </div>
-                    <div class="order-flex-item order-flex-item-3">
-                        <div class="txt left-text-1">Start From</div>
-                        <div class="txt left-text-2"><%= pastOrders[0].date_str %></div>
-                        <div class="txt left-text-3"><%= pastOrders[0].days %> days <%= pastOrders[0].days -1 %> night</div>
-                        <div class="txt left-text-4"><%= pastOrders[0].parking_or_not %> parking space</div>
-                        <div class="txt left-text-5"><%= activeOrder.adult_num + activeOrder.child_num %> people</div>  
-                    </div>
-                </div>
-             </div>
+                <% }) %>
+                <% }else{ %>  
+                    <div class="wrapper">
+                        No orders yet.
+                    </div>  
+             <% } %>
         </section>
     </main>
 
