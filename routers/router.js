@@ -20,6 +20,7 @@ router.get('/book-success', Controller.getBookingSuccessAction);
 router.get('/sign-up', Controller.getSignUpPageAction);
 router.post('/sign-up', Controller.postSignUpPageSubmitAction);
 router.post('/sign-up/send-validation-code', Controller.postSendValidationCodeAction);
+router.get('/forget-password', Controller.getForgetPasswordAction);
 router.post('/forget-password/send-validation-code-by-username', Controller.postSendValidationCodeByUsernameAction);
 router.post('/forget-password/update-password-for-username', Controller.postUpdatePasswordAction);
 

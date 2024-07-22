@@ -21,6 +21,7 @@ const {
     getSignUpPageAction,
     postSignUpPageSubmitAction,
     postSendValidationCodeAction,
+    getForgetPasswordAction,
     postSendValidationCodeByUsernameAction,
     postUpdatePasswordAction
 } = require('./SmarsController');
@@ -43,6 +44,7 @@ const Controller = {
     getSignUpPageAction,
     postSignUpPageSubmitAction,
     postSendValidationCodeAction,
+    getForgetPasswordAction,
     postSendValidationCodeByUsernameAction,
     postUpdatePasswordAction
 }

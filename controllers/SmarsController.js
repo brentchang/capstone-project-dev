@@ -71,7 +71,7 @@ const postSignUpPageSubmitAction = async (req, res) => {
                     });
                     if (response.data.success) {
                         console.log('new account created successfully');
-                        return res.status(200).send('New Account Created Successfully!!<a href="/login">Log in now!</a>');
+                        return res.status(200).send('New Account Created Successfully!!');
                     }
                     return res.status(400).send('A ccount failed to create! ' + response.data.message);
                 }
@@ -137,7 +137,17 @@ const postSendValidationCodeAction = async (req, res) => {
 
 const getForgetPasswordAction = (req, res) => {
     // go to fotget password page
+    // get the view
+    const forgetPasswordPage = viewPaths.forgetPassword;
+    const fpath = path.join(__dirname, forgetPasswordPage);
 
+    // response the view to FE
+    fs.readFile(fpath, 'utf-8', (error, dataStream) => {
+        // return 404 Not Found if file is failed to be read 
+        if (error) return res.end('404 Not Found!');
+        // response the file data stream to browser if success
+        res.end(dataStream);
+    })
 }
 
 // send validation code by email
@@ -265,6 +275,7 @@ module.exports = {
     getSignUpPageAction,
     postSignUpPageSubmitAction,
     postSendValidationCodeAction,
+    getForgetPasswordAction,
     getForgetPasswordAction,
     postSendValidationCodeByUsernameAction,
     postUpdatePasswordAction

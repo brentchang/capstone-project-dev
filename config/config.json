@@ -17,7 +17,8 @@
         "orderList" : "../views/orderListPage.ejs",
         "bookSuccess" : "../views/book-thanks.html",
         "trailDetail" : "../views/trail-detail.html",
-        "signUp" : "../views/sign-up.html"
+        "signUp" : "../views/sign-up.html",
+        "forgetPassword" : "../views/forget-password.html"
     },
     "api-url-config" : {
         "connectTest" : "/api",
