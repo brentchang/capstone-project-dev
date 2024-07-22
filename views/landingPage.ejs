@@ -24,10 +24,18 @@
                     <li><a href="#">Weather</a></li>
                 </ul>
             </nav>
-            <div class="auth">
-                <a href="/sign-up">Sign up</a>
-                <a href="/login">Log in</a>
-            </div>
+            <% if (username) { %>
+                <div class="auth">
+                    <a href="#">Hi,  <%= username %>!</a>
+                    <a href="/logout">Log Out</a>
+                </div>
+                <% }else{ %>
+                    <div class="auth">
+                        <a href="/sign-up">Sign up</a>
+                        <a href="/login">Log in</a>
+                    </div>
+            <% } %>
+
     </header>
 
     <main>

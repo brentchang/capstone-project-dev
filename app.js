@@ -34,6 +34,18 @@ webServer.use(session({
     }
 }))
 
+
+webServer.use((req, res, next) => {
+    if (req.session.username) {
+      res.locals.username = req.session.username;
+    } else {
+      res.locals.username = null;
+    }
+    next();
+  });
+
+  webServer.use(express.json());
+
 // CORS registration
 APIServer.use(cors({
     origin: [

@@ -12,6 +12,7 @@ const {
 
 // access: /login
 const getLoginPageAction = (req, res) => {
+    req.session.username = req.body.username;
     const loginPage = viewPaths.login;
     const fpath = path.join(__dirname, loginPage);
 
