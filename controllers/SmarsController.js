@@ -57,8 +57,6 @@ const postSignUpPageSubmitAction = async (req, res) => {
                     }
                 });
                 if (response.data.success) {
-                    console.log('email validated successfully');
-
                     // call API: write record into DB table `user`
                     response = await axios.post(apiServerBaseURL + apiUrls["create-new-account"], {
                         username: username,
@@ -73,13 +71,13 @@ const postSignUpPageSubmitAction = async (req, res) => {
                     });
                     if (response.data.success) {
                         console.log('new account created successfully');
-                        return res.status(200).send('All APIs executed successfully');
+                        return res.status(200).send('New Account Created Successfully!!<a href="/login">Log in now!</a>');
                     }
-                    return res.status(400).send('account failed to create!' + response.data.message);
+                    return res.status(400).send('A ccount failed to create! ' + response.data.message);
                 }
-                return res.status(400).send('email validation failed!' + response.data.message);
+                return res.status(400).send('Email validation failed! ' + response.data.message);
             }
-            return res.status(400).send('username validation failed!' + response.data.message);
+            return res.status(400).send('Username validation failed! ' + response.data.message);
         } catch (error) {
             console.error('API request failed: ', error);
             return res.status(500).send('Server error');
@@ -100,7 +98,7 @@ const postSendValidationCodeAction = async (req, res) => {
     // get the email address
     const { email } = req.body;
     const currentTimeISO = new Date();
-
+    console.log(`debug by smars: ${email}`);
     try {
         // call API - 1: generate validation code in the DB
         let response = await axios.post(apiServerBaseURL + apiUrls["generate-validation-code"], {

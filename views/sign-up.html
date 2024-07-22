@@ -4,34 +4,101 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Create an Account</title>
-    <link rel="stylesheet" href="/styles/styles.css">
+    <title>loginPage</title>
+    <link rel="stylesheet" href="/styles/style-sign-up.css">
+    <!-- <script id="applicationScript" src="/js/login-page.js"></script> -->
+    <!-- font awesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <!-- fullcalendar for calendar -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
 </head>
 
 <body>
-    <div class="signup-container">
-        <form action="/submit-your-form-handler" method="POST">
-            <h2>Create an account</h2>
-            <div class="input-group">
-                <label for="name">Name</label>
-                <input type="text" id="name" name="name" required>
+
+    <header>
+        <div class="header-container">
+            <div class="logo">Viatours</div>
+            <nav>
+                <ul>
+                    <li><a href="/landing">Home</a></li>
+                    <li><a href="#">Weather</a></li>
+                </ul>
+            </nav>
+            <div class="auth">
+                <a href="/sign-up">Sign up</a>
+                <a href="/login">Log in</a>
             </div>
-            <div class="input-group">
-                <label for="phone">Phone Number</label>
-                <input type="tel" id="phone" name="phone" required>
+    </header>
+
+    <main>
+        <section class="tour-details">
+            <div class="login">
+                <div class="container">
+                    <div class="login-container">
+                        <div class="login-title">Create your new account</div>
+                        <form>
+                            <div class="form-group">
+                                <label for="username">Username</label>
+                                <input name="username" required type="input" class="form-control" id="username"
+                                    placeholder="Enter your username">
+                                <div id="usernameHint" style="display: none;">"Username must be 1-20 characters long and can only contain letters, numbers, dots, and underscores."</div>
+                            </div>
+                            <div class="form-group">
+                                <label for="password">Password</label>
+                                <input type="password" required type="input" class="form-control" id="password"
+                                    placeholder="Enter your password">
+                                    <div id="passwordHint" style="display: none;">""Password must start with an uppercase letter and be at least 8 characters long, including at least one lowercase letter, one number, and one special character (e.g., !@#$%^&*()).""</div>
+                            </div>
+                            <div class="form-group">
+                                <label for="confirmPassword">Confirm Password</label>
+                                <input type="password" required type="input" class="form-control" id="confirmPassword"
+                                    placeholder="Confirm your password">
+                                <div id="confirmPasswordHint" style="display:none;">Passwords do not match.</div>
+                            </div>
+                            <div class="form-group">
+                                <label for="email">Email</label>
+                                <div class="email-box">
+                                    <input type="text" required type="input" class="form-control" id="email" placeholder="my.email@example.com">
+                                    <button id="sendCodeBtn">Validate</button>
+                                </div>
+                                <div id="emailHint" style="display: none;">Your email format is incorrect.</div>
+                            </div>
+                            <div class="form-group">
+                                <label for="phoneNum">Phone Number</label>
+                                <input type="text" required type="input" class="form-control" id="phoneNum" placeholder="0001112222 / 000-111-2222">
+                                <div id="phoneNumHint" style="display: none;">Your phone number format is incorrect.</div>
+                            </div>
+                            <div class="form-group">
+                                <label for="address">Address</label>
+                                <input type="text" required type="input" class="form-control" id="address" placeholder="Waterloo, ON">
+                                <div id="addressHint" style="display: none;">Enter your address</div>
+                            </div>
+                            <div class="form-group">
+                                <label for="validationCode">Validation Code</label>
+                                <input type="text" required type="input" class="form-control" id="validationCode" placeholder="000000">
+                                <div id="vcHint" style="display: none;">Enter your 6 digits validation code</div>
+                            </div>
+                            <button type="submit" id="createAccountBtn" class="btn btn-login btn-block">Create Account</button>
+                            <div id="responseMessage" style="display: none;"></div>
+                            <div id="loginLink" style="display: none;"><a href="/login">Log in now!</a></div>
+                        </form>
+                    </div>
+                </div>
             </div>
-            <div class="input-group">
-                <label for="email">Email</label>
-                <input type="email" id="email" name="email" required>
-            </div>
-            <div class="input-group">
-                <label for="password">Password</label>
-                <input type="password" id="password" name="password" required>
-            </div>
-            <button type="submit">Create account</button>
-            <p>Already Have An Account? <a href="/login">Log In</a></p>
-        </form>
-    </div>
+        </section>
+    </main>
+    <footer>
+        <div class="footer-container">
+            <h3>Contact</h3>
+            <address>328 Queensberry Street, North Melbourne VIC 3051, Australia.</address>
+            <a href="mailto:hi@viatours.com">hi@viatours.com</a>
+            <p>&copy; Copyright Viatours 2024</p>
+        </div>
+    </footer>
+    <script id="applicationScript" src="/scripts/sign-up-page.js"></script>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </body>
 
 </html>
