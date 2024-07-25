@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>White River Suspension Bridge Trail</title>
+    <title><%- trail.trail_name + " - Conestoga Park" %></title>
     <link rel="stylesheet" href="/styles/styles-trail-detail.css">
     <!-- font awesome for icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
@@ -57,25 +57,25 @@
             <div class="breadcumb">
                 <a href="/landing">Home</a>
                 <span>></span>
-                <a href="#">White River Suspension Bridge Trail</a>
+                <a href="/landing/trail-detail-<%- trail.id %>"><%- trail.trail_name %></a>
             </div>
-            <h1>White River Suspension Bridge Trail</h1>
+            <h1><%- trail.trail_name %></h1>
             <div>
                 <i class="fa-solid fa-location-dot"></i>
-                <span>Pukaskwa National Park</span>
+                <span><%- trail.location %></span>
             </div>
             <div class="gallery">
                 <div class="gallery-item">
-                    <img src="/images/detail-main.png" alt="trail">
+                    <img src="/images/detail-main.png" alt="<%- trail.trail_name %>">
                 </div>
                 <div class="gallery-item">
-                    <img src="/images/detail-1.png" alt="trail">
+                    <img src="/images/detail-1.png" alt="<%- trail.trail_name %>">
                 </div>
                 <div class="gallery-item">
-                    <img src="/images/detail-2.png" alt="trail">
+                    <img src="/images/detail-2.png" alt="<%- trail.trail_name %>">
                 </div>
                 <div class="gallery-item">
-                    <img src="/images/detail-3.png" alt="trail">
+                    <img src="/images/detail-3.png" alt="<%- trail.trail_name %>">
                 </div>
             </div>
         </section>
@@ -91,7 +91,7 @@
                                 </div>
                                 <div class="text">
                                     <span>Duration</span>
-                                    <p>4 days</p>
+                                    <p><%- trail.duration %> days</p>
                                 </div>
                             </div>
                         </div>
@@ -102,7 +102,7 @@
                                 </div>
                                 <div class="text">
                                     <span>Group Size</span>
-                                    <p>6 people</p>
+                                    <p><%- trail.max_group_size %> people</p>
                                 </div>
                             </div>
                         </div>
@@ -113,24 +113,24 @@
                                 </div>
                                 <div class="text">
                                     <span>Length</span>
-                                    <p>160km (return)</p>
+                                    <p><%- trail.length%>km</p>
                                 </div>
                             </div>
                         </div>
                     </div>
                     <h2>Tour Overview</h2>
-                    <p>The Phi Phi archipelago is a must-visit while in Phuket, and this speedboat trip whisks you around the islands in one day. Swim over the coral reefs of Pileh Lagoon, have lunch at Phi Phi Leh, snorkel at Bamboo Island, and visit Monkey Beach and Maya Bay, immortalized in "The Beach." Boat transfers, snacks, buffet lunch, snorkeling equipment, and Phuket hotel pickup and drop-off included.</p>
-                    <h3>Tour Highlights</h3>
+                    <p><%- trail.overview %></p>
+                    <!-- <h3>Tour Highlights</h3>
                     <ul>
                         <li>Experience the thrill of a speedboat to the stunning Phi Phi Islands</li>
                         <li>Be amazed by the variety of marine life in the archipelago</li>
                         <li>Enjoy relaxing in paradise with white sand beaches and azure turquoise water</li>
                         <li>Feel the comfort of a tour limited to 35 passengers</li>
                         <li>Catch a glimpse of the wild monkeys around Monkey Beach</li>
-                    </ul>
+                    </ul> -->
                 </section>
 
-                <section class="inclusions">
+                <!-- <section class="inclusions">
                     <h2>What's included</h2>
                     <div class="flex">
                         <div class="included-items">
@@ -151,7 +151,7 @@
                             </ul>
                         </div>
                     </div>
-                </section>
+                </section> -->
 
                 <section class="availability">
                     <h2>Availability Calendar</h2>

@@ -13,9 +13,7 @@ router.get('/login', Controller.getLoginPageAction);
 router.get('/logout', Controller.getLogOutAction);
 router.get('/order-list', Controller.getOrderListPageAction)
 router.post('/login', Controller.postLoginAction);
-router.get('/landing/trail-detail-1', Controller.getTrailDetail1Action);
-router.get('/landing/trail-detail-2', Controller.getTrailDetail2Action);
-router.get('/landing/trail-detail-3', Controller.getTrailDetail3Action);
+router.get('/landing/trail-detail-:id', Controller.getTrailDetailAction);
 router.get('/book-success', Controller.getBookingSuccessAction);
 router.get('/sign-up', Controller.getSignUpPageAction);
 router.post('/sign-up', Controller.postSignUpPageSubmitAction);

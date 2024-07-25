@@ -5,9 +5,7 @@
     /controllers/index.js 是为了集合所有的XXXXController.js文件，通过Controller对象统一暴露出来
 */
 const {
-    getTrailDetail1Action,
-    getTrailDetail2Action,
-    getTrailDetail3Action,
+    getTrailDetailAction,
     getBookingSuccessAction
 } = require('./BrentController');
 const {
@@ -35,9 +33,7 @@ const Controller = {
     postLoginAction,
 
     // Brent Controller
-    getTrailDetail1Action,
-    getTrailDetail2Action,
-    getTrailDetail3Action,
+    getTrailDetailAction,
     getBookingSuccessAction,
 
     // Smars Controller
