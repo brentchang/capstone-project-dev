@@ -47,17 +47,21 @@ CREATE TABLE `order` (
 );
 
 CREATE TABLE `trail` (
-    `id` INT NOT NULL AUTO_INCREMENT,
-    `trail_name` VARCHAR(255) NOT NULL,
-    `location` VARCHAR(255) NOT NULL,
-    `duration` INT NOT NULL COMMENT 'Time to complete the trail, counted by day',
-    `max_group_size` INT NOT NULL,
-    `length` DECIMAL(5,2) NOT NULL COMMENT 'unit: km',
-    `overview` TEXT,
-    `capacity` INT NOT NULL,
-    PRIMARY KEY (`id`),
-    INDEX `idx_location` (`location`)
-);
+  `id` int NOT NULL AUTO_INCREMENT,
+  `trail_name` varchar(255) NOT NULL,
+  `location` varchar(255) NOT NULL,
+  `duration` int NOT NULL COMMENT 'Time to complete the trail, counted by day',
+  `max_group_size` int NOT NULL,
+  `length` decimal(5,2) NOT NULL COMMENT 'unit: km',
+  `overview` text,
+  `capacity` int NOT NULL,
+  `image_main` varchar(255) NOT NULL COMMENT 'main image path for the trail',
+  `image_medium` varchar(255) NOT NULL COMMENT 'image path for the medium-sized trail image',
+  `image_small_left` varchar(255) NOT NULL COMMENT 'image path for a small-sized trail image on the left',
+  `image_small_right` varchar(255) NOT NULL COMMENT 'image path for a small-sized trail image on the right',
+  PRIMARY KEY (`id`),
+  KEY `idx_location` (`location`)
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 CREATE TABLE `trail_availability` (
     `trail_id` INT NOT NULL,
