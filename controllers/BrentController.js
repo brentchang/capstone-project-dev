@@ -21,7 +21,7 @@ const getTrailDetailAction = async (req, res) => {
     const trail = await getTrailById(trailId);
     // verbose output
     // console.log(trail);
-    console.log(typeof(trail));
+    // console.log(typeof(trail));
 
     // if trail is not found, return 404 Not Found
     if (!trail) {
