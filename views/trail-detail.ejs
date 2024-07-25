@@ -164,12 +164,12 @@
             </div>
 
             <aside>
-                <form class="booking-form" action="/book-success" method="get">
+                <form class="booking-form" action="/book" method="post">
                     <div class="form-container">
                         <label for="from">From</label>
-                        <input type="date" id="from" name="from" value="2024-02-05">
+                        <input type="date" id="from" name="from" value="<%- dateStringForToday %>">
                         <label for="to">To</label>
-                        <input type="date" id="to" name="to" value="2024-03-14">
+                        <input type="date" id="to" name="to" value="<%- dateStringForEnd %>">
                         <h3>Tickets</h2>
                         <label for="adults">Adult</label>
                         <input type="number" id="adults" name="adults" value="3">

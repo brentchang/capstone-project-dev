@@ -6,6 +6,7 @@
 */
 const {
     getTrailDetailAction,
+    postTrailBookAction,
     getBookingSuccessAction
 } = require('./BrentController');
 const {
@@ -35,6 +36,7 @@ const Controller = {
     // Brent Controller
     getTrailDetailAction,
     getBookingSuccessAction,
+    postTrailBookAction,
 
     // Smars Controller
     getSignUpPageAction,

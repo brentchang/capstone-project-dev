@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Booking Confirmation</title>
+    <title>Booking Confirmation - Conestoga Park</title>
     <link rel="stylesheet" href="/styles/styles-book-thanks.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 </head>
@@ -31,10 +31,10 @@
                 <h2>Thanks for your booking</h2>
                 <p>Your order was completed successfully.</p>
                 <div class="order-details">
-                    <p>Order Number: <span>1001</span></p>
-                    <p>Order Date: <span>October 27, 2024</span></p>
-                    <p>Parking: <span>Yes</span></p>
-                    <p>Total: <span>6 People</span></p>
+                    <p>Order Number: <span><%- orderDetail.orderNumber %></span></p>
+                    <p>Order Date: <span> From <%- orderDetail.startDate %> to <%- orderDetail.endDate %></span></p>
+                    <p>Parking: <span><%- orderDetail.parkingNeeded %></span></p>
+                    <p>Total: <span><%- orderDetail.adultCount + orderDetail.childrenCount %> People</span></p>
                 </div>
                 <div class="actions">
                     <a href="#" class="modify">Modify Booking</a>
