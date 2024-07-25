@@ -20,5 +20,10 @@
     "mysql2": "^3.10.2",
     "nodemailer": "^6.9.14",
     "openmeteo": "^1.1.4"
+  },
+  "devDependencies": {
+    "@eslint/js": "^9.7.0",
+    "eslint": "9.x",
+    "globals": "^15.8.0"
   }
 }
