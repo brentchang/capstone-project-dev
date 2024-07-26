@@ -22,6 +22,9 @@
                 <ul>
                     <li><a href="/">Home</a></li>
                     <li><a href="/weather">Weather</a></li>
+                    <% if (username) { %>
+                        <li><a href="/order-list">Orders</a></li>
+                    <% } %>
                 </ul>
             </nav>
             <% if (username) { %>
