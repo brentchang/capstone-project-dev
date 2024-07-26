@@ -68,7 +68,7 @@ CREATE TABLE `trail_availability` (
     `available_seats` INT NOT NULL,
     `date` DATE NOT NULL,
     INDEX `idx_date` (`date`),
-    INDEX `idx_trail_id_date` (`trail_id`, `date`)
+    UNIQUE INDEX `idx_trail_id_date` (`trail_id`, `date`)
 );
 
 CREATE TABLE `trail_campsite` (
