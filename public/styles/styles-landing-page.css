@@ -518,6 +518,7 @@ footer a {
     font-size: 26px;
     font-weight: 750;
     display: inline;
+    cursor: pointer;
 }
 
 .gallery-title{
@@ -590,3 +591,4 @@ footer a {
 }
 
 .nopointer {cursor: default;}
+

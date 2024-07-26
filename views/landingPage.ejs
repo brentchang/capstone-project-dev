@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Home - Conestoga Park</title>
-    
+    <script src="https://code.jquery.com/jquery-3.7.1.slim.min.js" integrity="sha256-kmHvs0B+OpCW5GVHUNjv9rOmY0IvSIRcf7zGUDTDQM8=" crossorigin="anonymous"></script>
     <!-- font awesome for icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
     <!-- fullcalendar for calendar -->
@@ -179,9 +179,9 @@
 
             <div class="gallery-title">
                 <div class="wrapper">
-                    <div class="gallery-title-item active">White River</div>
-                    <div class="gallery-title-item ">Point Pelee</div>
-                    <div class="gallery-title-item">Georgian</div>
+                    <div class="gallery-title-item gallery-title-item-1 active">White River</div>
+                    <div class="gallery-title-item gallery-title-item-2">Point Pelee</div>
+                    <div class="gallery-title-item gallery-title-item-3">Georgian</div>
                 </div>
                 <div class="specified-name">
                     White River Suspension Brideg Trail
@@ -211,5 +211,42 @@
             <p>&copy; Copyright Viatours 2024</p>
         </div>
     </footer>
+    <script>
+        $(document).ready(function() {
+            $('.gallery-title-item').click(function() {
+                // Remove 'active' class from all gallery-title-item divs
+                $('.gallery-title-item').removeClass('active');
+                // Add 'active' class to the clicked gallery-title-item div
+                $(this).addClass('active');
+
+                // Update the specified-name text and image src based on the clicked item
+                if ($(this).hasClass('gallery-title-item-1')) {
+                    $('.specified-name').text('White River Suspension Brideg Trail');
+                    $('.item-1 img').attr('src', '/images/home-gallery1.png');
+                    $('.item-2 img').attr('src', '/images/home-gallery2.png');
+                    $('.item-3 img').attr('src', '/images/home-gallery3.png');
+                    $('.item-4 img').attr('src', '/images/home-gallery4.png');
+                    $('.item-5 img').attr('src', '/images/home-gallery5.png');
+                    $('.item-6 img').attr('src', '/images/home-gallery6.png');
+                } else if ($(this).hasClass('gallery-title-item-2')) {
+                    $('.specified-name').text('Point Pelee');
+                    $('.item-1 img').attr('src', '/images/home-gallery1b.png');
+                    $('.item-2 img').attr('src', '/images/home-gallery2b.png');
+                    $('.item-3 img').attr('src', '/images/home-gallery3b.png');
+                    $('.item-4 img').attr('src', '/images/home-gallery4b.png');
+                    $('.item-5 img').attr('src', '/images/home-gallery5b.png');
+                    $('.item-6 img').attr('src', '/images/home-gallery6b.png');
+                } else if ($(this).hasClass('gallery-title-item-3')) {
+                    $('.specified-name').text('Georgian');
+                    $('.item-1 img').attr('src', '/images/home-gallery1c.png');
+                    $('.item-2 img').attr('src', '/images/home-gallery2c.png');
+                    $('.item-3 img').attr('src', '/images/home-gallery3c.png');
+                    $('.item-4 img').attr('src', '/images/home-gallery4c.png');
+                    $('.item-5 img').attr('src', '/images/home-gallery5c.png');
+                    $('.item-6 img').attr('src', '/images/home-gallery6c.png');
+                }
+            });
+        });
+    </script>
 </body>
 </html>
