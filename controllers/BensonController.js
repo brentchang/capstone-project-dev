@@ -48,8 +48,15 @@ const getLandingPageAction = async (req, res) => {
 const getOrderListPageAction = async (req, res) => {
     const orderListPage = viewPaths.orderList;
     const fpath = path.join(__dirname, orderListPage);
+    // if user is not logged in, redirect to login page
+    if (!req.session.userLoggedIn) {
+        res.redirect('/login');
+        return;
+    }
     const activeOrder = await getActiveOrder(req.session.username)
    // console.log(activeOrder);
+
+    
 
     const pastOrders = await getPastOrders(req.session.username)
     console.log(pastOrders);
