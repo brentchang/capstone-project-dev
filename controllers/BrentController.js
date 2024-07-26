@@ -398,14 +398,22 @@ async function bookTrailWriteToDb(username, trailId, startDate, endDate, adultCo
 
         // insert the booking record into the database
         // order table
+        // status_code: 0 for booked, 1 for cancelled
         await pool.query(`INSERT INTO \`order\` (\`order_num\`, \`trail_id\`, \`from_date\`,\`to_date\`, \`adult_num\`, \`child_num\`,\`parking_or_not\`, \`status_code\`, \`order_time\`, \`last_updated_time\`)
-            VALUES (?, ?, ?, ?, ?, ?, ?, 1, ?, ?)
+            VALUES (?, ?, ?, ?, ?, ?, ?, 0, ?, ?)
             `, [orderNumber, trailId, startDate, endDate, adultCount, childrenCount, parkingNeeded, orderTime, orderTime]);
+        // look up the order id
+        const [orderId] = await pool.query(`
+            SELECT id
+            FROM \`order\`
+            WHERE order_num = ?
+            LIMIT 1
+            `, [orderNumber]);
         // user_order table to link user and order
         await pool.query(`
             INSERT INTO \`user_order\` (\`user_id\`, \`order_id\`)
             VALUES (?, ?)
-            `, [userId, orderNumber]);
+            `, [userId, [orderId][0].id]);
         
         // insert or update the available seats on each day
         const days = (endDate - startDate) / (1000 * 60 * 60 * 24) + 1;
