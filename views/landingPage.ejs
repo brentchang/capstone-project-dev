@@ -20,7 +20,7 @@
             <div class="logo">Conestoga Park</div>
             <nav>
                 <ul>
-                    <li><a href="/landing">Home</a></li>
+                    <li><a href="/">Home</a></li>
                     <li><a href="/weather">Weather</a></li>
                 </ul>
             </nav>
@@ -108,7 +108,7 @@
                         <div class="card-desc">
                             <div>
                                 <i class="fa-solid fa-location-dot"></i>
-                                <span>Pukaskwa National Park</span>
+                                <span>Conestoga Provincial Park</span>
                             </div>
                             <div class="trail-name">White River Suspension Bridge Trail</div>
                             <div>length: 180 km</div>
@@ -133,7 +133,7 @@
                         <div class="card-desc">
                             <div>
                                 <i class="fa-solid fa-location-dot"></i>
-                                <span>Point Pelee National Park</span>
+                                <span>Conestoga Park</span>
                             </div>
                             <div class="trail-name">Tip Trail</div>
                             <div>length: 80 km</div>
@@ -158,7 +158,7 @@
                         <div class="card-desc">
                             <div>
                                 <i class="fa-solid fa-location-dot"></i>
-                                <span>Fairy Trail</span>
+                                <span>Conestoga Park</span>
                             </div>
                             <div class="trail-name">Georgian Bay National Park Trail</div>
                             <div>length: 240 km</div>
@@ -180,11 +180,11 @@
             <div class="gallery-title">
                 <div class="wrapper">
                     <div class="gallery-title-item gallery-title-item-1 active">White River</div>
-                    <div class="gallery-title-item gallery-title-item-2">Point Pelee</div>
-                    <div class="gallery-title-item gallery-title-item-3">Georgian</div>
+                    <div class="gallery-title-item gallery-title-item-2">Tip Trail</div>
+                    <div class="gallery-title-item gallery-title-item-3">Georgian Bay</div>
                 </div>
                 <div class="specified-name">
-                    White River Suspension Brideg Trail
+                    White River Tip Trail Georgian Bay
                 </div>
             </div>
 
@@ -221,7 +221,7 @@
 
                 // Update the specified-name text and image src based on the clicked item
                 if ($(this).hasClass('gallery-title-item-1')) {
-                    $('.specified-name').text('White River Suspension Brideg Trail');
+                    $('.specified-name').text('White River Suspension Bridge Trail');
                     $('.item-1 img').attr('src', '/images/home-gallery1.png');
                     $('.item-2 img').attr('src', '/images/home-gallery2.png');
                     $('.item-3 img').attr('src', '/images/home-gallery3.png');
@@ -229,21 +229,21 @@
                     $('.item-5 img').attr('src', '/images/home-gallery5.png');
                     $('.item-6 img').attr('src', '/images/home-gallery6.png');
                 } else if ($(this).hasClass('gallery-title-item-2')) {
-                    $('.specified-name').text('Point Pelee');
-                    $('.item-1 img').attr('src', '/images/home-gallery1b.png');
-                    $('.item-2 img').attr('src', '/images/home-gallery2b.png');
-                    $('.item-3 img').attr('src', '/images/home-gallery3b.png');
-                    $('.item-4 img').attr('src', '/images/home-gallery4b.png');
-                    $('.item-5 img').attr('src', '/images/home-gallery5b.png');
-                    $('.item-6 img').attr('src', '/images/home-gallery6b.png');
+                    $('.specified-name').text('Tip Trail');
+                    $('.item-1 img').attr('src', '/images/detail-main-2.avif');
+                    $('.item-2 img').attr('src', '/images/detail-2-1.jpg');
+                    $('.item-3 img').attr('src', '/images/detail-2-2.avif');
+                    $('.item-4 img').attr('src', '/images/detail-2-3.jpg');
+                    $('.item-5 img').attr('src', '/images/detail-2-4.jpg');
+                    $('.item-6 img').attr('src', '/images/detail-2-5.jpg');
                 } else if ($(this).hasClass('gallery-title-item-3')) {
-                    $('.specified-name').text('Georgian');
-                    $('.item-1 img').attr('src', '/images/home-gallery1c.png');
-                    $('.item-2 img').attr('src', '/images/home-gallery2c.png');
-                    $('.item-3 img').attr('src', '/images/home-gallery3c.png');
-                    $('.item-4 img').attr('src', '/images/home-gallery4c.png');
-                    $('.item-5 img').attr('src', '/images/home-gallery5c.png');
-                    $('.item-6 img').attr('src', '/images/home-gallery6c.png');
+                    $('.specified-name').text('Georgian Bay');
+                    $('.item-1 img').attr('src', '/images/detail-main-3.jpg');
+                    $('.item-2 img').attr('src', '/images/detail-3-1.jpg');
+                    $('.item-3 img').attr('src', '/images/detail-3-2.jpg');
+                    $('.item-4 img').attr('src', '/images/detail-3-3.jpg');
+                    $('.item-5 img').attr('src', '/images/detail-3-4.jpg');
+                    $('.item-6 img').attr('src', '/images/detail-3-5.jpg');
                 }
             });
         });
