@@ -22,6 +22,7 @@ router.post('/sign-up/send-validation-code', Controller.postSendValidationCodeAc
 router.get('/forget-password', Controller.getForgetPasswordAction);
 router.post('/forget-password/send-validation-code-by-username', Controller.postSendValidationCodeByUsernameAction);
 router.post('/forget-password/update-password-for-username', Controller.postUpdatePasswordAction);
+router.get('/weather', Controller.getWeatherPageAction);
 
 // export JS module as a object
 module.exports = router; 

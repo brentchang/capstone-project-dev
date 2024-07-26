@@ -15,5 +15,6 @@ router.post('/forget-password/validate-username-existing', APIActions.ValidateUs
 router.post('/forget-password/update-new-password', APIActions.updatePasswordForUsernameAction)
 router.get('/weather/current-weather', APIActions.getCurrentWeather)
 router.get('/weather/daily-weather', APIActions.getDailyWeather)
+router.get('/weather/today-hourly-weather', APIActions.getTodayHourlyWeather)
 
 module.exports = router;

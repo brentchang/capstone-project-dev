@@ -270,6 +270,36 @@ const postUpdatePasswordAction = async (req, res) => {
     }
 }
 
+const getWeatherPageAction = async (req, res) =>  {
+    try {
+        // 获取数据
+        // 1）username
+        const username = req.session.username;
+        // 2）当前天气数据
+        let respose = await axios.get(apiServerBaseURL + apiUrls["get-current-weather"]);
+        const currentWeather = respose.data.currentWeather;
+        // 3）今天每小时的数据
+        respose = await axios.get(apiServerBaseURL + apiUrls["get-today-hourly-weather"]);
+        const todayHourlyWeather = respose.data.todayHourlyWeather;
+        // 4) 未来7天的天气数据
+        respose = await axios.get(apiServerBaseURL + apiUrls["get-daily-weather"]);
+        const dailyWeather = respose.data.dailyWeather;
+
+        // 返回ejs页面
+        const weatherPage = viewPaths.weather;
+        const fpath = path.join(__dirname, weatherPage);
+        res.render(fpath, {
+            username : username,
+            currentWeather : currentWeather,
+            todayHourlyWeather : todayHourlyWeather,
+            dailyWeather : dailyWeather
+        });
+    }
+    catch (error) {
+        console.error("Error fetching weather data:", error);
+        res.status(500).send("Internal Server Error");
+    }
+}
 
 module.exports = {
     getSignUpPageAction,
@@ -278,5 +308,7 @@ module.exports = {
     getForgetPasswordAction,
     getForgetPasswordAction,
     postSendValidationCodeByUsernameAction,
-    postUpdatePasswordAction
+    postUpdatePasswordAction,
+    getWeatherPageAction
 }
+

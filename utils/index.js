@@ -6,9 +6,14 @@ const {
     ValidationCodeUtils
 } = require('./ValidationCodeUtils')
 
+const {
+    WeatherUtils
+} = require('./WeatherUtils')
+
 const Utils = {
     DateUtils,
-    ValidationCodeUtils
+    ValidationCodeUtils,
+    WeatherUtils
 }
 
 

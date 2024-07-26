@@ -237,10 +237,13 @@ const getCurrentWeather = async (req, res) => {
     // Service calling
     Services.weatherService.getTodayWeatherData()
         .then(result => {
+            // data formatting
+            const retData = Utils.WeatherUtils.currentDayWeatherDataFormatter(result.data);
+
             res.json({
                 success: true,
                 message: `Weather data received`,
-                currentWeather: result.data
+                currentWeather: retData
             });
         })
         .catch(error => {
@@ -252,15 +255,37 @@ const getDailyWeather = async (req, res) => {
     // Service calling
     Services.weatherService.getIn7DaysDailyWeatherData()
         .then(result => {
+            // data formatting
+            const retData = Utils.WeatherUtils.dailyWeatherDataFormatter(result.data);
+            console.log(retData);
+
             res.json({
                 success: true,
                 message: `Weather data received`,
-                currentWeather: result.data
+                dailyWeather: retData
             });
         })
         .catch(error => {
             res.status(500).json({ success: false, message: error.message });
         })
+}
+
+const getTodayHourlyWeather = async (req, res) => {
+    // Service calling
+    Services.weatherService.getTodayHourlyWeatherData()
+    .then(result => {
+        // data formatting
+        const retData = Utils.WeatherUtils.todayHourlyWeatherDataFormatter(result.data);
+
+        res.json({
+            success: true,
+            message: `Weather data received`,
+            todayHourlyWeather: retData
+        });
+    })
+    .catch(error => {
+        res.status(500).json({ success: false, message: error.message });
+    })
 }
 
 const APIActions = {
@@ -275,5 +300,6 @@ const APIActions = {
     updatePasswordForUsernameAction,
     getCurrentWeather,
     getDailyWeather,
+    getTodayHourlyWeather
 }
 module.exports = APIActions;

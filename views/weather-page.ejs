@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Weather - Conestoga Park</title>
+        <!-- font awesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="/styles/style-weather-page.css">
+</head>
+<body>
+    <header>
+        <div class="header-container">
+            <div class="logo">Viatours</div>
+            <nav>
+                <ul>
+                    <li><a href="/landing">Home</a></li>
+                    <li><a href="/weather">Weather</a></li>
+                </ul>
+            </nav>
+            <div class="auth">
+                <% if (username) { %>
+                    Hi, <%= username %>
+                    <a href="/logout">Log Out</a>
+                <% } else { %>
+                    <a href="/sign-up">Sign up</a>
+                    <a href="#">Log in</a>
+                <% } %>
+            </div>
+    </header>
+
+    <main>
+        <section class="tour-details">
+            <!-- breadcumb -->
+            <div class="breadcumb">
+                <a href="/landing">Home</a>
+                <span>></span>
+                <a href="/weather">Weather</a>
+            </div>
+
+            <div class="weather-title">
+                <div style="font-size: 30px; font-weight: 750; margin-bottom: 30px;">Local Weather</div>   
+                <div style="font-size: 15x; font-weight: 750;">Current Conditions</div>   
+            </div>
+
+            <div class="weather">
+                <div class="left-blank"></div>
+                <div class="left-1">
+                    <div class="dushu"><%= currentWeather.temperature %></div>
+                    <div class="feel">feels like <%= currentWeather.temperature %></div>
+                </div>
+                <div class="left-2">
+                    <div class="weather-icon">
+                        <i class="fa-solid fa-cloud"></i>
+                    </div>
+                    <div class="weather-desc"><%= currentWeather.weatherCode %></div>
+                </div>
+                <div class="right-1">
+                    <div class="right-1-data">High</div>
+                    <div class="right-1-data"><%= currentWeather.maxTemperature %></div>
+                    <div class="right-1-data">UV Index</div>
+                    <div class="right-1-data"><%= currentWeather.uvIndexMax %></div>
+                    <div class="right-1-data">Wind</div>
+                    <div class="right-1-data"><%= currentWeather.windSpeed %></div>
+                    <div class="right-1-data">Visibility</div>
+                    <div class="right-1-data"><%= currentWeather.visibility %></div>
+                </div>
+                <div class="right-2">
+                    <div class="right-2-data">Low</div>
+                    <div class="right-2-data"><%= currentWeather.minTemperature %></div>
+                    <div class="right-2-data">Humidity</div>
+                    <div class="right-2-data"><%= currentWeather.humidity %></div>
+                    <div class="right-2-data">Direction</div>
+                    <div class="right-2-data"><%= currentWeather.windDirection %></div>
+                    <div class="right-2-data">Precipitation</div>
+                    <div class="right-2-data"><%= currentWeather.precipitationProbabilityMax %> <%= currentWeather.precipitationSum %></div>
+                </div>
+                <div class="right-blank"></div>
+            </div>
+
+            <div class="weather-title-2">
+                <div style="font-size: 15x; font-weight: 750;">Hourly Weather</div>   
+            </div>
+
+            <div class="weather-container">
+                <% for (let i = 0; i < 24; i++) { %>
+                    <div class="weather-hour">
+                        <div class="hour"><%= i %> <%= i < 12 ? 'am' : 'pm' %></div>
+                        <div class="weather-icon">
+                            <% if (parseInt(todayHourlyWeather.precipitationProbability[i]) < 5) { %>
+                                <i class="fas fa-sun"></i>
+                            <% } else if (parseInt(todayHourlyWeather.precipitationProbability[i]) < 15) { %>
+                                <i class="fas fa-cloud-sun"></i>
+                            <% } else if (parseInt(todayHourlyWeather.precipitationProbability[i]) < 30) { %>
+                                <i class="fas fa-cloud"></i>
+                            <% } else { %>
+                                <i class="fas fa-cloud-showers-heavy"></i>
+                            <% } %>
+                        </div>
+                        <div class="temperature"><%= todayHourlyWeather.temperature2m[i] %></div>
+                        <div class="precipitation"><%= todayHourlyWeather.precipitationProbability[i] %></div>
+                    </div>
+                <% } %>
+            </div>
+
+            <div class="weather-title-3">
+                <div style="font-size: 15x; font-weight: 750;">Next 7 Days</div>   
+            </div>
+
+            <div class="weekly-weather-daily">
+                <% dailyWeather.forEach(day => { %>
+                    <div class="weather-day-daily">
+                        <div class="day-header-daily">
+                            <div class="day-name-daily"><%= day.dayOfWeek %></div>
+                            <div class="date-daily"><%= day.date %></div>
+                        </div>
+                        <div class="weather-content-daily">
+                            <div class="weather-icon-daily">
+                                <% if (parseInt(day.precipitationProbabilityMax) < 5) { %>
+                                    <i class="fas fa-sun"></i>
+                                <% } else if (parseInt(day.precipitationProbabilityMax) < 15) { %>
+                                    <i class="fas fa-cloud-sun"></i>
+                                <% } else if (parseInt(day.precipitationProbabilityMax) < 30) { %>
+                                    <i class="fas fa-cloud"></i>
+                                <% } else { %>
+                                    <i class="fas fa-cloud-showers-heavy"></i>
+                                <% } %>
+                            </div>
+                            <div class="temperature-daily">
+                                <div>High <%= day.temperature2mMax %></div>
+                                <div>Low <%= day.temperature2mMin %></div>
+                            </div>
+                            <div class="precipitation-daily">
+                                <div><%= day.precipitationProbabilityMax %></div>
+                                <% if (parseInt(day.precipitationSum) > 0) { %>
+                                    <div><i class="fas fa-tint"></i> <%= day.precipitationSum %></div>
+                                <% } %>
+                            </div>
+                            <div class="weather-description-daily"><%= day.weatherCode %></div>
+                        </div>
+                    </div>
+                <% }) %>
+            </div>
+    </main>
+
+    <footer>
+        <div class="footer-container"    >
+            <h3>Contact</h3>
+            <address>328 Queensberry Street, North Melbourne VIC 3051, Australia.</address>
+            <a href="mailto:hi@viatours.com">hi@viatours.com</a>
+            <p>&copy; Copyright Viatours 2024</p>
+        </div>
+    </footer>
+</body>
+</html>

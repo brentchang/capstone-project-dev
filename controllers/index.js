@@ -22,7 +22,8 @@ const {
     postSendValidationCodeAction,
     getForgetPasswordAction,
     postSendValidationCodeByUsernameAction,
-    postUpdatePasswordAction
+    postUpdatePasswordAction,
+    getWeatherPageAction
 } = require('./SmarsController');
 
 const Controller = {
@@ -44,7 +45,8 @@ const Controller = {
     postSendValidationCodeAction,
     getForgetPasswordAction,
     postSendValidationCodeByUsernameAction,
-    postUpdatePasswordAction
+    postUpdatePasswordAction,
+    getWeatherPageAction
 }
 
 module.exports = {

@@ -18,7 +18,8 @@
         "bookSuccess" : "../views/book-thanks.ejs",
         "trailDetail" : "../views/trail-detail.ejs",
         "signUp" : "../views/sign-up.html",
-        "forgetPassword" : "../views/forget-password.html"
+        "forgetPassword" : "../views/forget-password.html",
+        "weather" : "../views/weather-page.ejs"
     },
     "api-url-config" : {
         "connectTest" : "/api",
@@ -29,7 +30,10 @@
         "send-email" : "/api/sign-up/send-email",
         "find-email-by-username": "/api/forget-password/find-email-by-username",
         "validate-username-existing": "/api/forget-password/validate-username-existing",
-        "update-new-password" : "/api/forget-password/update-new-password"
+        "update-new-password" : "/api/forget-password/update-new-password",
+        "get-current-weather" : "/api/weather/current-weather",
+        "get-daily-weather" :  "/api/weather/daily-weather",
+        "get-today-hourly-weather" : "/api/weather/today-hourly-weather"
     },
     "email-sender" : {
         "service" : "gmail",

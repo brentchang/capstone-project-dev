@@ -1,0 +1,729 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    background-color: #f5f5f5;
+    color: #333;
+}
+
+
+a {
+    text-decoration: none;
+    color: #333;
+}
+
+header {
+    background-color: #fff;
+    padding: 20px 0;
+    border-bottom: 1px solid #ddd;
+}
+
+.header-container {
+    display: flex;
+    /* justify-content: space-between; */
+    align-items: center;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+.landing-pic-area {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+
+.logo {
+    font-size: 24px;
+    font-weight: bold;
+    color: #f66e6e;
+}
+
+nav ul {
+    list-style-type: none;
+    display: flex;
+    gap: 20px;
+    margin-left: 50px;
+    padding: 0;
+}
+
+nav a {
+    text-decoration: none;
+    color: #333;
+    /* font-weight: bold; */
+}
+
+.breadcumb a {
+    text-decoration: none;
+    color: #333;
+    /* font-weight: bold; */
+}
+
+.auth {
+    margin-left: auto;
+}
+
+.auth a {
+    text-decoration: none;
+    color: black;
+    margin-left: 15px;
+    /* font-weight: bold; */
+}
+
+.auth a:nth-child(2) {
+    text-decoration: none;
+    padding: 10px;
+    border: 1px solid black;
+    border-radius: 30px;
+    color: black;
+    margin-left: 15px;
+    /* font-weight: bold; */
+}
+
+main {
+    max-width: 1200px;
+    margin: 20px auto;
+    padding: 0 20px;
+}
+
+.tour-details h1 {
+    font-size: 32px;
+    color: #333;
+}
+
+.tour-details p {
+    font-size: 18px;
+    color: #666;
+}
+
+.gallery {
+    display: grid;
+    grid-template-columns: 3fr 1fr 1fr;
+    grid-template-rows: repeat(2, 1fr);
+    gap: 10px;
+    margin-top: 20px;
+}
+
+.gallery-item:nth-child(1) {
+    grid-row: span 2;
+}
+
+.gallery-item:nth-child(2) {
+    grid-column: span 2;
+}
+
+.gallery-item img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 8px;
+}
+
+.grid {
+    display: grid;
+    grid-template-columns: 3fr 1fr;
+    gap: 10px;
+}
+
+.row {
+    display: flex;
+    gap: 10px;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+.info {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 30px;
+    padding-top: 20px;
+}
+
+.info-item {
+    flex: 1;
+}
+
+body>main>div>div>section.overview>div>div>div>div.icon {
+    padding: 10px;
+    width: 20px;
+    border: 1px solid #E7E6E6;
+    border-radius: 15px;
+}
+
+.icon>i {
+    font-size: 20px;
+    color: #555555;
+}
+
+.info-item>div>div>p {
+    line-height: 1;
+    margin-top: 0;
+    margin-bottom: 0;
+}
+
+.info-item span {
+    display: block;
+    font-weight: bold;
+    color: #333;
+}
+
+.overview h2,
+.inclusions h2,
+.availability h2 {
+    font-size: 24px;
+    margin: 40px 0 20px;
+    color: #333;
+}
+
+.overview p,
+.inclusions div {
+    font-size: 16px;
+    color: #666;
+    line-height: 1.6;
+}
+
+.overview ul {
+    list-style-type: disc;
+    padding-left: 20px;
+    color: #666;
+}
+
+.flex {
+    display: flex;
+    gap: 10px;
+}
+
+.inclusions .included-items {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.inclusions .included-items div {
+    flex: 1 1 calc(33.333% - 10px);
+    background: #fff;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    text-align: center;
+    color: #333;
+    font-weight: bold;
+}
+
+.included-items ul {
+    list-style-type: "✔ ";
+}
+
+.not-included-items ul {
+    list-style-type: "✘ ";
+}
+
+.availability .calendar {
+    display: flex;
+    /* justify-content: center; */
+    margin-top: 20px;
+}
+
+.booking-form {
+    border: 1px solid #ddd;
+    padding: 20px;
+    border-radius: 8px;
+    background-color: #fff;
+    max-width: 300px;
+    margin: 40px auto;
+}
+
+.booking-form label {
+    display: block;
+    margin-bottom: 5px;
+    /* font-weight: bold; */
+    color: #333;
+}
+
+.booking-form input[type="date"],
+.booking-form input[type="number"] {
+    width: 90%;
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+}
+
+.booking-form .extra {
+    display: flex;
+    align-items: center;
+    margin-bottom: 15px;
+}
+
+.booking-form .extra input {
+    margin-right: 10px;
+}
+
+.booking-form .total {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 15px;
+    border-top: 1px solid #ddd;
+    padding-top: 10px;
+}
+
+.booking-form button {
+    width: 100%;
+    background-color: #EB662B;
+    color: #fff;
+    border: none;
+    padding: 10px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+.booking-form button:hover {
+    background-color: #e05a5a;
+}
+
+footer {
+    background-color: #05073C;
+    color: #fff;
+    /* text-align: center; */
+    padding: 20px;
+}
+
+footer a {
+    color: #fff;
+    text-decoration: none;
+}
+
+.footer-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 60px;
+}
+
+.landing-pic-area {
+    display: grid;
+    border-radius: 20px;
+    grid-template-columns: 1fr 1fr;
+    margin-top: 65px;
+}
+
+.landing-pic img {
+    max-width: 100%;
+    max-height: 100%;
+    height: auto;
+}
+
+.weather-title {
+    height: 100px;
+    padding: 20px;
+    padding-top: 65px;
+    padding-bottom: 20px;
+}
+
+.weather-title div {
+    display: block;
+}
+
+.weather-title-2, .weather-title-3{
+    height: 20px;
+    padding: 20px;
+    padding-top: 65px;
+    padding-bottom: 20px;
+}
+
+.weather {
+    display: flex;
+    flex-flow: row;
+    text-align: center;
+    margin-bottom: 50px;
+}
+
+.weather>* {
+    flex: 1 100%;
+    text-align: center;
+}
+
+.left-1,
+.left-2 {
+    display: flex;
+    flex-flow: column;
+    align-items: center;
+    /* Center the child vertically */
+    justify-content: center;
+    /* Center the child horizontally (optional) */
+    height: 200px;
+    /* Set the height of the parent div */
+    /* border: 1px solid black; Optional, for visual reference */
+}
+
+.dushu,
+.weather-icon {
+    font-size: 50px;
+    font-weight: 900;
+}
+
+.feel {
+    background-color: #ddd;
+    padding: 10px;
+}
+
+.feel,
+.weather-desc {
+    /* font-size: 22px; */
+    font-weight: 450;
+}
+
+.right-1 {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+}
+
+.right-1>*:nth-child(odd) {
+    text-align: left;
+    padding-left: 45px;
+    font-weight: 650;
+    width: 80px;
+}
+
+.right-1>*:nth-child(even) {
+    text-align: left;
+    padding-left: 20px;
+    width: 80px;
+}
+
+.right-2 {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+}
+
+.right-2>*:nth-child(odd) {
+    text-align: left;
+    padding-left: 45px;
+    width: 80px;
+    font-weight: 650;
+}
+
+.right-2>*:nth-child(even) {
+    text-align: left;
+    padding-left: 40px;
+    width: 80px;
+}
+
+.weather-icon {
+    color: rgb(159, 150, 150);
+}
+
+.trail-title {
+    height: 35px;
+    padding: 20px;
+    font-size: 30px;
+    font-weight: 750;
+}
+
+.trails {
+    display: flex;
+    align-items: center;
+    /* Center the child vertically */
+    justify-content: center;
+    gap: 25px;
+    padding: 20px;
+}
+
+.trails>* {
+    flex: 1, 100%;
+    /* 这个为什么是无效的？ */
+}
+
+.card {
+    display: grid;
+    grid-template-rows: 1fr 1fr;
+    border: 1px gray solid;
+    border-radius: 12px;
+}
+
+.card-pic img {
+    /* width: 100%;
+    height: 100%; */
+    border-radius: 12px;
+
+}
+
+.card-desc {
+    padding-left: 20px;
+    padding-right: 20px;
+}
+
+.card-desc>* {
+    padding-top: 5px;
+    padding-bottom: 5px;
+}
+
+.avail {
+    display: flex;
+}
+
+.avail>* {
+    flex: 1 100%
+}
+
+.avail>* :nth-child(1) {
+    text-align: left;
+}
+
+.avail>* :nth-child(2) {
+    text-align: right;
+
+}
+
+.inside-line {
+    margin-top: 35px;
+    color: rgb(188, 185, 185);
+    opacity: 35%;
+
+}
+
+.trail-name {
+    font-weight: 700;
+    color: rgb(36, 36, 116);
+}
+
+.card-desc span {
+    color: grey;
+}
+
+
+.gallery {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    grid-template-rows: repeat(2, 300px);
+    gap: 10px;
+    /* width: 90vw;
+    height: 90vh; */
+}
+
+.item img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 10px;
+}
+
+.item-1 {
+    grid-column: span 1;
+    grid-row: span 1;
+}
+
+.item-2 {
+    grid-column: span 2;
+    grid-row: span 1;
+}
+
+.item-3 {
+    grid-column: span 1;
+    grid-row: span 2;
+}
+
+.item-4 {
+    grid-column: span 1;
+    grid-row: span 1;
+}
+
+.item-5 {
+    grid-column: span 1;
+    grid-row: span 1;
+}
+
+.item-6 {
+    grid-column: span 1;
+    grid-row: span 1;
+}
+
+.gallery-title-item {
+    font-size: 26px;
+    font-weight: 750;
+    display: inline;
+}
+
+.gallery-title {
+    margin: 30px auto;
+}
+
+.wrapper {
+    margin: 0 auto;
+    text-align: center;
+}
+
+.wrapper .gallery-title-item {
+    margin: 30px;
+    color: gray;
+}
+
+.wrapper .active {
+    color: rgb(36, 36, 116);
+    padding-bottom: 15px;
+    border-bottom: 5px solid rgb(36, 36, 116);
+}
+
+.specified-name {
+    color: rgb(36, 36, 116);
+    font-size: 26px;
+    font-weight: 750;
+
+    margin-top: 65px;
+    margin-bottom: 35px;
+}
+
+
+.avail-count {
+    text-align: right;
+}
+
+.left-2 {
+    border-right: 1px rgb(182, 181, 181) solid;
+}
+
+.landing-pic-left {
+    border-top-left-radius: 15px;
+    border-bottom-left-radius: 15px;
+}
+
+.landing-pic-left,
+.landing-pic {
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+
+.landing-pic>img {
+    border-top-right-radius: 15px;
+    border-bottom-right-radius: 15px;
+
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: cover;
+}
+
+.landing-pic-txt {
+    margin-top: 3%;
+    margin-left: 5%;
+    font-size: 25px;
+    font-weight: 800;
+    color: white;
+    justify-content: center;
+}
+
+.weather-container {
+    display: flex;
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    padding: 10px;
+    background-color: #f5f5f5;
+}
+
+.weather-hour {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 60px;
+    margin: 0 5px;
+    background-color: white;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    padding: 10px;
+}
+
+.hour {
+    font-size: 14px;
+    margin-bottom: 5px;
+}
+
+.weather-icon {
+    font-size: 24px;
+    margin-bottom: 5px;
+}
+
+.temperature {
+    font-size: 18px;
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+
+.precipitation {
+    font-size: 14px;
+    color: gray;
+}
+
+/* daily weather */
+.weekly-weather-daily {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+}
+
+.weather-day-daily {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 80%;
+    background-color: white;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    margin: 10px 0;
+    padding: 10px;
+}
+
+.day-header-daily {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid #ddd;
+    padding-bottom: 10px;
+    margin-bottom: 10px;
+}
+
+.day-name-daily {
+    font-weight: bold;
+    font-size: 18px;
+}
+
+.date-daily {
+    font-size: 16px;
+    color: gray;
+}
+
+.weather-content-daily {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    align-items: center;
+}
+
+.weather-icon-daily {
+    font-size: 36px;
+    color: #FFA500;
+    flex: 1;
+    text-align: center;
+}
+
+.temperature-daily, .precipitation-daily {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    font-size: 16px;
+    flex: 1;
+    text-align: center;
+}
+
+.weather-description-daily {
+    font-size: 16px;
+    color: gray;
+    text-align: center;
+    flex: 2;
+}

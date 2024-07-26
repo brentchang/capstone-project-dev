@@ -169,6 +169,53 @@ class WeatherServices {
             }
         })
     }
+
+    static getTodayHourlyWeatherData() {
+        return new Promise(async (resolve, reject) => {
+            // 配置
+            const url = "https://api.open-meteo.com/v1/forecast";
+            const range = (start, stop, step) =>
+                Array.from({ length: (stop - start) / step }, (_, i) => start + i * step);
+            const params = {
+                "latitude": 43.47,
+                "longitude": -80.51,
+                "hourly": ["temperature_2m", "precipitation_probability", "precipitation"],
+                "timezone": "America/New_York",
+                "forecast_days": 1
+            };
+            // API calling
+            try {
+                const responses = await fetchWeatherApi(url, params); // Wait for the fetchWeatherApi to complete
+                // Process first location. Add a for-loop for multiple locations or weather models
+                const response = responses[0];
+                const utcOffsetSeconds = response.utcOffsetSeconds();
+
+                const hourly = response.hourly();
+
+                const weatherData = {
+                    hourly: {
+                        time: range(Number(hourly.time()), Number(hourly.timeEnd()), hourly.interval()).map(
+                            (t) => new Date((t + utcOffsetSeconds) * 1000)
+                        ),
+                        temperature2m: hourly.variables(0).valuesArray(),
+                        precipitationProbability: hourly.variables(1).valuesArray(),
+                        precipitation: hourly.variables(2).valuesArray(),
+                    },
+                }
+
+                const finalWeatherData = {
+                    time : weatherData.hourly.time,
+                    temperature2m: weatherData.hourly.temperature2m,
+                    precipitationProbability: weatherData.hourly.precipitationProbability,
+                    precipitation: weatherData.hourly.precipitation
+                }
+
+                resolve({ data : finalWeatherData })
+            } catch (error) {
+                reject(error);
+            }
+        })
+    }
 }
 
 module.exports = WeatherServices;
