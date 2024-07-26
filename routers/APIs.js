@@ -13,6 +13,7 @@ router.post('/sign-up/send-email', APIActions.sendEmailAction)
 router.post('/forget-password/find-email-by-username', APIActions.findEmailByUsernameAction)
 router.post('/forget-password/validate-username-existing', APIActions.ValidateUsernameExistingAction)
 router.post('/forget-password/update-new-password', APIActions.updatePasswordForUsernameAction)
-
+router.get('/weather/current-weather', APIActions.getCurrentWeather)
+router.get('/weather/daily-weather', APIActions.getDailyWeather)
 
 module.exports = router;

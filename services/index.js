@@ -11,10 +11,12 @@ const userService = new UserService(connection);
 const EmailService = require('./EmailServices');
 const emailService = new EmailService(connection);
 
+const weatherService = require('./WeatherServices');
 
 const Services = {
     userService,
-    emailService
+    emailService,
+    weatherService
 }
 
 module.exports = {

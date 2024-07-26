@@ -79,7 +79,7 @@ const generateValidationCodeAction = (req, res) => {
                 Services.userService.updateValidationCode(email, newValidationCode, formattedCurrentTime)
                     .then(result => {
                         if (result.updated) {
-                            res.json({ success: true, message: "Validation code updated successfully", validation_code : newValidationCode });
+                            res.json({ success: true, message: "Validation code updated successfully", validation_code: newValidationCode });
                         } else {
                             res.json({ success: false, message: "Validation code failed to update " });
                         }
@@ -95,12 +95,12 @@ const generateValidationCodeAction = (req, res) => {
                 // format the datetime
                 const date = new Date(currentTimeISO);
                 const formattedCurrentTime = Utils.DateUtils.formatDate(date);
-                    
+
                 // generate validation code, inserting to DB
                 Services.userService.createValidationCode(email, validationCode, formattedCurrentTime)
                     .then(result => {
                         if (result.inserted) {
-                            res.json({ success: true, message: "Validation code generated successfully", validation_code : validationCode });
+                            res.json({ success: true, message: "Validation code generated successfully", validation_code: validationCode });
                         } else {
                             res.json({ success: false, message: "Validation code failed to generated " });
                         }
@@ -156,7 +156,7 @@ const signUpValidateEmailAction = (req, res) => {
 // create new account by the data provided from user
 const createNewAccountAction = async (req, res) => {
     // get the data provided by user
-    const { 
+    const {
         username,
         password, // format - validate by FE
         email, // format - validate by FE
@@ -207,7 +207,7 @@ const findEmailByUsernameAction = (req, res) => {
     Services.emailService.getEmailByUsername(username)
         .then(result => {
             if (result.exists) {
-                res.json({ success: true, message: `The email found`, email : result.record.email });
+                res.json({ success: true, message: `The email found`, email: result.record.email });
             } else {
                 res.json({ success: false, message: `The email not found` });
             }
@@ -233,6 +233,36 @@ const updatePasswordForUsernameAction = async (req, res) => {
         })
 }
 
+const getCurrentWeather = async (req, res) => {
+    // Service calling
+    Services.weatherService.getTodayWeatherData()
+        .then(result => {
+            res.json({
+                success: true,
+                message: `Weather data received`,
+                currentWeather: result.data
+            });
+        })
+        .catch(error => {
+            res.status(500).json({ success: false, message: error.message });
+        })
+}
+
+const getDailyWeather = async (req, res) => {
+    // Service calling
+    Services.weatherService.getIn7DaysDailyWeatherData()
+        .then(result => {
+            res.json({
+                success: true,
+                message: `Weather data received`,
+                currentWeather: result.data
+            });
+        })
+        .catch(error => {
+            res.status(500).json({ success: false, message: error.message });
+        })
+}
+
 const APIActions = {
     apiServerConnectAction,
     signUpValidateUsernameAction,
@@ -242,6 +272,8 @@ const APIActions = {
     createNewAccountAction,
     sendEmailAction,
     findEmailByUsernameAction,
-    updatePasswordForUsernameAction
+    updatePasswordForUsernameAction,
+    getCurrentWeather,
+    getDailyWeather,
 }
 module.exports = APIActions;
