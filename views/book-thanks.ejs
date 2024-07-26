@@ -37,12 +37,20 @@
             <div class="confirmation-box">
                 <div class="icon"><i class="fas fa-check-circle"></i></div>
                 <h2>Thanks for your booking</h2>
-                <p>Your order was completed successfully.</p>
+                <% if (typeof(behave)!= 'undefined') { %>
+                    <p>Your order was updated successfully.</p>
+                <% } else { %>
+                    <p>Your order was completed successfully.</p>
+                <% } %>
                 <div class="order-details">
                     <p>Order Number: <span><%- orderDetail.orderNumber %></span></p>
                     <p>Trail Name: <span><%- orderDetail.trailName %></span></p>
                     <p>Order Date: <span> From <%- orderDetail.startDate %> to <%- orderDetail.endDate %></span></p>
-                    <p>Parking: <span><%- if (orderDetail.parkingNeeded === 1) { truncate('yes') }else{ truncate('no')} %></span></p>
+                    <p>Parking: <span><% if (orderDetail.parkingNeeded === 1) { %>
+                        1 parking space
+                    <% } else { %>
+                        not included
+                    <% } %></span></p>
                     <p>Total: <span><%- Number(orderDetail.adultCount) + Number(orderDetail.childrenCount) %> People</span></p>
                 </div>
                 <div class="actions">

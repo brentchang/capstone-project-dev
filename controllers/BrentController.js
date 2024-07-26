@@ -193,39 +193,77 @@ async function postModifyOrderAction(req, res) {
        const parkingNeeded = parking === 'on' ? 1 : 0;
 
        try {
-        const [orderResults] = await pool.query('SELECT * FROM orders WHERE orderId = ?', [orderId]);
+        // get the max group size of the trail
+        const maxGroupSize = await getMaxGroupSizeById(trailId);
+
+        // get the existing order details
+        const [orderResults] = await pool.query(`SELECT * FROM \`order\` WHERE \`order_num\` = ?`, [orderNumber]);
+        // if the order is not found, return 404 Not Found
         if (orderResults.length === 0) {
             return res.status(404).send('Order not found');
         }
         const existingOrder = orderResults[0];
-        const originalTotalSeats = Number(existingOrder.adultCount) + Number(existingOrder.childrenCount);
+        const newTotalSeats = Number(adults) + Number(children);
+        const originalTotalSeats = Number(existingOrder.adult_num) + Number(existingOrder.child_num);
 
-        const dateRange = getDatesInRange(new Date(startDate), new Date(endDate));
-        const originalDateRange = getDatesInRange(new Date(existingOrder.startDate), new Date(existingOrder.endDate));
+        // new date range
+        const dateRange = getDatesInRange(new Date(from), new Date(to));
+        // original date range
+        const originalDateRange = getDatesInRange(new Date(existingOrder.from_date), new Date(existingOrder.to_date));
 
         // Adjust availability for original date range (restore seats)
         for (let date of originalDateRange) {
             const dateString = date.toISOString().split('T')[0];
-            await pool.query('UPDATE trail_availability SET availableSeats = availableSeats + ? WHERE trailId = ? AND date = ?', [originalTotalSeats, trailId, dateString]);
+            await pool.query(`UPDATE \`trail_availability\` SET \`available_seats\` = \`available_seats\` + ? WHERE trail_id = ? AND date = ?`, [originalTotalSeats, trailId, dateString]);
         }
 
-        // Adjust availability for new date range (reduce seats)
+        // Check availability for new date range
         for (let date of dateRange) {
             const dateString = date.toISOString().split('T')[0];
-            const [availabilityResults] = await pool.query('SELECT availableSeats FROM trail_availability WHERE trailId = ? AND date = ?', [trailId, dateString]);
-            if (availabilityResults.length === 0 || availabilityResults[0].availableSeats < newTotalSeats) {
+            const [availabilityResults] = await pool.query('SELECT available_seats FROM trail_availability WHERE trail_id = ? AND date = ?', [trailId, dateString]);
+            // if the date is not in the database, then assume there are enough seats
+            if (availabilityResults.length === 0){
+                // go through each day in the date range first
+                continue;
+                // await pool.query('INSERT INTO trail_availability (trail_id, available_seats, date) VALUES (?, ?, ?)', [trailId, Number(maxGroupSize) - Number(newTotalSeats), dateString]);
+            } else if (availabilityResults[0].availableSeats < newTotalSeats) {
                 return res.status(400).send(`Not enough available seats on ${dateString}`);
             }
-            await pool.query('UPDATE trail_availability SET availableSeats = availableSeats - ? WHERE trailId = ? AND date = ?', [newTotalSeats, trailId, dateString]);
+        }
+
+        // if all dates are available, update the trail_availability table
+        for (let date of dateRange) {
+            const dateString = date.toISOString().split('T')[0];
+            const [availabilityResults] = await pool.query('SELECT available_seats FROM trail_availability WHERE trail_id = ? AND date = ?', [trailId, dateString]);
+            // if the date is not in the database, then assume there are enough seats
+            if (availabilityResults.length === 0){
+                await pool.query('INSERT INTO trail_availability (trail_id, available_seats, date) VALUES (?, ?, ?)', [trailId, Number(maxGroupSize) - Number(newTotalSeats), dateString]);
+            } else {
+                // if the date is in the database, update the available seats
+                await pool.query('UPDATE trail_availability SET available_seats = available_seats - ? WHERE trail_id = ? AND date = ?', [Number(newTotalSeats), trailId, dateString]);
+            }
         }
 
         // Update order details
-        await pool.query('UPDATE orders SET startDate = ?, endDate = ?, adultCount = ?, childrenCount = ?, parkingNeeded = ? WHERE orderId = ?', [startDate, endDate, adults, children, parking === 'on', orderId]);
+        await pool.query('UPDATE `order` SET from_date = ?, to_date = ?, adult_num = ?, child_num = ?, parking_or_not = ? WHERE order_num = ?', [from, to, adults, children, parkingNeeded, orderNumber]);
 
-        res.send('Booking updated successfully');
+        // render the booking success page
+        res.render(fpath, {
+            orderDetail: {
+                orderNumber: orderNumber,
+                trailName: await getTrailNameById(trailId),
+                startDate: from,
+                endDate: to,
+                adultCount: adults,
+                childrenCount: children,
+                parkingNeeded: parkingNeeded,
+                behave: 'modify'
+            },
+            username: username,
+        });
     } catch (error) {
         console.error(error);
-        res.status(500).send('An error occurred while updating the booking');
+        throw error;
     }
    }
 }
