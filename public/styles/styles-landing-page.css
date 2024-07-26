@@ -350,34 +350,40 @@ footer a {
     font-weight: 450;
 }
 
-.right-1{
+.right-1 {
     display: grid;
     grid-template-columns: 1fr 1fr;
 }
 
-.right-1 > *:nth-child(odd){
-     text-align: left; 
-     padding-left: 45px;
+.right-1>*:nth-child(odd) {
+    text-align: left;
+    padding-left: 45px;
+    font-weight: 650;
+    width: 80px;
+}
+
+.right-1>*:nth-child(even) {
+    text-align: left;
+    padding-left: 20px;
+    width: 80px;
+}
+
+.right-2 {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+}
+
+.right-2>*:nth-child(odd) {
+    text-align: left;
+    padding-left: 45px;
+    width: 80px;
     font-weight: 650;
 }
-.right-1 > *:nth-child(even){
-    text-align: left; 
-    padding-left: 20px;
-}
 
-.right-2{
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-}
-
-.right-2 > *:nth-child(odd){
-    text-align: left; 
-    padding-left: 45px;
-   font-weight: 650;
-}
-.right-2 > *:nth-child(even){
-   text-align: left; 
-   padding-left: 20px;
+.right-2>*:nth-child(even) {
+    text-align: left;
+    padding-left: 40px;
+    width: 80px;
 }
 
 .weather-icon{

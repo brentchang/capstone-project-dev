@@ -57,7 +57,7 @@
 
             <div class="weather-title">
                 <div style="font-size: 30px; font-weight: 750;float: left;">Current Conditions</div>   
-                <a href="#">
+                <a href="/weather">
                     <div style="float: right;">see more</div> 
                 </a>
             </div>
@@ -65,38 +65,34 @@
             <div class="weather">
                 <div class="left-blank"></div>
                 <div class="left-1">
-                    <div class="dushu" >23 ℃</div>
-                    <div class="feel">feels like 23℃</div>
+                    <div class="dushu"><%= currentWeather.temperature %></div>
+                    <div class="feel">feels like <%= currentWeather.temperature %></div>
                 </div>
                 <div class="left-2">
-                    <div class="weather-icon" >
+                    <div class="weather-icon">
                         <i class="fa-solid fa-cloud"></i>
                     </div>
-                    <div class="weather-desc">partly cloudy</div>
+                    <div class="weather-desc"><%= currentWeather.weatherCode %></div>
                 </div>
                 <div class="right-1">
                     <div class="right-1-data">High</div>
-                    <div class="right-1-data" >29℃</div>
-                    <div class="right-1-data">POP</div>
-                    <div class="right-1-data">0%</div>
+                    <div class="right-1-data"><%= currentWeather.maxTemperature %></div>
+                    <div class="right-1-data">UV Index</div>
+                    <div class="right-1-data"><%= currentWeather.uvIndexMax %></div>
                     <div class="right-1-data">Wind</div>
-                    <div class="right-1-data">10km/h</div>
+                    <div class="right-1-data"><%= currentWeather.windSpeed %></div>
                     <div class="right-1-data">Visibility</div>
-                    <div class="right-1-data">16.09km</div>
-                    <div class="right-1-data">Sunrise</div>
-                    <div class="right-1-data">5:23am</div>
+                    <div class="right-1-data"><%= currentWeather.visibility %></div>
                 </div>
                 <div class="right-2">
                     <div class="right-2-data">Low</div>
-                    <div class="right-2-data">13℃</div>
+                    <div class="right-2-data"><%= currentWeather.minTemperature %></div>
                     <div class="right-2-data">Humidity</div>
-                    <div class="right-2-data">64%</div>
-                    <div class="right-2-data">UV</div>
-                    <div class="right-2-data">Low</div>
-                    <div class="right-2-data">Pressure</div>
-                    <div class="right-2-data">101.1kPa</div>
-                    <div class="right-2-data">Sunset</div>
-                    <div class="right-2-data">8:58p.m.</div>
+                    <div class="right-2-data"><%= currentWeather.humidity %></div>
+                    <div class="right-2-data">Direction</div>
+                    <div class="right-2-data"><%= currentWeather.windDirection %></div>
+                    <div class="right-2-data">Precipitation</div>
+                    <div class="right-2-data"><%= currentWeather.precipitationProbabilityMax %> <%= currentWeather.precipitationSum %></div>
                 </div>
                 <div class="right-blank"></div>
             </div>

@@ -257,7 +257,6 @@ const getDailyWeather = async (req, res) => {
         .then(result => {
             // data formatting
             const retData = Utils.WeatherUtils.dailyWeatherDataFormatter(result.data);
-            console.log(retData);
 
             res.json({
                 success: true,

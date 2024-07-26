@@ -7,7 +7,9 @@ const {
 const {
     "views-path-config": viewPaths,
     "database-config": databaseConfig,
-    "api-urls-config": APIs
+    "WebServerBaseURL": webServerBaseURL,
+    "APIServerBaseURL": apiServerBaseURL,
+    "api-url-config": apiUrls
 } = require('../config/config.json');
 
 // access: /login
@@ -20,11 +22,26 @@ const getLoginPageAction = (req, res) => {
 };
 
 // access: /landing
-const getLandingPageAction = (req, res) => {
-    const landingPage = viewPaths.landing;
-    const fpath = path.join(__dirname, landingPage);
+const getLandingPageAction = async (req, res) => {
+    try {
+        // 获取数据
+        // 1）username
+        const username = req.session.username;
+        // 2）当前天气数据
+        let respose = await axios.get(apiServerBaseURL + apiUrls["get-current-weather"]);
+        const currentWeather = respose.data.currentWeather;
 
-    res.render(fpath, {});
+        const landingPage = viewPaths.landing;
+        const fpath = path.join(__dirname, landingPage);
+
+        res.render(fpath, {
+            username : username,
+            currentWeather : currentWeather
+        });
+    } catch (error) {
+        console.error("Error fetching data to landing page:", error);
+        res.status(500).send("Internal Server Error");
+    }
 };
 
 // access: /order-list
