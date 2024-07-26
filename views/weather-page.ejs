@@ -17,6 +17,9 @@
                 <ul>
                     <li><a href="/landing">Home</a></li>
                     <li><a href="/weather">Weather</a></li>
+                    <% if (username) { %>
+                        <li><a href="/order-list">Orders</a></li>
+                    <% } %>
                 </ul>
             </nav>
             <div class="auth">
@@ -25,7 +28,7 @@
                     <a class="btn" href="/logout">Log Out</a>
                 <% } else { %>
                     <a href="/sign-up">Sign up</a>
-                    <a class="btn" href="#">Log in</a>
+                    <a class="btn" href="/login">Log in</a>
                 <% } %>
             </div>
     </header>
