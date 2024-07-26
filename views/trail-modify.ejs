@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title><%- trail.trail_name + " - Conestoga Park" %></title>
+    <title><%- trail.trail_name + " - Modify - Conestoga Park" %></title>
     <link rel="stylesheet" href="/styles/styles-trail-detail.css">
     <!-- font awesome for icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
@@ -85,7 +85,7 @@
             <div class="breadcumb">
                 <a href="/landing">Home</a>
                 <span>></span>
-                <a href="/landing/trail-detail-<%- trail.id %>"><%- trail.trail_name %></a>
+                <a href="/book/modify/<%- order.order_num %>"><%- trail.trail_name %> - Modify Order #<%- order.order_num %></a>
             </div>
             <h1><%- trail.trail_name %></h1>
             <div>
@@ -192,12 +192,12 @@
             </div>
 
             <aside>
-                <form class="booking-form" action="/book" method="post">
+                <form id="modify-form" class="modify-form" action="/book/modify/<%- order.order_num %>" method="post">
                     <div class="form-container">
                         <label for="from">From</label>
-                        <input type="date" id="from" name="from" value="<%- dateStringForToday %>">
+                        <input type="date" id="from" name="from" value="<%- order.from_date %>" disabled>
                         <label for="to">To</label>
-                        <input type="date" id="to" name="to" value="<%- dateStringForEnd %>">
+                        <input type="date" id="to" name="to" value="<%- order.to_date %>" disabled>
                         <h3>Tickets</h2>
                         <label for="adults">Adult</label>
                         <input type="number" id="adults" name="adults" value="0">
@@ -205,15 +205,15 @@
                         <input type="number" id="children" name="children" value="0">
                         <h3>Add Extra</h2>
                         <div class="extra">
-                            <input type="checkbox" id="parking" name="parking">
+                            <input type="checkbox" id="parking" name="parking" <%= orderDetail.parking_or_not === 1 ? 'checked' : '' %>>
                             <label for="parking">Add parking</label>
                         </div>
                         <div class="total">
                             <span>Total:</span>
                             <span id="final-people-count">0 people</span>
                         </div>
-                        <input type="hidden" name="trailId" value="<%- trail.id %>">
-                        <button type="submit">Book Now</button>
+                        <input type="hidden" name="trailId" value="<%- order.trail_id %>">
+                        <button type="submit">Update order</button>
                     </div>
                 </form>
             </aside>
@@ -228,5 +228,18 @@
             <p>&copy; Copyright Viatours 2024</p>
         </div>
     </footer>
+    <script>
+        // Enable the date input field before submitting the form
+        document.addEventListener('DOMContentLoaded', function() {
+            var modifyForm = document.getElementById('modify-form');
+            var fromDateInput = document.getElementById('from');
+            var toDateInput = document.getElementById('to');
+
+            cancelForm.addEventListener('submit', function(event) {
+                // Enable the disabled input field before submitting the form
+                orderNumberInput.disabled = false;
+            });
+        });
+    </script>
 </body>
 </html>
