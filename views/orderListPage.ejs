@@ -8,6 +8,50 @@
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
          <link rel="stylesheet" href="/styles/styles-order-list-page.css">
          <script id="applicationScript" src="/js/order-list-page.js"></script>
+         <style>
+            /* Styles for the modal */
+            .modal {
+                display: none;
+                position: fixed;
+                z-index: 1;
+                left: 0;
+                top: 0;
+                width: 100%;
+                height: 100%;
+                overflow: auto;
+                background-color: rgb(0,0,0);
+                background-color: rgba(0,0,0,0.4);
+                padding-top: 60px;
+            }
+            .modal-content {
+                background-color: #fefefe;
+                margin: 5% auto;
+                padding: 20px;
+                border: 1px solid #888;
+                width: 40%;
+                text-align: center;
+                border-radius: 15px;
+            }
+            .modal-header, .modal-body, .modal-footer {
+                padding: 20px;
+            }
+            .modal-header {
+                background-color: #5cb85c;
+                color: white;
+            }
+            .close {
+                color: white;
+                float: right;
+                font-size: 28px;
+                font-weight: bold;
+            }
+            .close:hover,
+            .close:focus {
+                color: #000;
+                text-decoration: none;
+                cursor: pointer;
+            }
+        </style>
 </head>
 <body>
    
@@ -37,7 +81,7 @@
 
 
             <h1>Orders</h1>
-            <% if (activeOrder) { %>
+            <% if (typeof(activeOrder)!= 'undefined') { %>
              <div class="wrapper">
                 <div class="order-number">Order number: <%= activeOrder.order_num %></div>
                 <div class="order-flex">
@@ -88,7 +132,7 @@
                         <div class="order-number">Order number: <%= order.order_num %></div>
                         <div class="order-flex">
                             <div class="order-flex-item order-flex-item-1">
-                                <img src="/images/home-trail1.png" alt="">
+                                <img src="<%= order.image_main %>" alt="">
                             </div>
                             <div class="order-flex-item order-flex-item-2">
                                 <div class="txt mid-text-1">
@@ -104,7 +148,7 @@
                                 <div class="txt left-text-2"><%= order.date_str %></div>
                                 <div class="txt left-text-3"><%= order.days %> days <%= order.days -1 %> night</div>
                                 <div class="txt left-text-4"><%= order.parking_or_not %> parking space</div>
-                                <div class="txt left-text-5"><%= activeOrder.adult_num + activeOrder.child_num %> people</div>  
+                                <div class="txt left-text-5"><%= Number(order.adult_num) + Number(order.child_num) %> people</div>  
                             </div>
                         </div>
                     </div>
@@ -116,8 +160,27 @@
              <% } %>
         </section>
     </main>
+    <% if (typeof(activeOrder)!='undefined') { %>
+        <!-- Modal pop up -->
+        <div id="cancelModal" class="modal">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <span class="close">&times;</span>
+                    <h2>Cancel Booking</h2>
+                </div>
+                <div class="modal-body">
+                    <p>Are you sure you want to cancel your booking?</p>
+                </div>
+                <div class="modal-footer">
+                    <button id="confirmCancel" class="btn btn-danger">Yes</button>
+                    <button id="closeModal" class="btn btn-secondary">No</button>
+                </div>
+            </div>
+        </div>
+    <% } %>
+    
 
-    <footer  style=" <%= activeOrder ? '':'position: fixed;    bottom: 0;    left: 0;right: 0;' %>" >
+    <footer  style=" <%= activeOrder ? '':'  bottom: 0;    left: 0;right: 0;' %>" >
         <div class="footer-container"    >
             <h3>Contact</h3>
             <address>328 Queensberry Street, North Melbourne VIC 3051, Australia.</address>
@@ -125,5 +188,45 @@
             <p>&copy; Copyright Viatours 2024</p>
         </div>
     </footer>
+    <% if (typeof(activeOrder)!='undefined') { %>
+        <script>
+            document.addEventListener('DOMContentLoaded', function() {
+                var modal = document.getElementById('cancelModal');
+                var cancelBtn = document.querySelector('.btn-cancel');
+                var closeBtn = document.querySelector('.close');
+                var confirmCancelBtn = document.getElementById('confirmCancel');
+                var closeModalBtn = document.getElementById('closeModal');
+
+                // When the user clicks the cancel button, open the modal
+                cancelBtn.onclick = function(event) {
+                    event.preventDefault();
+                    modal.style.display = 'block';
+                }
+
+                // When the user clicks on <span> (x), close the modal
+                closeBtn.onclick = function() {
+                    modal.style.display = 'none';
+                }
+
+                // When the user clicks No, close the modal
+                closeModalBtn.onclick = function() {
+                    modal.style.display = 'none';
+                }
+
+                // When the user clicks Yes, redirect to the cancel API
+                confirmCancelBtn.onclick = function() {
+                    var orderNum = '<%= activeOrder.order_num %>';
+                    window.location.href = '/order/cancel/' + orderNum;
+                }
+
+                // When the user clicks anywhere outside of the modal, close it
+                window.onclick = function(event) {
+                    if (event.target == modal) {
+                        modal.style.display = 'none';
+                    }
+                }
+            });
+        </script>
+    <% } %>
 </body>
 </html>

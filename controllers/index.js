@@ -9,7 +9,8 @@ const {
     postTrailBookAction,
     getBookingSuccessAction,
     getModifyOrderAction,
-    postModifyOrderAction
+    postModifyOrderAction,
+    getCancelOrderAction
 } = require('./BrentController');
 const {
     getLoginPageAction,
@@ -42,6 +43,7 @@ const Controller = {
     postTrailBookAction,
     getModifyOrderAction,
     postModifyOrderAction,
+    getCancelOrderAction,
 
     // Smars Controller
     getSignUpPageAction,

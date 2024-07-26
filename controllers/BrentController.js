@@ -268,6 +268,30 @@ async function postModifyOrderAction(req, res) {
    }
 }
 
+// method: GET
+// access: /order/cancel/:orderNumber
+// purpose: cancel the order
+async function getCancelOrderAction(req, res) {
+    const orderNumber = req.params.orderNumber;
+    // check if the user is logged in
+    if (!req.session.username) {
+        res.redirect('/login');
+        return;
+    }
+    // get the order details
+    const [orderResults] = await pool.query(`SELECT * FROM \`order\` WHERE \`order_num\` = ?`, [orderNumber]);
+    // if the order is not found, return 404 Not Found
+    if (orderResults.length === 0) {
+        return res.status(404).send('Order not found');
+    }
+    // update the order status to cancelled
+    await pool.query('UPDATE `order` SET status_code = 1 WHERE order_num = ?', [orderNumber]);
+    // redirect to the order list page
+    res.redirect('/order-list');
+}
+        
+
+
 // connection pool for mysql
 const pool = mysql2.createPool({
     host: databaseConfig['localhost'],
@@ -590,5 +614,6 @@ module.exports = {
     getBookingSuccessAction,
     postTrailBookAction,
     getModifyOrderAction,
-    postModifyOrderAction
+    postModifyOrderAction,
+    getCancelOrderAction
 }

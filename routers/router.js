@@ -16,6 +16,7 @@ router.post('/login', Controller.postLoginAction);
 router.get('/landing/trail-detail-:id', Controller.getTrailDetailAction);
 router.post('/order', Controller.postTrailBookAction);
 router.get('/order/modify/:orderNumber', Controller.getModifyOrderAction);
+router.get('/order/cancel/:orderNumber', Controller.getCancelOrderAction);
 router.post('/order/modify/:orderNumber', Controller.postModifyOrderAction);
 router.get('/book-success', Controller.getBookingSuccessAction);
 router.get('/sign-up', Controller.getSignUpPageAction);

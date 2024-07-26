@@ -340,6 +340,9 @@ footer a {
     flex: 1 100%;
 } */
 
+.order-flex-item{
+    margin: 15px;
+}
 
 .order-flex-item-1{
     flex: 1 100%;
