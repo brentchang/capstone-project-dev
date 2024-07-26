@@ -21,12 +21,12 @@
             <nav>
                 <ul>
                     <li><a href="/landing">Home</a></li>
-                    <li><a href="#">Weather</a></li>
+                    <li><a href="/weather">Weather</a></li>
                 </ul>
             </nav>
             <% if (username) { %>
                 <div class="auth">
-                    <a href="#">Hi,  <%= username %>!</a>
+                    <a class="nopointer" href="#">Hi,  <%= username %>!</a>
                     <a href="/logout">Log Out</a>
                 </div>
                 <% }else{ %>
@@ -129,7 +129,7 @@
                 </a>
 
 
-                <a href="/landing/trail-detail-1">
+                <a href="/landing/trail-detail-2">
                     <div class="card">
                         <div class="card-pic">
                             <img src="/images/home-trail2.png">
@@ -154,7 +154,7 @@
                 </a>
 
 
-                <a href="/landing/trail-detail-1">
+                <a href="/landing/trail-detail-3">
                     <div class="card">
                         <div class="card-pic">
                             <img src="/images/home-trail3.png">
