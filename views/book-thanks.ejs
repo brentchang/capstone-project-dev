@@ -46,7 +46,7 @@
                     <p>Total: <span><%- Number(orderDetail.adultCount) + Number(orderDetail.childrenCount) %> People</span></p>
                 </div>
                 <div class="actions">
-                    <a href="/booking/modify" class="modify">Modify Booking</a>
+                    <a href="/order/modify/<%- orderDetail.orderNumber %>" class="modify">Modify Booking</a>
                     <a href="#" class="cancel">Cancel Booking</a>
                 </div>
             </div>

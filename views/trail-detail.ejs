@@ -192,7 +192,7 @@
             </div>
 
             <aside>
-                <form class="booking-form" action="/book" method="post">
+                <form class="booking-form" action="/order" method="post">
                     <div class="form-container">
                         <label for="from">From</label>
                         <input type="date" id="from" name="from" value="<%- dateStringForToday %>">
@@ -209,8 +209,8 @@
                             <label for="parking">Add parking</label>
                         </div>
                         <div class="total">
-                            <span>Total:</span>
-                            <span id="final-people-count">0 people</span>
+                            <!-- <span>Total:</span> -->
+                            <!-- <span id="final-people-count">0 people</span> -->
                         </div>
                         <input type="hidden" name="trailId" value="<%- trail.id %>">
                         <button type="submit">Book Now</button>

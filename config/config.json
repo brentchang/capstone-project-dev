@@ -17,6 +17,7 @@
         "orderList" : "../views/orderListPage.ejs",
         "bookSuccess" : "../views/book-thanks.ejs",
         "trailDetail" : "../views/trail-detail.ejs",
+        "trailModify" : "../views/trail-modify.ejs",
         "signUp" : "../views/sign-up.html",
         "forgetPassword" : "../views/forget-password.html",
         "weather" : "../views/weather-page.ejs"

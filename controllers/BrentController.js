@@ -117,8 +117,7 @@ const getBookingSuccessAction = (req, res) => {
 // access: /book/modify/:orderNumber
 // purpose: modify the order
 async function getModifyOrderAction(req, res) {
-    // share the same page with trail detail
-    const modifyOrderPage = viewPaths.trailDetail;
+    const modifyOrderPage = viewPaths.trailModify;
     const fpath = path.join(__dirname, modifyOrderPage);
     // check if the user is logged in
     if (!req.session.username) {
@@ -130,12 +129,28 @@ async function getModifyOrderAction(req, res) {
         const order = await getOrderDetailByOrderNumber(orderNumber);
         // get the availability for the calendar view
         const events = await getAllTrailAvailabilityForCalendarById(order.trail_id);
+        // get the trail details
+        const trail = await getTrailById(order.trail_id);
+
+        // convert the date to string
+        const fromDate = new Date(order.from_date);
+        const fromDateString = new Date(fromDate.getTime() - (fromDate.getTimezoneOffset() * 60000 ))
+                    .toISOString()
+                    .split("T")[0];
+
+        const toDate = new Date(order.to_date);
+        const toDateString = new Date(toDate.getTime() - (toDate.getTimezoneOffset() * 60000 ))
+                    .toISOString()
+                    .split("T")[0];
         // if the order is not found, return 404 Not Found
-        if (order.length() === 0) {
+        if (order.length === 0) {
             return res.end('404 Not Found!');
         }else{
             // render the modify order page
             res.render(fpath, {
+                fromDateString: fromDateString,
+                toDateString: toDateString,
+                trail: trail,
                 order: order,
                 username: req.session.username,
                 events: events
@@ -177,30 +192,41 @@ async function postModifyOrderAction(req, res) {
        // 1 for parking needed, 0 for parking not needed
        const parkingNeeded = parking === 'on' ? 1 : 0;
 
-       // compare the new order with the old order
-       const oldOrder = await getOrderDetailByOrderNumber(orderNumber);
-         if (oldOrder.trail_id === trailId && oldOrder.from_date === from && oldOrder.to_date === to && oldOrder.adult_num === adults && oldOrder.child_num === children && oldOrder.parking_or_not === parkingNeeded) {
-              return res.end('The new order is the same as the old order!').status(400);
-         }else{
+       try {
+        const [orderResults] = await pool.query('SELECT * FROM orders WHERE orderId = ?', [orderId]);
+        if (orderResults.length === 0) {
+            return res.status(404).send('Order not found');
+        }
+        const existingOrder = orderResults[0];
+        const originalTotalSeats = Number(existingOrder.adultCount) + Number(existingOrder.childrenCount);
 
-         }
-       // if the new order is the same as the old order, return error message
+        const dateRange = getDatesInRange(new Date(startDate), new Date(endDate));
+        const originalDateRange = getDatesInRange(new Date(existingOrder.startDate), new Date(existingOrder.endDate));
 
-       // check availability
-       // TODO: need to add a relationship between order and trail availability
-       const availability = await getTrailAvailabilityById(trailId, from, to, Number(adults) + Number(children));
-       // if not available, return error message
-       if (!availability || !availability.success) {
-           return res.end(availability.message).status(400);
-       }else{
-           // if available, update the trail order
-           const orderDetail = await updateOrderTrailWriteToDb(orderNumber,username, trailId, from, to, adults, children, parkingNeeded);
-           // render the booking success page
-           res.render(fpath, {
-               orderDetail: orderDetail,
-               username: username
-           });
-       }
+        // Adjust availability for original date range (restore seats)
+        for (let date of originalDateRange) {
+            const dateString = date.toISOString().split('T')[0];
+            await pool.query('UPDATE trail_availability SET availableSeats = availableSeats + ? WHERE trailId = ? AND date = ?', [originalTotalSeats, trailId, dateString]);
+        }
+
+        // Adjust availability for new date range (reduce seats)
+        for (let date of dateRange) {
+            const dateString = date.toISOString().split('T')[0];
+            const [availabilityResults] = await pool.query('SELECT availableSeats FROM trail_availability WHERE trailId = ? AND date = ?', [trailId, dateString]);
+            if (availabilityResults.length === 0 || availabilityResults[0].availableSeats < newTotalSeats) {
+                return res.status(400).send(`Not enough available seats on ${dateString}`);
+            }
+            await pool.query('UPDATE trail_availability SET availableSeats = availableSeats - ? WHERE trailId = ? AND date = ?', [newTotalSeats, trailId, dateString]);
+        }
+
+        // Update order details
+        await pool.query('UPDATE orders SET startDate = ?, endDate = ?, adultCount = ?, childrenCount = ?, parkingNeeded = ? WHERE orderId = ?', [startDate, endDate, adults, children, parking === 'on', orderId]);
+
+        res.send('Booking updated successfully');
+    } catch (error) {
+        console.error(error);
+        res.status(500).send('An error occurred while updating the booking');
+    }
    }
 }
 
@@ -524,5 +550,7 @@ function getDatesInRange(startDate, endDate) {
 module.exports = {
     getTrailDetailAction,
     getBookingSuccessAction,
-    postTrailBookAction
+    postTrailBookAction,
+    getModifyOrderAction,
+    postModifyOrderAction
 }

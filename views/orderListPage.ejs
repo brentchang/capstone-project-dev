@@ -32,7 +32,7 @@
             <div class="breadcumb">
                 <a href="/landing">Home</a>
                 <span>></span>
-                <a href="#">Orders</a>
+                <a href="/order-list">Orders</a>
             </div>
 
 
@@ -42,7 +42,7 @@
                 <div class="order-number">Order number: <%= activeOrder.order_num %></div>
                 <div class="order-flex">
                     <div class="order-flex-item order-flex-item-1">
-                        <img src="/images/home-trail1.png" alt="">
+                        <img src="<%= activeOrder.image_main %>" alt="">
                     </div>
                     <div class="order-flex-item order-flex-item-2">
                         <div class="mid-text-1">
@@ -59,7 +59,7 @@
                         <div class="left-text-3"><%= activeOrder.days %> days <%= activeOrder.days-1 %> night</div>
                         <div class="left-text-4"><%= activeOrder.parking_or_not %> parking space</div>
                         <div class="left-text-5"><%= activeOrder.adult_num + activeOrder.child_num %> people</div>  
-                        <a href="#">
+                        <a href="/order/modify/<%- activeOrder.order_num %>">
                             <div class="btn-modify">
                                 Modify Booking
                             </div>
