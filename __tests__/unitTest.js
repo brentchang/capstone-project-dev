@@ -11,4 +11,4 @@ it("tests getting correct type from formatDateString", ()=>{
 
 it("tests getting a date range from a funtion", ()=>{
     expect(BrentController.getDatesInRange(new Date("2024-07-25T04:00:00.000Z"),new Date("2024-07-27T04:00:00.000Z"))).toHaveLength(3);
-});
+});  
