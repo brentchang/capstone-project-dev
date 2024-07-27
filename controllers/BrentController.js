@@ -630,5 +630,6 @@ module.exports = {
     postModifyOrderAction,
     getCancelOrderAction,
     // export the functions for testing
-    formatDateString
+    formatDateString,
+    getDatesInRange
 }
