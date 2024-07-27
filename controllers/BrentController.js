@@ -289,8 +289,6 @@ async function getCancelOrderAction(req, res) {
     // redirect to the order list page
     res.redirect('/order-list');
 }
-        
-
 
 // connection pool for mysql
 const pool = mysql2.createPool({
@@ -487,21 +485,23 @@ async function bookTrailWriteToDb(username, trailId, startDate, endDate, adultCo
         // insert the booking record into the database
         // order table
         // status_code: 0 for booked, 1 for cancelled
-        await pool.query(`INSERT INTO \`order\` (\`order_num\`, \`trail_id\`, \`from_date\`,\`to_date\`, \`adult_num\`, \`child_num\`,\`parking_or_not\`, \`status_code\`, \`order_time\`, \`last_updated_time\`)
+        const insertresult = await pool.query(`INSERT INTO \`order\` (\`order_num\`, \`trail_id\`, \`from_date\`,\`to_date\`, \`adult_num\`, \`child_num\`,\`parking_or_not\`, \`status_code\`, \`order_time\`, \`last_updated_time\`)
             VALUES (?, ?, ?, ?, ?, ?, ?, 0, ?, ?)
             `, [orderNumber, trailId, startDate, endDate, adultCount, childrenCount, parkingNeeded, orderTime, orderTime]);
+
+            console.log('insertresult:', insertresult);
         // look up the order id
         const [orderId] = await pool.query(`
-            SELECT id
+            SELECT \`id\`
             FROM \`order\`
-            WHERE order_num = ?
+            WHERE \`order_num\` = ?
             LIMIT 1
             `, [orderNumber]);
         // user_order table to link user and order
         await pool.query(`
             INSERT INTO \`user_order\` (\`user_id\`, \`order_id\`)
             VALUES (?, ?)
-            `, [userId, [orderId][0].id]);
+            `, [userId, orderId[0].id]);
         
         // insert or update the available seats on each day
         const days = (endDate - startDate) / (1000 * 60 * 60 * 24) + 1;
@@ -609,11 +609,26 @@ function getDatesInRange(startDate, endDate) {
     return dates;
 }
 
+// Helper function to get the date string
+/**
+ * Converts a date string to a formatted date string adjusted for timezone offset.
+ * @param {string} dateString - The date string to convert.
+ * @returns {string} - The formatted date string.
+ */
+function formatDateString(dateString) {
+    const date = new Date(dateString);
+    const adjustedDate = new Date(date.getTime() - (date.getTimezoneOffset() * 60000));
+    return adjustedDate.toISOString().split("T")[0];
+}
+
+
 module.exports = {
     getTrailDetailAction,
     getBookingSuccessAction,
     postTrailBookAction,
     getModifyOrderAction,
     postModifyOrderAction,
-    getCancelOrderAction
+    getCancelOrderAction,
+    // export the functions for testing
+    formatDateString
 }
