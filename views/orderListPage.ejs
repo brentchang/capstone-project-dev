@@ -75,7 +75,7 @@
 
     <main>
         <section class="tour-details">
-            <!-- breadcumb -->
+            <!-- breadcrumb -->
             <div class="breadcumb">
                 <a href="/landing">Home</a>
                 <span>></span>
@@ -193,20 +193,28 @@
             <p>&copy; Copyright Conestoga Park 2024</p>
         </div>
     </footer>
-    <% if (typeof(activeOrder)!='undefined') { %>
+    <% if (typeof(activeOrder)!='undefined'&& activeOrder.length>0) { %>
         <script>
             document.addEventListener('DOMContentLoaded', function() {
                 var modal = document.getElementById('cancelModal');
-                var cancelBtn = document.querySelector('.btn-cancel');
+                // var cancelBtn = document.querySelector('.btn-cancel');
                 var closeBtn = document.querySelector('.close');
                 var confirmCancelBtn = document.getElementById('confirmCancel');
                 var closeModalBtn = document.getElementById('closeModal');
 
-                // When the user clicks the cancel button, open the modal
-                cancelBtn.onclick = function(event) {
-                    event.preventDefault();
-                    modal.style.display = 'block';
-                }
+                // Select all cancel buttons
+                var cancelBtns = document.querySelectorAll('.btn-cancel');
+
+                // Iterate over each cancel button to add click event
+                cancelBtns.forEach(function(cancelBtn) {
+                    cancelBtn.onclick = function(event) {
+                        event.preventDefault();
+                        modal.style.display = 'block';
+
+                        // Store the order number in the confirm button's dataset
+                        confirmCancelBtn.dataset.orderNum = cancelBtn.dataset.orderNum;
+                    }
+                });
 
                 // When the user clicks on <span> (x), close the modal
                 closeBtn.onclick = function() {
