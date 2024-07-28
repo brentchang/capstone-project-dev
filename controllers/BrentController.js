@@ -87,7 +87,7 @@ async function postTrailBookAction (req, res) {
         const availability = await getTrailAvailabilityById(trailId, from, to, Number(adults) + Number(children));
         // if not available, return error message
         if (!availability || !availability.success) {
-            return res.end(availability.message).status(400);
+            return res.end(availability.message);
         }else{
             // if available, book the trail
             const orderDetail = await bookTrailWriteToDb(req.session.username, trailId, from, to, adults, children, parkingNeeded);
@@ -183,7 +183,7 @@ async function postModifyOrderAction(req, res) {
 
        // verify input data
        if (!trailId || !from || !to || !adults || !children || adults <= 0 || children < 0) {
-           return res.end('Invalid input data!').status(400);
+           return res.end('Invalid input data!');
        }
 
        // convert the parking to boolean
@@ -227,7 +227,7 @@ async function postModifyOrderAction(req, res) {
                 continue;
                 // await pool.query('INSERT INTO trail_availability (trail_id, available_seats, date) VALUES (?, ?, ?)', [trailId, Number(maxGroupSize) - Number(newTotalSeats), dateString]);
             } else if (availabilityResults[0].availableSeats < newTotalSeats) {
-                return res.status(400).send(`Not enough available seats on ${dateString}`);
+                return res.send(`Not enough available seats on ${dateString}`);
             }
         }
 
