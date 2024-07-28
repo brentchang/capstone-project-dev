@@ -124,7 +124,7 @@ async function getUserByUserName(uname) {
     left join trail on trail.id = conestoga_provincial_park_test.order.trail_id
     WHERE user.username = ? and conestoga_provincial_park_test.order.status_code = 0
     `, [uname])
-    return rows[0]
+    return rows
   }
 
   async function getPastOrders(uname) {

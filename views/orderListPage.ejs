@@ -85,7 +85,7 @@
 
             <h1>Orders</h1>
             <% if (typeof(activeOrder)!= 'undefined' && activeOrder.length>0) { %>
-                <% pastOrders.forEach(activeOrder => { %>
+                <% activeOrder.forEach(activeOrder => { %>
              <div class="wrapper">
                 <div class="order-number">Order number: <%= activeOrder.order_num %></div>
                 <div class="order-flex">
@@ -113,7 +113,7 @@
                             </div>
                         </a>
                         <a href="#">
-                            <div class="btn-cancel">
+                            <div class="btn-cancel" id = "btn-cancel-<%- activeOrder.order_num %>">
                                 Cancel Booking
                             </div>
                         </a>
@@ -198,23 +198,42 @@
             document.addEventListener('DOMContentLoaded', function() {
                 var modal = document.getElementById('cancelModal');
                 // var cancelBtn = document.querySelector('.btn-cancel');
-                var closeBtn = document.querySelector('.close');
+                
                 var confirmCancelBtn = document.getElementById('confirmCancel');
                 var closeModalBtn = document.getElementById('closeModal');
 
                 // Select all cancel buttons
-                var cancelBtns = document.querySelectorAll('.btn-cancel');
+                // var cancelBtns = document.querySelectorAll('.btn-cancel');
 
-                // Iterate over each cancel button to add click event
-                cancelBtns.forEach(function(cancelBtn) {
-                    cancelBtn.onclick = function(event) {
+                <% activeOrder.forEach(activeOrder => { %>
+                    var cancelBtn<%- activeOrder.order_num %> = document.getElementById('btn-cancel-<%- activeOrder.order_num %>');
+                    cancelBtn<%- activeOrder.order_num %>.dataset.orderNum = '<%- activeOrder.order_num %>';
+                    cancelBtn<%- activeOrder.order_num %>.onclick = function(event) {
                         event.preventDefault();
                         modal.style.display = 'block';
-
                         // Store the order number in the confirm button's dataset
                         confirmCancelBtn.dataset.orderNum = cancelBtn.dataset.orderNum;
                     }
-                });
+                <% }) %>
+
+                // var closeBtn = document.querySelector('.close');
+                // cancelBtn.onclick = function(event) {
+                //         event.preventDefault();
+                //         modal.style.display = 'block';
+
+                //         // Store the order number in the confirm button's dataset
+                //         confirmCancelBtn.dataset.orderNum = cancelBtn.dataset.orderNum;
+                // }
+                // // Iterate over each cancel button to add click event
+                // cancelBtns.forEach(function(cancelBtn) {
+                //     cancelBtn.onclick = function(event) {
+                //         event.preventDefault();
+                //         modal.style.display = 'block';
+
+                //         // Store the order number in the confirm button's dataset
+                //         confirmCancelBtn.dataset.orderNum = cancelBtn.dataset.orderNum;
+                //     }
+                // });
 
                 // When the user clicks on <span> (x), close the modal
                 closeBtn.onclick = function() {
@@ -228,7 +247,7 @@
 
                 // When the user clicks Yes, redirect to the cancel API
                 confirmCancelBtn.onclick = function() {
-                    var orderNum = '<%= activeOrder.order_num %>';
+                    var orderNum = confirmCancelBtn.dataset.orderNum;
                     window.location.href = '/order/cancel/' + orderNum;
                 }
 
