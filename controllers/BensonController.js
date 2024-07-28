@@ -18,7 +18,9 @@ const getLoginPageAction = (req, res) => {
     const loginPage = viewPaths.login;
     const fpath = path.join(__dirname, loginPage);
 
-    res.render(fpath, {});
+    const message = req.session.message;
+    req.session.message = null; // clear the message after retrieving it
+    res.render(fpath, { message: message });
 };
 
 // access: /landing
@@ -81,15 +83,14 @@ const postLoginAction =  async (req, res) =>  {
     const name = req.body.name;
     const pass = req.body.password;
     const users = await getUserByUserName(name);
-    console.log("-------users ------------: ");
-    console.log(users);
-
-    if( pass == users.password){
+    if( users &&  pass == users.password){
         console.log('login success.');
         req.session.username = name;
         req.session.userLoggedIn = true;
         res.redirect('/order-list');
     }else{
+        //const message = encodeURIComponent('');
+        req.session.message = 'user name or password incorrect, please try again.';
         res.redirect('/login');
     }
 }
