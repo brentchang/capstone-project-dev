@@ -84,7 +84,8 @@
 
 
             <h1>Orders</h1>
-            <% if (typeof(activeOrder)!= 'undefined') { %>
+            <% if (typeof(activeOrder)!= 'undefined' && activeOrder.length>0) { %>
+                <% pastOrders.forEach(activeOrder => { %>
              <div class="wrapper">
                 <div class="order-number">Order number: <%= activeOrder.order_num %></div>
                 <div class="order-flex">
@@ -119,6 +120,7 @@
                     </div>
                 </div>
              </div>
+             <% }) %>
              <% }else{ %>
                 <div class="wrapper">
                     No orders yet.
