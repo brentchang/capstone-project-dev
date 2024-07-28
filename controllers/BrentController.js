@@ -74,7 +74,7 @@ async function postTrailBookAction (req, res) {
 
         // verify input data
         if (!trailId || !from || !to || !adults || !children || adults <= 0 || children < 0) {
-            return res.end('Invalid input data!').status(400);
+            return res.end('Invalid input data!');
         }
 
         // convert the parking to boolean
