@@ -53,10 +53,13 @@ const getOrderListPageAction = async (req, res) => {
         res.redirect('/login');
         return;
     }
-    const activeOrder = await getActiveOrder(req.session.username)
-   // console.log(activeOrder);
+    var activeOrder = await getActiveOrder(req.session.username)
+    // console.log(activeOrder);
 
-    
+    // Ensure activeOrder is an array
+    if (!Array.isArray(activeOrder)) {
+        activeOrder = [activeOrder];
+    }
 
     const pastOrders = await getPastOrders(req.session.username)
     console.log(pastOrders);
