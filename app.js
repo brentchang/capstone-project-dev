@@ -6,12 +6,18 @@ const {
     fileUpload,
     mysql2
 } = require('./config/dependencies.js'); // import dependencies 
+
+// add environment support for dev and prod
+const config = require('./config/config.json');
+const env = process.env.NODE_ENV || 'development';
 const {
     "database-config": databaseConfig,
     "ports-config": ports,
     "WebServerBaseURL" : WebServerBaseURL,
     "APIServerBaseURL" : APIServerBaseURL,
-} = require('./config/config.json')
+} = config[env];
+
+console.log(`Environment: ${env}`);
 
 // create servers
 const webServer = express();
