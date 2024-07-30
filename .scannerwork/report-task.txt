@@ -1,0 +1,6 @@
+projectKey=capstone-project-dev
+serverUrl=http://localhost:9000
+serverVersion=10.5.1.90531
+dashboardUrl=http://localhost:9000/dashboard?id=capstone-project-dev
+ceTaskId=1d33ebc2-2954-4fef-9d0e-5f26c6498dff
+ceTaskUrl=http://localhost:9000/api/ce/task?id=1d33ebc2-2954-4fef-9d0e-5f26c6498dff
