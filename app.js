@@ -8,7 +8,9 @@ const {
 } = require('./config/dependencies.js'); // import dependencies 
 const {
     "database-config": databaseConfig,
-    "ports-config": ports
+    "ports-config": ports,
+    "WebServerBaseURL" : WebServerBaseURL,
+    "APIServerBaseURL" : APIServerBaseURL,
 } = require('./config/config.json')
 
 // create servers
@@ -34,7 +36,6 @@ webServer.use(session({
     }
 }))
 
-
 webServer.use((req, res, next) => {
     if (req.session.username) {
       res.locals.username = req.session.username;
@@ -49,8 +50,7 @@ webServer.use((req, res, next) => {
 // CORS registration
 APIServer.use(cors({
     origin: [
-        `http://127.0.0.1:${ports.webServerPort}`,
-        `http://localhost:${ports.webServerPort}`
+        WebServerBaseURL
     ]
 }))
 
@@ -79,9 +79,9 @@ APIServer.use('/api', APIs); // register API routers
 
 // launch the app server
 webServer.listen(ports.webServerPort, () => {
-    console.log(`Project Web Server is running at http://127.0.0.1:${ports.webServerPort}`);
+    console.log(`Project Web Server is running at ${WebServerBaseURL}`);
 })
 APIServer.listen(ports.apiServerPort, () => {
-    console.log(`API Server is running at http://127.0.0.1:${ports.apiServerPort}`);
+    console.log(`API Server is running at ${APIServerBaseURL}`);
 })
 
