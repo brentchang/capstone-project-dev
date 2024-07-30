@@ -10,10 +10,15 @@ const {
     WeatherUtils
 } = require('./WeatherUtils')
 
+const {
+    PasswordUtils
+} = require('./PasswordUtils')
+
 const Utils = {
     DateUtils,
     ValidationCodeUtils,
-    WeatherUtils
+    WeatherUtils,
+    PasswordUtils
 }
 
 

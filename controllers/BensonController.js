@@ -12,6 +12,10 @@ const {
     "api-url-config": apiUrls
 } = require('../config/config.json');
 
+const {
+    Utils
+} = require('../utils/index')
+
 // access: /login
 const getLoginPageAction = (req, res) => {
     req.session.username = req.body.username;
@@ -83,7 +87,14 @@ const postLoginAction =  async (req, res) =>  {
     const name = req.body.name;
     const pass = req.body.password;
     const users = await getUserByUserName(name);
-    if( users &&  pass == users.password){
+
+    // Smars => 密码解析匹配
+    const isPasswordMatched = await Utils.PasswordUtils.verifyPassword(pass, users.password);
+    // console.log(pass); // plain password
+    // console.log(users.password); // encrypted password
+    // console.log(isPasswordMatched);
+
+    if( users && isPasswordMatched){
         console.log('login success.');
         req.session.username = name;
         req.session.userLoggedIn = true;
