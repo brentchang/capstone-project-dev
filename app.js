@@ -10,12 +10,11 @@ const {
 // add environment support for dev and prod
 const config = require('./config/config.json');
 const env = process.env.NODE_ENV || 'development';
-const {
-    "database-config": databaseConfig,
-    "ports-config": ports,
-    "WebServerBaseURL" : WebServerBaseURL,
-    "APIServerBaseURL" : APIServerBaseURL,
-} = config[env];
+// const envConfig = config[env];
+const finalConfig = {
+    ...config['shared'],
+    ...config[env]
+}
 
 console.log(`Environment: ${env}`);
 
@@ -23,7 +22,7 @@ console.log(`Environment: ${env}`);
 const webServer = express();
 const APIServer = express();
 
-// mount the static resourses
+// mount the static resources
 webServer.use(express.static('./public'));
 
 // use middleware
@@ -44,28 +43,27 @@ webServer.use(session({
 
 webServer.use((req, res, next) => {
     if (req.session.username) {
-      res.locals.username = req.session.username;
+        res.locals.username = req.session.username;
     } else {
-      res.locals.username = null;
+        res.locals.username = null;
     }
     next();
-  });
-
-  webServer.use(express.json());
-
+});
+console.log(`webServerBaseURL: ${finalConfig['WebServerBaseURL']}`);
+webServer.use(express.json());
 // CORS registration
 APIServer.use(cors({
     origin: [
-        WebServerBaseURL
+        finalConfig['WebServerBaseURL'],
     ]
 }))
 
 // connect the DB and export the connection 
 const connection = mysql2.createConnection({
-    host: databaseConfig['localhost'],
-    user: databaseConfig['username'],
-    password: databaseConfig['password'],
-    database: databaseConfig['database']
+    host: finalConfig["databaseConfig"]["host"],
+    user: finalConfig["databaseConfig"]["user"],
+    password: finalConfig["databaseConfig"]["password"],
+    database: finalConfig["databaseConfig"]["database"]
 });
 connection.connect(error => {
     if (error) {
@@ -83,11 +81,16 @@ webServer.use(loginPageRouter); // register login page router
 const APIs = require('./routers/APIs.js');
 APIServer.use('/api', APIs); // register API routers
 
+console.log(`webServerPortsConfig: ${finalConfig['portsConfig']['webServerPort']}`);
+console.log(`apiServerPortsConfig: ${finalConfig['portsConfig']['apiServerPort']}`);
+console.log(`webServerBaseURL: ${finalConfig['WebServerBaseURL']}`);
+console.log(`apiServerBaseURL: ${finalConfig['APIServerBaseURL']}`);
+
 // launch the app server
-webServer.listen(ports.webServerPort, () => {
-    console.log(`Project Web Server is running at ${WebServerBaseURL}`);
+webServer.listen(finalConfig['portsConfig']['webServerPort'], () => {
+    console.log(`Project Web Server is running at ${finalConfig['WebServerBaseURL']}`);
 })
-APIServer.listen(ports.apiServerPort, () => {
-    console.log(`API Server is running at ${APIServerBaseURL}`);
+APIServer.listen(finalConfig['portsConfig']['apiServerPort'], () => {
+    console.log(`API Server is running at ${finalConfig['APIServerBaseURL']}`);
 })
 

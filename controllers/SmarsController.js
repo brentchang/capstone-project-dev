@@ -4,18 +4,26 @@ const {
     fs
 } = require('../config/dependencies');
 
-const {
-    "views-path-config": viewPaths,
-    "WebServerBaseURL": webServerBaseURL,
-    "APIServerBaseURL": apiServerBaseURL,
-    "api-url-config": apiUrls
-} = require('../config/config.json');
+// add environment support for dev and prod
+const config = require('../config/config.json');
+const env = process.env.NODE_ENV || 'development';
+const finalConfig = {
+    ...config['shared'],
+    ...config[env]
+}
+
+// const {
+//     "views-path-config": viewPaths,
+//     "WebServerBaseURL": webServerBaseURL,
+//     "APIServerBaseURL": apiServerBaseURL,
+//     "api-url-config": apiUrls
+// } = require('../config/config.json');
 
 
 // access the Sign Up Page
 const getSignUpPageAction = async (req, res) => {
     // get the view
-    const signUpPage = viewPaths.signUp;
+    const signUpPage = finalConfig['views-path-config']['signUp'];
     const fpath = path.join(__dirname, signUpPage);
 
     // response the view to FE
@@ -36,7 +44,7 @@ const postSignUpPageSubmitAction = async (req, res) => {
     try {
         try {
             // call API: validate username if exists
-            let response = await axios.post(apiServerBaseURL + apiUrls["validate-username"], {
+            let response = await axios.post(finalConfig['APIServerBaseURL'] + finalConfig['api-url-config']["validate-username"], {
                 username: username
             }, {
                 headers: {
@@ -47,7 +55,7 @@ const postSignUpPageSubmitAction = async (req, res) => {
                 console.log('username validated successfully');
 
                 // call API: validate the user is real by email validation code
-                response = await axios.post(apiServerBaseURL + apiUrls["validate-email"], {
+                response = await axios.post(finalConfig['APIServerBaseURL'] + finalConfig['api-url-config']["validate-email"], {
                     email: email,
                     validationCode: validationCode,
                     currentTime: currentTime
@@ -58,7 +66,7 @@ const postSignUpPageSubmitAction = async (req, res) => {
                 });
                 if (response.data.success) {
                     // call API: write record into DB table `user`
-                    response = await axios.post(apiServerBaseURL + apiUrls["create-new-account"], {
+                    response = await axios.post(finalConfig['APIServerBaseURL'] + finalConfig['api-url-config']["create-new-account"], {
                         username: username,
                         password: password,
                         email: email,
@@ -73,7 +81,7 @@ const postSignUpPageSubmitAction = async (req, res) => {
                         console.log('new account created successfully');
                         return res.status(200).send('New Account Created Successfully!!');
                     }
-                    return res.status(400).send('A ccount failed to create! ' + response.data.message);
+                    return res.status(400).send('Account failed to create! ' + response.data.message);
                 }
                 return res.status(400).send('Email validation failed! ' + response.data.message);
             }
@@ -101,7 +109,7 @@ const postSendValidationCodeAction = async (req, res) => {
     console.log(`debug by smars: ${email}`);
     try {
         // call API - 1: generate validation code in the DB
-        let response = await axios.post(apiServerBaseURL + apiUrls["generate-validation-code"], {
+        let response = await axios.post(finalConfig['APIServerBaseURL'] + finalConfig['api-url-config']["generate-validation-code"], {
             email: email,
             currentTimeISO: currentTimeISO
         }, {
@@ -113,7 +121,7 @@ const postSendValidationCodeAction = async (req, res) => {
         if (response.data.success) {
             // call API - 2: send email
             const validationCode = response.data.validation_code;
-            response = await axios.post(apiServerBaseURL + apiUrls["send-email"], {
+            response = await axios.post(finalConfig['APIServerBaseURL'] + finalConfig['api-url-config']["send-email"], {
                 email: email,
                 validationCode: validationCode
             }, {
@@ -138,7 +146,7 @@ const postSendValidationCodeAction = async (req, res) => {
 const getForgetPasswordAction = (req, res) => {
     // go to fotget password page
     // get the view
-    const forgetPasswordPage = viewPaths.forgetPassword;
+    const forgetPasswordPage = finalConfig['views-path-config']['forgetPassword'];
     const fpath = path.join(__dirname, forgetPasswordPage);
 
     // response the view to FE
@@ -157,7 +165,7 @@ const postSendValidationCodeByUsernameAction = async (req, res) => {
 
     try {
         // call API - 1: validate the username is existing
-        let response = await axios.post(apiServerBaseURL + apiUrls["validate-username-existing"], {
+        let response = await axios.post(finalConfig['APIServerBaseURL'] + finalConfig['api-url-config']["validate-username-existing"], {
             username: username
         }, {
             headers: {
@@ -167,7 +175,7 @@ const postSendValidationCodeByUsernameAction = async (req, res) => {
 
         // call API - 2: find email by username when username is existing.
         if (response.data.success) {
-            response = await axios.post(apiServerBaseURL + apiUrls["find-email-by-username"], {
+            response = await axios.post(finalConfig['APIServerBaseURL'] + finalConfig['api-url-config']["find-email-by-username"], {
                 username: username
             }, {
                 headers: {
@@ -177,7 +185,7 @@ const postSendValidationCodeByUsernameAction = async (req, res) => {
             if (response.data.success) {
                 const email = response.data.email;
                 // call Controller Action - 3: postSendValidationCodeAction
-                response = await axios.post(webServerBaseURL + '/sign-up/send-validation-code', {
+                response = await axios.post(finalConfig['WebServerBaseURL'] + '/sign-up/send-validation-code', {
                     email: email
                 }, {
                     headers: {
@@ -201,12 +209,12 @@ const postSendValidationCodeByUsernameAction = async (req, res) => {
 }
 
 const postUpdatePasswordAction = async (req, res) => {
-    // go to fotget password page
+    // go to forget password page
     const { username, validation_code, newPassword } = req.body
 
     try {
         // call API - 1:  validate the username is existing
-        let response = await axios.post(apiServerBaseURL + apiUrls["validate-username-existing"], {
+        let response = await axios.post(finalConfig['APIServerBaseURL'] + finalConfig['api-url-config']["validate-username-existing"], {
             username: username
         }, {
             headers: {
@@ -216,7 +224,7 @@ const postUpdatePasswordAction = async (req, res) => {
 
         // call API - 2: find email by username when username is existing.
         if (response.data.success) {
-            response = await axios.post(apiServerBaseURL + apiUrls["find-email-by-username"], {
+            response = await axios.post(finalConfig['APIServerBaseURL'] + finalConfig['api-url-config']["find-email-by-username"], {
                 username: username
             }, {
                 headers: {
@@ -228,7 +236,7 @@ const postUpdatePasswordAction = async (req, res) => {
                 const currentTime = new Date();
 
                 // call API - 3: validate the email and validation code
-                response = await axios.post(apiServerBaseURL + apiUrls["validate-email"], {
+                response = await axios.post(finalConfig['APIServerBaseURL'] + finalConfig['api-url-config']["validate-email"], {
                     email: email,
                     validationCode: validation_code,
                     currentTime: currentTime
@@ -239,7 +247,7 @@ const postUpdatePasswordAction = async (req, res) => {
                 });
                 if (response.data.success) {
                     // call API - 4: update the password.
-                    response = await axios.post(apiServerBaseURL + apiUrls["update-new-password"], {
+                    response = await axios.post(finalConfig['APIServerBaseURL'] + finalConfig['api-url-config']["update-new-password"], {
                         username: username,
                         newPassword: newPassword,
                         updatedTime: currentTime
@@ -276,17 +284,17 @@ const getWeatherPageAction = async (req, res) =>  {
         // 1）username
         const username = req.session.username;
         // 2）当前天气数据
-        let respose = await axios.get(apiServerBaseURL + apiUrls["get-current-weather"]);
+        let respose = await axios.get(finalConfig['APIServerBaseURL'] + finalConfig['api-url-config']["get-current-weather"]);
         const currentWeather = respose.data.currentWeather;
         // 3）今天每小时的数据
-        respose = await axios.get(apiServerBaseURL + apiUrls["get-today-hourly-weather"]);
+        respose = await axios.get(finalConfig['APIServerBaseURL'] + finalConfig['api-url-config']["get-today-hourly-weather"]);
         const todayHourlyWeather = respose.data.todayHourlyWeather;
         // 4) 未来7天的天气数据
-        respose = await axios.get(apiServerBaseURL + apiUrls["get-daily-weather"]);
+        respose = await axios.get(finalConfig['APIServerBaseURL'] + finalConfig['api-url-config']["get-daily-weather"]);
         const dailyWeather = respose.data.dailyWeather;
 
         // 返回ejs页面
-        const weatherPage = viewPaths.weather;
+        const weatherPage = finalConfig['views-path-config']['weather'];
         const fpath = path.join(__dirname, weatherPage);
         res.render(fpath, {
             username : username,
@@ -305,7 +313,6 @@ module.exports = {
     getSignUpPageAction,
     postSignUpPageSubmitAction,
     postSendValidationCodeAction,
-    getForgetPasswordAction,
     getForgetPasswordAction,
     postSendValidationCodeByUsernameAction,
     postUpdatePasswordAction,

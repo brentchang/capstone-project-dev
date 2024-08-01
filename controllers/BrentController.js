@@ -4,24 +4,31 @@ const {
     mysql2,
     fs
 } = require('../config/dependencies');
-const {
-    "views-path-config": viewPaths,
-    "database-config": databaseConfig,
-    // "api-urls-config": APIs
-} = require('../config/config.json');
+
+// add environment support for dev and prod
+const config = require('../config/config.json');
+const env = process.env.NODE_ENV || 'development';
+const finalConfig = {
+    ...config['shared'],
+    ...config[env]
+}
+
+// const config = require('../config/config.json');
+// const env = process.env.NODE_ENV || 'development';
+// const {
+//     "views-path-config": viewPaths,
+//     databaseConfig: databaseConfig
+// } = config[env];
 
 // access: /landing/trail-detail-:id
 const getTrailDetailAction = async (req, res) => {
-    const trailDetail1Page = viewPaths.trailDetail;
+    const trailDetail1Page = finalConfig['views-path-config']['trailDetail'];
     // file path to trail-detail-1.ejs
     const fpath = path.join(__dirname, trailDetail1Page);
 
     // query the database to get the trail details
     const trailId = req.params.id;
     const trail = await getTrailById(trailId);
-    // verbose output
-    // console.log(trail);
-    // console.log(typeof(trail));
 
     // calculate the date for booking form
     // today's date
@@ -55,7 +62,7 @@ const getTrailDetailAction = async (req, res) => {
 
 // access: /book
 async function postTrailBookAction (req, res) {
-    const bookSuccessPage = viewPaths.bookSuccess;
+    const bookSuccessPage = finalConfig['views-path-config']['bookSuccess'];
     const fpath = path.join(__dirname, bookSuccessPage);
 
     // verify the request is from the login user
@@ -102,7 +109,7 @@ async function postTrailBookAction (req, res) {
 
 // access: /book-success
 const getBookingSuccessAction = (req, res) => {
-    const bookSuccessPage = viewPaths.bookSuccess;
+    const bookSuccessPage = finalConfig['views-path-config']['bookSuccess'];
     const fpath = path.join(__dirname, bookSuccessPage);
 
     fs.readFile(fpath, 'utf-8', (error, dataStream) => {
@@ -117,7 +124,7 @@ const getBookingSuccessAction = (req, res) => {
 // access: /book/modify/:orderNumber
 // purpose: modify the order
 async function getModifyOrderAction(req, res) {
-    const modifyOrderPage = viewPaths.trailModify;
+    const modifyOrderPage = finalConfig['views-path-config']['trailModify'];
     const fpath = path.join(__dirname, modifyOrderPage);
     // check if the user is logged in
     if (!req.session.username) {
@@ -163,7 +170,7 @@ async function getModifyOrderAction(req, res) {
 // access: /book/modify/:orderNumber
 // purpose: modify the order
 async function postModifyOrderAction(req, res) {
-    const bookSuccessPage = viewPaths.bookSuccess;
+    const bookSuccessPage = finalConfig['views-path-config']['bookSuccess'];
     const fpath = path.join(__dirname, bookSuccessPage);
     const orderNumber = req.params.orderNumber;
     const username = req.session.username;
@@ -292,10 +299,10 @@ async function getCancelOrderAction(req, res) {
 
 // connection pool for mysql
 const pool = mysql2.createPool({
-    host: databaseConfig['localhost'],
-    user: databaseConfig['username'],
-    password: databaseConfig['password'],
-    database: databaseConfig['database']
+    host: finalConfig["databaseConfig"]["host"],
+    user: finalConfig["databaseConfig"]["user"],
+    password: finalConfig["databaseConfig"]["password"],
+    database: finalConfig["databaseConfig"]["database"]
 }).promise();
 
 // get trail max_group_size by trailId

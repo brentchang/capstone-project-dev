@@ -2,15 +2,15 @@ const {
     axios,
     path,
     mysql2,
-    fs
 } = require('../config/dependencies');
-const {
-    "views-path-config": viewPaths,
-    "database-config": databaseConfig,
-    "WebServerBaseURL": webServerBaseURL,
-    "APIServerBaseURL": apiServerBaseURL,
-    "api-url-config": apiUrls
-} = require('../config/config.json');
+
+// add environment support for dev and prod
+const config = require('../config/config.json');
+const env = process.env.NODE_ENV || 'development';
+const finalConfig = {
+    ...config['shared'],
+    ...config[env]
+}
 
 const {
     Utils
@@ -19,7 +19,7 @@ const {
 // access: /login
 const getLoginPageAction = (req, res) => {
     req.session.username = req.body.username;
-    const loginPage = viewPaths.login;
+    const loginPage = finalConfig['views-path-config']['login'];
     const fpath = path.join(__dirname, loginPage);
 
     const message = req.session.message;
@@ -34,10 +34,10 @@ const getLandingPageAction = async (req, res) => {
         // 1）username
         const username = req.session.username;
         // 2）当前天气数据
-        let respose = await axios.get(apiServerBaseURL + apiUrls["get-current-weather"]);
-        const currentWeather = respose.data.currentWeather;
+        let response = await axios.get(finalConfig['APIServerBaseURL'] + finalConfig['api-url-config']['get-current-weather']);
+        const currentWeather = response.data.currentWeather;
 
-        const landingPage = viewPaths.landing;
+        const landingPage = finalConfig['views-path-config']['landing'];
         const fpath = path.join(__dirname, landingPage);
 
         res.render(fpath, {
@@ -52,7 +52,7 @@ const getLandingPageAction = async (req, res) => {
 
 // access: /order-list
 const getOrderListPageAction = async (req, res) => {
-    const orderListPage = viewPaths.orderList;
+    const orderListPage = finalConfig['views-path-config']['orderList'];
     const fpath = path.join(__dirname, orderListPage);
     // if user is not logged in, redirect to login page
     if (!req.session.userLoggedIn) {
@@ -108,10 +108,10 @@ const postLoginAction =  async (req, res) =>  {
 
 
 const pool = mysql2.createPool({
-    host: databaseConfig['localhost'],
-    user: databaseConfig['username'],
-    password: databaseConfig['password'],
-    database: databaseConfig['database']
+    host: finalConfig["databaseConfig"]["host"],
+    user: finalConfig["databaseConfig"]["user"],
+    password: finalConfig["databaseConfig"]["password"],
+    database: finalConfig["databaseConfig"]["database"]
 }).promise();
 
 async function getUsers() {
