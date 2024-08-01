@@ -144,7 +144,7 @@ const postSendValidationCodeAction = async (req, res) => {
 }
 
 const getForgetPasswordAction = (req, res) => {
-    // go to fotget password page
+    // go to forget password page
     // get the view
     const forgetPasswordPage = finalConfig['views-path-config']['forgetPassword'];
     const fpath = path.join(__dirname, forgetPasswordPage);
@@ -284,14 +284,14 @@ const getWeatherPageAction = async (req, res) =>  {
         // 1）username
         const username = req.session.username;
         // 2）当前天气数据
-        let respose = await axios.get(finalConfig['APIServerBaseURL'] + finalConfig['api-url-config']["get-current-weather"]);
-        const currentWeather = respose.data.currentWeather;
+        let response = await axios.get(finalConfig['APIServerBaseURL'] + finalConfig['api-url-config']["get-current-weather"]);
+        const currentWeather = response.data.currentWeather;
         // 3）今天每小时的数据
-        respose = await axios.get(finalConfig['APIServerBaseURL'] + finalConfig['api-url-config']["get-today-hourly-weather"]);
-        const todayHourlyWeather = respose.data.todayHourlyWeather;
+        response = await axios.get(finalConfig['APIServerBaseURL'] + finalConfig['api-url-config']["get-today-hourly-weather"]);
+        const todayHourlyWeather = response.data.todayHourlyWeather;
         // 4) 未来7天的天气数据
-        respose = await axios.get(finalConfig['APIServerBaseURL'] + finalConfig['api-url-config']["get-daily-weather"]);
-        const dailyWeather = respose.data.dailyWeather;
+        response = await axios.get(finalConfig['APIServerBaseURL'] + finalConfig['api-url-config']["get-daily-weather"]);
+        const dailyWeather = response.data.dailyWeather;
 
         // 返回ejs页面
         const weatherPage = finalConfig['views-path-config']['weather'];

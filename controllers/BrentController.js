@@ -430,46 +430,46 @@ async function getUserIdByUserName(userName) {
 }
 
 // the function to update the order of a trail
-async function updateOrderTrailWriteToDb(username, trailId, startDate, endDate, adultCount, childrenCount, parking) {
-    try{
-        // get the user id by username
-        const userId = await getUserIdByUserName(username);
+// async function updateOrderTrailWriteToDb(username, trailId, startDate, endDate, adultCount, childrenCount, parking) {
+//     try{
+//         // get the user id by username
+//         const userId = await getUserIdByUserName(username);
 
-        // get the available seats
-        const maxGroupSize = await getMaxGroupSizeById(trailId);
+//         // get the available seats
+//         const maxGroupSize = await getMaxGroupSizeById(trailId);
 
-        // generate the updated time
-        const updatedTime = new Date();
+//         // generate the updated time
+//         const updatedTime = new Date();
 
-        // convert the parking to boolean
-        // if the parking is checked, then parking is "on"
-        // otherwise, parking is undefined
-        // 1 for parking needed, 0 for parking not needed
-        const parkingNeeded = parking === 'on' ? 1 : 0;
+//         // convert the parking to boolean
+//         // if the parking is checked, then parking is "on"
+//         // otherwise, parking is undefined
+//         // 1 for parking needed, 0 for parking not needed
+//         const parkingNeeded = parking === 'on' ? 1 : 0;
 
-        // update the booking record into the database
-        // order table
-        await pool.query(`
-            UPDATE \`order\`
-            SET \`trail_id\` = ?, \`from_date\` = ?,\`to_date\` = ?, \`adult_num\` = ?, \`child_num\` = ?,\`parking_or_not\` = ?, \`last_updated_time\` = ?
-            WHERE \`order_num\` = ?
-            `, [trailId, startDate, endDate, adultCount, childrenCount, parkingNeeded, updatedTime, orderNumber]);
+//         // update the booking record into the database
+//         // order table
+//         await pool.query(`
+//             UPDATE \`order\`
+//             SET \`trail_id\` = ?, \`from_date\` = ?,\`to_date\` = ?, \`adult_num\` = ?, \`child_num\` = ?,\`parking_or_not\` = ?, \`last_updated_time\` = ?
+//             WHERE \`order_num\` = ?
+//             `, [trailId, startDate, endDate, adultCount, childrenCount, parkingNeeded, updatedTime, orderNumber]);
 
-        // insert or update the available seats on each day
-        const days = (endDate - startDate) / (1000 * 60 * 60 * 24) + 1;
-        for (let i = 0; i < days; i++) {
-            await pool.query(`
-                INSERT INTO \`trail_availability\` (\`trail_id\`, \`available_seats\`, \`date\`)
-                VALUES (?, ?, ?)
-                ON DUPLICATE KEY UPDATE \`available_seats\`=?
-                `, [trailId, maxGroupSize - adultCount - childrenCount, startDate + i * (1000 * 60 * 60 * 24)], maxGroupSize - adultCount - childrenCount);
-        }
-    }catch(error){
-        // print error message if failed
-        console.error('updateOrderTrailWriteToDb error:'+error);
-        throw error;
-    }
-}
+//         // insert or update the available seats on each day
+//         const days = (endDate - startDate) / (1000 * 60 * 60 * 24) + 1;
+//         for (let i = 0; i < days; i++) {
+//             await pool.query(`
+//                 INSERT INTO \`trail_availability\` (\`trail_id\`, \`available_seats\`, \`date\`)
+//                 VALUES (?, ?, ?)
+//                 ON DUPLICATE KEY UPDATE \`available_seats\`=?
+//                 `, [trailId, maxGroupSize - adultCount - childrenCount, startDate + i * (1000 * 60 * 60 * 24)], maxGroupSize - adultCount - childrenCount);
+//         }
+//     }catch(error){
+//         // print error message if failed
+//         console.error('updateOrderTrailWriteToDb error:'+error);
+//         throw error;
+//     }
+// }
 
 
 

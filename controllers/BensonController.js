@@ -114,10 +114,10 @@ const pool = mysql2.createPool({
     database: finalConfig["databaseConfig"]["database"]
 }).promise();
 
-async function getUsers() {
-    const [rows] = await pool.query("SELECT * FROM user")
-    return rows;
-}
+// async function getUsers() {
+//     const [rows] = await pool.query("SELECT * FROM user")
+//     return rows;
+// }
 
 async function getUserByUserName(uname) {
     const [rows] = await pool.query(`
