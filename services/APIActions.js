@@ -242,7 +242,7 @@ const getCurrentWeather = async (req, res) => {
         .then(result => {
             // data formatting
             const retData = Utils.WeatherUtils.currentDayWeatherDataFormatter(result.data);
-
+            
             res.json({
                 success: true,
                 message: `Weather data received`,
