@@ -286,7 +286,6 @@ const getWeatherPageAction = async (req, res) =>  {
         // 2）当前天气数据
         let response = await axios.get(finalConfig['APIServerBaseURL'] + finalConfig['api-url-config']["get-current-weather"]);
         const currentWeather = response.data.currentWeather;
-        console.log(currentWeather);
         // 3）今天每小时的数据
         response = await axios.get(finalConfig['APIServerBaseURL'] + finalConfig['api-url-config']["get-today-hourly-weather"]);
         const todayHourlyWeather = response.data.todayHourlyWeather;
