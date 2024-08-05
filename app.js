@@ -10,7 +10,6 @@ const {
 // add environment support for dev and prod
 const config = require('./config/config.json');
 const env = process.env.NODE_ENV || 'development';
-// const envConfig = config[env];
 const finalConfig = {
     ...config['shared'],
     ...config[env]
