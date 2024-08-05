@@ -5,7 +5,7 @@ const { connection } = require('../app');
     /services/index.js 是为了集合所有的XXXXServices文件，通过Services对象统一暴露出来
 */
 
-const UserService = require('./userServices');
+const UserService = require('./UserServices');
 const userService = new UserService(connection);
 
 const EmailService = require('./EmailServices');
