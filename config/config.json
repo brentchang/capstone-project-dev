@@ -62,7 +62,7 @@
             "webServerPort": 8080,
             "apiServerPort": 2000
         },
-        "WebServerBaseURL": "http://127.0.0.1:8080",
+        "WebServerBaseURL": "https://conestogapark.brentchang.cloud",
         "APIServerBaseURL": "http://127.0.0.1:2000"
     }
 }
