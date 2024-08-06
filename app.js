@@ -69,6 +69,7 @@ connection.connect(error => {
         return console.error('Error connecting to the database: ' + error.message);
     }
     console.log('Connected to the MySQL server.');
+    throw new Error('Error connecting to the database: ' + error.message);
 });
 module.exports = {
     connection
