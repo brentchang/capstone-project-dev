@@ -10,12 +10,7 @@ RUN npm install
 
 COPY . .
 
-# Set the environment variable
-ENV NODE_ENV=production
-
 # Expose the port for web server
 EXPOSE 8080
-# Expose the port for API server
-EXPOSE 2000
 
 CMD [ "node", "app.js" ]
