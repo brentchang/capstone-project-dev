@@ -75,7 +75,7 @@
 
     <main>
         <section class="tour-details">
-            <!-- breadcumb -->
+            <!-- breadcrumb -->
             <div class="breadcumb">
                 <a href="/landing">Home</a>
                 <span>></span>
@@ -84,7 +84,8 @@
 
 
             <h1>Orders</h1>
-            <% if (typeof(activeOrder)!= 'undefined') { %>
+            <% if (typeof(activeOrder)!= 'undefined' && activeOrder.length>0) { %>
+                <% activeOrder.forEach(activeOrder => { %>
              <div class="wrapper">
                 <div class="order-number">Order number: <%= activeOrder.order_num %></div>
                 <div class="order-flex">
@@ -112,13 +113,14 @@
                             </div>
                         </a>
                         <a href="#">
-                            <div class="btn-cancel">
+                            <div class="btn-cancel" id = "btn-cancel-<%- activeOrder.order_num %>">
                                 Cancel Booking
                             </div>
                         </a>
                     </div>
                 </div>
              </div>
+             <% }) %>
              <% }else{ %>
                 <div class="wrapper">
                     No orders yet.
@@ -191,44 +193,44 @@
             <p>&copy; Copyright Conestoga Park 2024</p>
         </div>
     </footer>
-    <% if (typeof(activeOrder)!='undefined') { %>
+    <% if (typeof(activeOrder)!='undefined'&& activeOrder.length>0) { %>
         <script>
-            document.addEventListener('DOMContentLoaded', function() {
-                var modal = document.getElementById('cancelModal');
-                var cancelBtn = document.querySelector('.btn-cancel');
-                var closeBtn = document.querySelector('.close');
-                var confirmCancelBtn = document.getElementById('confirmCancel');
-                var closeModalBtn = document.getElementById('closeModal');
+        document.addEventListener('DOMContentLoaded', function() {
+        var modal = document.getElementById('cancelModal');
+        var confirmCancelBtn = document.getElementById('confirmCancel');
+        var closeModalBtn = document.getElementById('closeModal');
 
-                // When the user clicks the cancel button, open the modal
-                cancelBtn.onclick = function(event) {
-                    event.preventDefault();
-                    modal.style.display = 'block';
-                }
+        // Select all cancel buttons
+        var cancelBtns = document.querySelectorAll('.btn-cancel');
 
-                // When the user clicks on <span> (x), close the modal
-                closeBtn.onclick = function() {
-                    modal.style.display = 'none';
-                }
+        // Iterate over each cancel button to add click event
+        cancelBtns.forEach(function(cancelBtn) {
+            cancelBtn.onclick = function(event) {
+                event.preventDefault();
+                modal.style.display = 'block';
+                // Store the order number in the confirm button's dataset
+                confirmCancelBtn.dataset.orderNum = cancelBtn.id.replace('btn-cancel-', '');
+            }
+        });
 
-                // When the user clicks No, close the modal
-                closeModalBtn.onclick = function() {
-                    modal.style.display = 'none';
-                }
+        // When the user clicks on <span> (x), close the modal
+        closeModalBtn.onclick = function() {
+            modal.style.display = 'none';
+        }
 
-                // When the user clicks Yes, redirect to the cancel API
-                confirmCancelBtn.onclick = function() {
-                    var orderNum = '<%= activeOrder.order_num %>';
-                    window.location.href = '/order/cancel/' + orderNum;
-                }
+        // When the user clicks Yes, redirect to the cancel API
+        confirmCancelBtn.onclick = function() {
+            var orderNum = confirmCancelBtn.dataset.orderNum;
+            window.location.href = '/order/cancel/' + orderNum;
+        }
 
-                // When the user clicks anywhere outside of the modal, close it
-                window.onclick = function(event) {
-                    if (event.target == modal) {
-                        modal.style.display = 'none';
-                    }
-                }
-            });
+        // When the user clicks anywhere outside of the modal, close it
+        window.onclick = function(event) {
+            if (event.target == modal) {
+                modal.style.display = 'none';
+            }
+        }
+    });
         </script>
     <% } %>
 </body>

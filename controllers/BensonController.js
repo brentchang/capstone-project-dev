@@ -2,23 +2,29 @@ const {
     axios,
     path,
     mysql2,
-    fs
 } = require('../config/dependencies');
+
+// add environment support for dev and prod
+const config = require('../config/config.json');
+const env = process.env.NODE_ENV || 'development';
+const finalConfig = {
+    ...config['shared'],
+    ...config[env]
+}
+
 const {
-    "views-path-config": viewPaths,
-    "database-config": databaseConfig,
-    "WebServerBaseURL": webServerBaseURL,
-    "APIServerBaseURL": apiServerBaseURL,
-    "api-url-config": apiUrls
-} = require('../config/config.json');
+    Utils
+} = require('../utils/index')
 
 // access: /login
 const getLoginPageAction = (req, res) => {
     req.session.username = req.body.username;
-    const loginPage = viewPaths.login;
+    const loginPage = finalConfig['views-path-config']['login'];
     const fpath = path.join(__dirname, loginPage);
 
-    res.render(fpath, {});
+    const message = req.session.message;
+    req.session.message = null; // clear the message after retrieving it
+    res.render(fpath, { message: message });
 };
 
 // access: /landing
@@ -28,10 +34,10 @@ const getLandingPageAction = async (req, res) => {
         // 1）username
         const username = req.session.username;
         // 2）当前天气数据
-        let respose = await axios.get(apiServerBaseURL + apiUrls["get-current-weather"]);
-        const currentWeather = respose.data.currentWeather;
+        let response = await axios.get(finalConfig['APIServerBaseURL'] + finalConfig['api-url-config']['get-current-weather']);
+        const currentWeather = response.data.currentWeather;
 
-        const landingPage = viewPaths.landing;
+        const landingPage = finalConfig['views-path-config']['landing'];
         const fpath = path.join(__dirname, landingPage);
 
         res.render(fpath, {
@@ -46,17 +52,20 @@ const getLandingPageAction = async (req, res) => {
 
 // access: /order-list
 const getOrderListPageAction = async (req, res) => {
-    const orderListPage = viewPaths.orderList;
+    const orderListPage = finalConfig['views-path-config']['orderList'];
     const fpath = path.join(__dirname, orderListPage);
     // if user is not logged in, redirect to login page
     if (!req.session.userLoggedIn) {
         res.redirect('/login');
         return;
     }
-    const activeOrder = await getActiveOrder(req.session.username)
-   // console.log(activeOrder);
+    var activeOrder = await getActiveOrder(req.session.username)
+    // console.log(activeOrder);
 
-    
+    // Ensure activeOrder is an array
+    if (!Array.isArray(activeOrder)) {
+        activeOrder = [activeOrder];
+    }
 
     const pastOrders = await getPastOrders(req.session.username)
     console.log(pastOrders);
@@ -78,31 +87,37 @@ const postLoginAction =  async (req, res) =>  {
     const name = req.body.name;
     const pass = req.body.password;
     const users = await getUserByUserName(name);
-    console.log("-------users ------------: ");
-    console.log(users);
 
-    if( pass == users.password){
+    // Smars => 密码解析匹配
+    const isPasswordMatched = await Utils.PasswordUtils.verifyPassword(pass, users.password);
+    // console.log(pass); // plain password
+    // console.log(users.password); // encrypted password
+    // console.log(isPasswordMatched);
+
+    if( users && isPasswordMatched){
         console.log('login success.');
         req.session.username = name;
         req.session.userLoggedIn = true;
         res.redirect('/order-list');
     }else{
+        //const message = encodeURIComponent('');
+        req.session.message = 'user name or password incorrect, please try again.';
         res.redirect('/login');
     }
 }
 
 
 const pool = mysql2.createPool({
-    host: databaseConfig['localhost'],
-    user: databaseConfig['username'],
-    password: databaseConfig['password'],
-    database: databaseConfig['database']
+    host: finalConfig["databaseConfig"]["host"],
+    user: finalConfig["databaseConfig"]["user"],
+    password: finalConfig["databaseConfig"]["password"],
+    database: finalConfig["databaseConfig"]["database"]
 }).promise();
 
-async function getUsers() {
-    const [rows] = await pool.query("SELECT * FROM user")
-    return rows;
-}
+// async function getUsers() {
+//     const [rows] = await pool.query("SELECT * FROM user")
+//     return rows;
+// }
 
 async function getUserByUserName(uname) {
     const [rows] = await pool.query(`
@@ -124,7 +139,7 @@ async function getUserByUserName(uname) {
     left join trail on trail.id = conestoga_provincial_park_test.order.trail_id
     WHERE user.username = ? and conestoga_provincial_park_test.order.status_code = 0
     `, [uname])
-    return rows[0]
+    return rows
   }
 
   async function getPastOrders(uname) {

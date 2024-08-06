@@ -91,7 +91,7 @@ class UserService {
             this.connection.query(query, [username, password, email, address, phone_num, validation_pass, current_date], (error, results) => {
                 if (error) {
                     return this.connection.rollback(() => {
-                        reject(new Error('Create new account failed when INSERT INTO table `user`'));
+                        reject(new Error(`Create new account failed when INSERT INTO table \`user\` - ${error.message}`));
                     });
                 }
                 this.connection.commit(err => {

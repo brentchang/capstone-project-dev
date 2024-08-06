@@ -169,8 +169,11 @@ const createNewAccountAction = async (req, res) => {
     const formattedCurrentTime = Utils.DateUtils.formatDate(date);
     const validationPassCode = true;
 
+    // 密码加密
+    const encryptedPassword = await Utils.PasswordUtils.encryptPassword(password);
+
     // 把数据写入User表
-    Services.userService.createNewAccount(username, password, email, address, phoneNumber, validationPassCode, formattedCurrentTime)
+    Services.userService.createNewAccount(username, encryptedPassword, email, address, phoneNumber, validationPassCode, formattedCurrentTime)
         .then(result => {
             if (result.inserted) {
                 res.json({ success: true, message: "The new account has been created successfully" });
@@ -239,7 +242,7 @@ const getCurrentWeather = async (req, res) => {
         .then(result => {
             // data formatting
             const retData = Utils.WeatherUtils.currentDayWeatherDataFormatter(result.data);
-
+            
             res.json({
                 success: true,
                 message: `Weather data received`,

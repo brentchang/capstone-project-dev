@@ -9,7 +9,7 @@ class WeatherUtils{
             visibility: (data.visibility / 1000).toString() + ' km',
             maxTemperature: Math.round(data.maxTemperature).toString() + ' °C',
             minTemperature: Math.round(data.minTemperature).toString() + ' °C',
-            precipitationSum: data.precipitationSum.toString() + ' mm',
+            precipitationSum: data.precipitationSum.toFixed(2).toString() + ' mm',
             precipitationProbabilityMax: data.precipitationProbabilityMax.toString() + '%',
             uvIndexMax: Math.round(data.uvIndexMax).toString()
         };

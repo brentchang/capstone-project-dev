@@ -9,23 +9,23 @@ class EmailServices {
     sendEmailWithValidationCode(email, validationCode) {
         return new Promise((resolve, reject) => {
             // generate html
-            let html = config['email-content'].html; // basic html
+            let html = config['shared']['email-content'].html; // basic html
             html += `<p>${validationCode}</p>`
             // console.log(`html`);
             // console.log(html); // debug
 
             // 设置邮件内容
             let mailOptions = {
-                from: config['email-sender'].auth.user, // 发件人地址
+                from: config['shared']['email-sender'].auth.user, // 发件人地址
                 to: email,                    // 收件人地址，从请求体中获取
-                subject: config['email-content'].subject, // 主题
+                subject: config['shared']['email-content'].subject, // 主题
                 html: html // HTML 内容
             };
             // console.log(`mailOptions`);
             // console.log(mailOptions);// debug
 
             // 发送邮件
-            let transporter = nodemailer.createTransport(config['email-sender']);
+            let transporter = nodemailer.createTransport(config['shared']['email-sender']);
             // console.log(`transporter`);
             // console.log(transporter);
             transporter.sendMail(mailOptions, (error, info) => {

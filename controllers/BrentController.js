@@ -4,24 +4,31 @@ const {
     mysql2,
     fs
 } = require('../config/dependencies');
-const {
-    "views-path-config": viewPaths,
-    "database-config": databaseConfig,
-    // "api-urls-config": APIs
-} = require('../config/config.json');
+
+// add environment support for dev and prod
+const config = require('../config/config.json');
+const env = process.env.NODE_ENV || 'development';
+const finalConfig = {
+    ...config['shared'],
+    ...config[env]
+}
+
+// const config = require('../config/config.json');
+// const env = process.env.NODE_ENV || 'development';
+// const {
+//     "views-path-config": viewPaths,
+//     databaseConfig: databaseConfig
+// } = config[env];
 
 // access: /landing/trail-detail-:id
 const getTrailDetailAction = async (req, res) => {
-    const trailDetail1Page = viewPaths.trailDetail;
+    const trailDetail1Page = finalConfig['views-path-config']['trailDetail'];
     // file path to trail-detail-1.ejs
     const fpath = path.join(__dirname, trailDetail1Page);
 
     // query the database to get the trail details
     const trailId = req.params.id;
     const trail = await getTrailById(trailId);
-    // verbose output
-    // console.log(trail);
-    // console.log(typeof(trail));
 
     // calculate the date for booking form
     // today's date
@@ -55,7 +62,7 @@ const getTrailDetailAction = async (req, res) => {
 
 // access: /book
 async function postTrailBookAction (req, res) {
-    const bookSuccessPage = viewPaths.bookSuccess;
+    const bookSuccessPage = finalConfig['views-path-config']['bookSuccess'];
     const fpath = path.join(__dirname, bookSuccessPage);
 
     // verify the request is from the login user
@@ -74,7 +81,7 @@ async function postTrailBookAction (req, res) {
 
         // verify input data
         if (!trailId || !from || !to || !adults || !children || adults <= 0 || children < 0) {
-            return res.end('Invalid input data!').status(400);
+            return res.end('Invalid input data!');
         }
 
         // convert the parking to boolean
@@ -87,7 +94,7 @@ async function postTrailBookAction (req, res) {
         const availability = await getTrailAvailabilityById(trailId, from, to, Number(adults) + Number(children));
         // if not available, return error message
         if (!availability || !availability.success) {
-            return res.end(availability.message).status(400);
+            return res.end(availability.message);
         }else{
             // if available, book the trail
             const orderDetail = await bookTrailWriteToDb(req.session.username, trailId, from, to, adults, children, parkingNeeded);
@@ -102,7 +109,7 @@ async function postTrailBookAction (req, res) {
 
 // access: /book-success
 const getBookingSuccessAction = (req, res) => {
-    const bookSuccessPage = viewPaths.bookSuccess;
+    const bookSuccessPage = finalConfig['views-path-config']['bookSuccess'];
     const fpath = path.join(__dirname, bookSuccessPage);
 
     fs.readFile(fpath, 'utf-8', (error, dataStream) => {
@@ -117,7 +124,7 @@ const getBookingSuccessAction = (req, res) => {
 // access: /book/modify/:orderNumber
 // purpose: modify the order
 async function getModifyOrderAction(req, res) {
-    const modifyOrderPage = viewPaths.trailModify;
+    const modifyOrderPage = finalConfig['views-path-config']['trailModify'];
     const fpath = path.join(__dirname, modifyOrderPage);
     // check if the user is logged in
     if (!req.session.username) {
@@ -163,7 +170,7 @@ async function getModifyOrderAction(req, res) {
 // access: /book/modify/:orderNumber
 // purpose: modify the order
 async function postModifyOrderAction(req, res) {
-    const bookSuccessPage = viewPaths.bookSuccess;
+    const bookSuccessPage = finalConfig['views-path-config']['bookSuccess'];
     const fpath = path.join(__dirname, bookSuccessPage);
     const orderNumber = req.params.orderNumber;
     const username = req.session.username;
@@ -183,7 +190,7 @@ async function postModifyOrderAction(req, res) {
 
        // verify input data
        if (!trailId || !from || !to || !adults || !children || adults <= 0 || children < 0) {
-           return res.end('Invalid input data!').status(400);
+           return res.end('Invalid input data!');
        }
 
        // convert the parking to boolean
@@ -227,7 +234,7 @@ async function postModifyOrderAction(req, res) {
                 continue;
                 // await pool.query('INSERT INTO trail_availability (trail_id, available_seats, date) VALUES (?, ?, ?)', [trailId, Number(maxGroupSize) - Number(newTotalSeats), dateString]);
             } else if (availabilityResults[0].availableSeats < newTotalSeats) {
-                return res.status(400).send(`Not enough available seats on ${dateString}`);
+                return res.send(`Not enough available seats on ${dateString}`);
             }
         }
 
@@ -292,10 +299,10 @@ async function getCancelOrderAction(req, res) {
 
 // connection pool for mysql
 const pool = mysql2.createPool({
-    host: databaseConfig['localhost'],
-    user: databaseConfig['username'],
-    password: databaseConfig['password'],
-    database: databaseConfig['database']
+    host: finalConfig["databaseConfig"]["host"],
+    user: finalConfig["databaseConfig"]["user"],
+    password: finalConfig["databaseConfig"]["password"],
+    database: finalConfig["databaseConfig"]["database"]
 }).promise();
 
 // get trail max_group_size by trailId
@@ -423,46 +430,46 @@ async function getUserIdByUserName(userName) {
 }
 
 // the function to update the order of a trail
-async function updateOrderTrailWriteToDb(username, trailId, startDate, endDate, adultCount, childrenCount, parking) {
-    try{
-        // get the user id by username
-        const userId = await getUserIdByUserName(username);
+// async function updateOrderTrailWriteToDb(username, trailId, startDate, endDate, adultCount, childrenCount, parking) {
+//     try{
+//         // get the user id by username
+//         const userId = await getUserIdByUserName(username);
 
-        // get the available seats
-        const maxGroupSize = await getMaxGroupSizeById(trailId);
+//         // get the available seats
+//         const maxGroupSize = await getMaxGroupSizeById(trailId);
 
-        // generate the updated time
-        const updatedTime = new Date();
+//         // generate the updated time
+//         const updatedTime = new Date();
 
-        // convert the parking to boolean
-        // if the parking is checked, then parking is "on"
-        // otherwise, parking is undefined
-        // 1 for parking needed, 0 for parking not needed
-        const parkingNeeded = parking === 'on' ? 1 : 0;
+//         // convert the parking to boolean
+//         // if the parking is checked, then parking is "on"
+//         // otherwise, parking is undefined
+//         // 1 for parking needed, 0 for parking not needed
+//         const parkingNeeded = parking === 'on' ? 1 : 0;
 
-        // update the booking record into the database
-        // order table
-        await pool.query(`
-            UPDATE \`order\`
-            SET \`trail_id\` = ?, \`from_date\` = ?,\`to_date\` = ?, \`adult_num\` = ?, \`child_num\` = ?,\`parking_or_not\` = ?, \`last_updated_time\` = ?
-            WHERE \`order_num\` = ?
-            `, [trailId, startDate, endDate, adultCount, childrenCount, parkingNeeded, updatedTime, orderNumber]);
+//         // update the booking record into the database
+//         // order table
+//         await pool.query(`
+//             UPDATE \`order\`
+//             SET \`trail_id\` = ?, \`from_date\` = ?,\`to_date\` = ?, \`adult_num\` = ?, \`child_num\` = ?,\`parking_or_not\` = ?, \`last_updated_time\` = ?
+//             WHERE \`order_num\` = ?
+//             `, [trailId, startDate, endDate, adultCount, childrenCount, parkingNeeded, updatedTime, orderNumber]);
 
-        // insert or update the available seats on each day
-        const days = (endDate - startDate) / (1000 * 60 * 60 * 24) + 1;
-        for (let i = 0; i < days; i++) {
-            await pool.query(`
-                INSERT INTO \`trail_availability\` (\`trail_id\`, \`available_seats\`, \`date\`)
-                VALUES (?, ?, ?)
-                ON DUPLICATE KEY UPDATE \`available_seats\`=?
-                `, [trailId, maxGroupSize - adultCount - childrenCount, startDate + i * (1000 * 60 * 60 * 24)], maxGroupSize - adultCount - childrenCount);
-        }
-    }catch(error){
-        // print error message if failed
-        console.error('updateOrderTrailWriteToDb error:'+error);
-        throw error;
-    }
-}
+//         // insert or update the available seats on each day
+//         const days = (endDate - startDate) / (1000 * 60 * 60 * 24) + 1;
+//         for (let i = 0; i < days; i++) {
+//             await pool.query(`
+//                 INSERT INTO \`trail_availability\` (\`trail_id\`, \`available_seats\`, \`date\`)
+//                 VALUES (?, ?, ?)
+//                 ON DUPLICATE KEY UPDATE \`available_seats\`=?
+//                 `, [trailId, maxGroupSize - adultCount - childrenCount, startDate + i * (1000 * 60 * 60 * 24)], maxGroupSize - adultCount - childrenCount);
+//         }
+//     }catch(error){
+//         // print error message if failed
+//         console.error('updateOrderTrailWriteToDb error:'+error);
+//         throw error;
+//     }
+// }
 
 
 

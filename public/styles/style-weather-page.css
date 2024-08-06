@@ -408,7 +408,7 @@ footer a {
 .right-2>*:nth-child(even) {
     text-align: left;
     padding-left: 40px;
-    width: 80px;
+    width: 130px;
 }
 
 .weather-icon {

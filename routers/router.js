@@ -1,4 +1,4 @@
-const { express } = require('../config/dependencies.js'); // import denpendencies
+const { express, cors } = require('../config/dependencies.js'); // import dependencies
 const { Controller } = require('../controllers/index.js'); /* import controllers */
 
 // create a router
