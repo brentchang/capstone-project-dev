@@ -20,13 +20,6 @@ const finalConfig = {
     ...config[env]
 }
 
-// const config = require('../config/config.json');
-// const env = process.env.NODE_ENV || 'development';
-// const {
-//     "views-path-config": viewPaths,
-//     databaseConfig: databaseConfig
-// } = config[env];
-
 // access: /landing/trail-detail-:id
 const getTrailDetailAction = async (req, res) => {
     const trailDetail1Page = finalConfig['views-path-config']['trailDetail'];
