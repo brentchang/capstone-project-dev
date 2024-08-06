@@ -7,7 +7,14 @@ const {
 
 // add environment support for dev and prod
 const config = require('../config/config.json');
-const env = process.env.NODE_ENV || 'development';
+let env = ""
+// override the env to development if it is test
+if (process.env.NODE_ENV === 'test') {
+    env = 'development';
+    } else {
+    // otherwise, use the NODE_ENV or default to development
+    env = process.env.NODE_ENV || 'development';
+    }
 const finalConfig = {
     ...config['shared'],
     ...config[env]
