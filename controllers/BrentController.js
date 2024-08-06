@@ -11,10 +11,10 @@ let env = ""
 // override the env to development if it is test
 if (process.env.NODE_ENV === 'test') {
     env = 'development';
-    } else {
+} else {
     // otherwise, use the NODE_ENV or default to development
     env = process.env.NODE_ENV || 'development';
-    }
+}
 const finalConfig = {
     ...config['shared'],
     ...config[env]
@@ -40,42 +40,42 @@ const getTrailDetailAction = async (req, res) => {
     // calculate the date for booking form
     // today's date
     var dateForToday = new Date();
-    var dateStringForToday = new Date(dateForToday.getTime() - (dateForToday.getTimezoneOffset() * 60000 ))
-                    .toISOString()
-                    .split("T")[0];
+    var dateStringForToday = new Date(dateForToday.getTime() - (dateForToday.getTimezoneOffset() * 60000))
+        .toISOString()
+        .split("T")[0];
 
     // end date for booking form, which is today + trail.duration
     var dateForEnd = new Date(dateForToday.getTime() + trail.duration * (1000 * 60 * 60 * 24));
-    var dateStringForEnd = new Date(dateForEnd.getTime() - (dateForEnd.getTimezoneOffset() * 60000 ))
-                    .toISOString()
-                    .split("T")[0];
-    
+    var dateStringForEnd = new Date(dateForEnd.getTime() - (dateForEnd.getTimezoneOffset() * 60000))
+        .toISOString()
+        .split("T")[0];
+
     // get the availability for the calendar view
     const events = await getAllTrailAvailabilityForCalendarById(trailId);
 
     // if trail is not found, return 404 Not Found
     if (!trail) {
         return res.end('404 Not Found!');
-    }else{
+    } else {
         // render the trail detail page
         res.render(fpath, {
-                    trail: trail,
-                    dateStringForToday: dateStringForToday,
-                    dateStringForEnd: dateStringForEnd,
-                    events: events
+            trail: trail,
+            dateStringForToday: dateStringForToday,
+            dateStringForEnd: dateStringForEnd,
+            events: events
         });
     }
 };
 
 // access: /book
-async function postTrailBookAction (req, res) {
+async function postTrailBookAction(req, res) {
     const bookSuccessPage = finalConfig['views-path-config']['bookSuccess'];
     const fpath = path.join(__dirname, bookSuccessPage);
 
     // verify the request is from the login user
     if (!req.session.username) {
-         return res.redirect('/login');
-    }else{
+        return res.redirect('/login');
+    } else {
         // get the form data from the request body
         const {
             trailId,
@@ -102,7 +102,7 @@ async function postTrailBookAction (req, res) {
         // if not available, return error message
         if (!availability || !availability.success) {
             return res.end(availability.message);
-        }else{
+        } else {
             // if available, book the trail
             const orderDetail = await bookTrailWriteToDb(req.session.username, trailId, from, to, adults, children, parkingNeeded);
             // render the booking success page
@@ -136,7 +136,7 @@ async function getModifyOrderAction(req, res) {
     // check if the user is logged in
     if (!req.session.username) {
         return res.redirect('/login');
-    }else{
+    } else {
         // get the order number from the request
         const orderNumber = req.params.orderNumber;
         // query the database to get the order details
@@ -148,18 +148,18 @@ async function getModifyOrderAction(req, res) {
 
         // convert the date to string
         const fromDate = new Date(order.from_date);
-        const fromDateString = new Date(fromDate.getTime() - (fromDate.getTimezoneOffset() * 60000 ))
-                    .toISOString()
-                    .split("T")[0];
+        const fromDateString = new Date(fromDate.getTime() - (fromDate.getTimezoneOffset() * 60000))
+            .toISOString()
+            .split("T")[0];
 
         const toDate = new Date(order.to_date);
-        const toDateString = new Date(toDate.getTime() - (toDate.getTimezoneOffset() * 60000 ))
-                    .toISOString()
-                    .split("T")[0];
+        const toDateString = new Date(toDate.getTime() - (toDate.getTimezoneOffset() * 60000))
+            .toISOString()
+            .split("T")[0];
         // if the order is not found, return 404 Not Found
         if (order.length === 0) {
             return res.end('404 Not Found!');
-        }else{
+        } else {
             // render the modify order page
             res.render(fpath, {
                 fromDateString: fromDateString,
@@ -184,102 +184,102 @@ async function postModifyOrderAction(req, res) {
     // verify the request is from the login user
     if (!username) {
         return res.redirect('/login');
-   }else{
-       // get the form data from the request body
-       const {
-           trailId,
-           from, // start date
-           to, // end date
-           adults, // adult count
-           children, // children count
-           parking // parking needed
-       } = req.body;
+    } else {
+        // get the form data from the request body
+        const {
+            trailId,
+            from, // start date
+            to, // end date
+            adults, // adult count
+            children, // children count
+            parking // parking needed
+        } = req.body;
 
-       // verify input data
-       if (!trailId || !from || !to || !adults || !children || adults <= 0 || children < 0) {
-           return res.end('Invalid input data!');
-       }
-
-       // convert the parking to boolean
-       // if the parking is checked, then parking is "on"
-       // otherwise, parking is undefined
-       // 1 for parking needed, 0 for parking not needed
-       const parkingNeeded = parking === 'on' ? 1 : 0;
-
-       try {
-        // get the max group size of the trail
-        const maxGroupSize = await getMaxGroupSizeById(trailId);
-
-        // get the existing order details
-        const [orderResults] = await pool.query(`SELECT * FROM \`order\` WHERE \`order_num\` = ?`, [orderNumber]);
-        // if the order is not found, return 404 Not Found
-        if (orderResults.length === 0) {
-            return res.status(404).send('Order not found');
-        }
-        const existingOrder = orderResults[0];
-        const newTotalSeats = Number(adults) + Number(children);
-        const originalTotalSeats = Number(existingOrder.adult_num) + Number(existingOrder.child_num);
-
-        // new date range
-        const dateRange = getDatesInRange(new Date(from), new Date(to));
-        // original date range
-        const originalDateRange = getDatesInRange(new Date(existingOrder.from_date), new Date(existingOrder.to_date));
-
-        // Adjust availability for original date range (restore seats)
-        for (let date of originalDateRange) {
-            const dateString = date.toISOString().split('T')[0];
-            await pool.query(`UPDATE \`trail_availability\` SET \`available_seats\` = \`available_seats\` + ? WHERE trail_id = ? AND date = ?`, [originalTotalSeats, trailId, dateString]);
+        // verify input data
+        if (!trailId || !from || !to || !adults || !children || adults <= 0 || children < 0) {
+            return res.end('Invalid input data!');
         }
 
-        // Check availability for new date range
-        for (let date of dateRange) {
-            const dateString = date.toISOString().split('T')[0];
-            const [availabilityResults] = await pool.query('SELECT available_seats FROM trail_availability WHERE trail_id = ? AND date = ?', [trailId, dateString]);
-            // if the date is not in the database, then assume there are enough seats
-            if (availabilityResults.length === 0){
-                // go through each day in the date range first
-                continue;
-                // await pool.query('INSERT INTO trail_availability (trail_id, available_seats, date) VALUES (?, ?, ?)', [trailId, Number(maxGroupSize) - Number(newTotalSeats), dateString]);
-            } else if (availabilityResults[0].availableSeats < newTotalSeats) {
-                return res.send(`Not enough available seats on ${dateString}`);
+        // convert the parking to boolean
+        // if the parking is checked, then parking is "on"
+        // otherwise, parking is undefined
+        // 1 for parking needed, 0 for parking not needed
+        const parkingNeeded = parking === 'on' ? 1 : 0;
+
+        try {
+            // get the max group size of the trail
+            const maxGroupSize = await getMaxGroupSizeById(trailId);
+
+            // get the existing order details
+            const [orderResults] = await pool.query(`SELECT * FROM \`order\` WHERE \`order_num\` = ?`, [orderNumber]);
+            // if the order is not found, return 404 Not Found
+            if (orderResults.length === 0) {
+                return res.status(404).send('Order not found');
             }
-        }
+            const existingOrder = orderResults[0];
+            const newTotalSeats = Number(adults) + Number(children);
+            const originalTotalSeats = Number(existingOrder.adult_num) + Number(existingOrder.child_num);
 
-        // if all dates are available, update the trail_availability table
-        for (let date of dateRange) {
-            const dateString = date.toISOString().split('T')[0];
-            const [availabilityResults] = await pool.query('SELECT available_seats FROM trail_availability WHERE trail_id = ? AND date = ?', [trailId, dateString]);
-            // if the date is not in the database, then assume there are enough seats
-            if (availabilityResults.length === 0){
-                await pool.query('INSERT INTO trail_availability (trail_id, available_seats, date) VALUES (?, ?, ?)', [trailId, Number(maxGroupSize) - Number(newTotalSeats), dateString]);
-            } else {
-                // if the date is in the database, update the available seats
-                await pool.query('UPDATE trail_availability SET available_seats = available_seats - ? WHERE trail_id = ? AND date = ?', [Number(newTotalSeats), trailId, dateString]);
+            // new date range
+            const dateRange = getDatesInRange(new Date(from), new Date(to));
+            // original date range
+            const originalDateRange = getDatesInRange(new Date(existingOrder.from_date), new Date(existingOrder.to_date));
+
+            // Adjust availability for original date range (restore seats)
+            for (let date of originalDateRange) {
+                const dateString = date.toISOString().split('T')[0];
+                await pool.query(`UPDATE \`trail_availability\` SET \`available_seats\` = \`available_seats\` + ? WHERE trail_id = ? AND date = ?`, [originalTotalSeats, trailId, dateString]);
             }
+
+            // Check availability for new date range
+            for (let date of dateRange) {
+                const dateString = date.toISOString().split('T')[0];
+                const [availabilityResults] = await pool.query('SELECT available_seats FROM trail_availability WHERE trail_id = ? AND date = ?', [trailId, dateString]);
+                // if the date is not in the database, then assume there are enough seats
+                if (availabilityResults.length === 0) {
+                    // go through each day in the date range first
+                    continue;
+                    // await pool.query('INSERT INTO trail_availability (trail_id, available_seats, date) VALUES (?, ?, ?)', [trailId, Number(maxGroupSize) - Number(newTotalSeats), dateString]);
+                } else if (availabilityResults[0].availableSeats < newTotalSeats) {
+                    return res.send(`Not enough available seats on ${dateString}`);
+                }
+            }
+
+            // if all dates are available, update the trail_availability table
+            for (let date of dateRange) {
+                const dateString = date.toISOString().split('T')[0];
+                const [availabilityResults] = await pool.query('SELECT available_seats FROM trail_availability WHERE trail_id = ? AND date = ?', [trailId, dateString]);
+                // if the date is not in the database, then assume there are enough seats
+                if (availabilityResults.length === 0) {
+                    await pool.query('INSERT INTO trail_availability (trail_id, available_seats, date) VALUES (?, ?, ?)', [trailId, Number(maxGroupSize) - Number(newTotalSeats), dateString]);
+                } else {
+                    // if the date is in the database, update the available seats
+                    await pool.query('UPDATE trail_availability SET available_seats = available_seats - ? WHERE trail_id = ? AND date = ?', [Number(newTotalSeats), trailId, dateString]);
+                }
+            }
+
+            // Update order details
+            await pool.query('UPDATE `order` SET from_date = ?, to_date = ?, adult_num = ?, child_num = ?, parking_or_not = ? WHERE order_num = ?', [from, to, adults, children, parkingNeeded, orderNumber]);
+
+            // render the booking success page
+            res.render(fpath, {
+                orderDetail: {
+                    orderNumber: orderNumber,
+                    trailName: await getTrailNameById(trailId),
+                    startDate: from,
+                    endDate: to,
+                    adultCount: adults,
+                    childrenCount: children,
+                    parkingNeeded: parkingNeeded,
+                    behave: 'modify'
+                },
+                username: username,
+            });
+        } catch (error) {
+            console.error(error);
+            throw error;
         }
-
-        // Update order details
-        await pool.query('UPDATE `order` SET from_date = ?, to_date = ?, adult_num = ?, child_num = ?, parking_or_not = ? WHERE order_num = ?', [from, to, adults, children, parkingNeeded, orderNumber]);
-
-        // render the booking success page
-        res.render(fpath, {
-            orderDetail: {
-                orderNumber: orderNumber,
-                trailName: await getTrailNameById(trailId),
-                startDate: from,
-                endDate: to,
-                adultCount: adults,
-                childrenCount: children,
-                parkingNeeded: parkingNeeded,
-                behave: 'modify'
-            },
-            username: username,
-        });
-    } catch (error) {
-        console.error(error);
-        throw error;
     }
-   }
 }
 
 // method: GET
@@ -358,7 +358,7 @@ async function getTrailAvailabilityById(trailId, startDate, endDate, seatCount) 
     endDate = new Date(endDate);
     // count the days between start and end date
     const days = (endDate - startDate) / (1000 * 60 * 60 * 24) + 1;
-    try{
+    try {
         // query the database to get the trail availability
         const [rows] = await pool.query(`
             SELECT available_seats
@@ -368,17 +368,17 @@ async function getTrailAvailabilityById(trailId, startDate, endDate, seatCount) 
             `, [trailId, startDate, endDate]);
         // count how many rows are returned
         const rowCount = rows.length;
-        
+
         // check if the seat count is under the limit of the trail
         const maxGroupSize = await getMaxGroupSizeById(trailId);
         if (seatCount > maxGroupSize) {
             // return false and error message if seat count is over the limit
             return { success: false, message: `Seat count is over the limit of ${maxGroupSize}` };
         }
-    
+
         // compare the days between the start and end date with the rows returned from the database
         // if the days are equal to the rows, check if there are enough seats for each day
-        if (days === rowCount){
+        if (days === rowCount) {
             // check if there are enough seats for each day from the start date to the end date
             // for days that are not in the database, assume there are enough seats, however, still need to check if under the limit of the trail
             // go through each day in rows array
@@ -386,35 +386,35 @@ async function getTrailAvailabilityById(trailId, startDate, endDate, seatCount) 
                 // if there are not enough seats for any day, return false
                 if (rows[i].available_seats < seatCount) {
                     return { success: false, message: `Seat count is not available in the date range` };
-                }else{
+                } else {
                     // if there are enough seats for all known days in database, return true
                     return { success: true };
                 }
             }
-        }else{
+        } else {
             // if the days are not equal to the rowCount, then there are some days that are not in the database
             // therefore, assume there are enough seats for each day, and insert new rows into the database
             // go through each day from start date to end date
             for (let i = 0; i < days; i++) {
                 // if the row exists, check if there are enough seats by comparing the available seats with the seat count
-                if (rows[i]){
+                if (rows[i]) {
                     // if there are not enough seats for any day, return false
                     if (rows[i] && rows[i].available_seats < seatCount) {
                         return { success: false, message: `Seat count is not available in the date range` };
-                    }else{
+                    } else {
                         // if there are enough seats for all known days in database, return true
                         return { success: true };
                     }
-                }else{
+                } else {
                     // if the row does not exist, assume there are enough seats for the day
                     // thus return true
                     return { success: true };
                 }
             }
         }
-    }catch(error){
+    } catch (error) {
         // print error message if failed
-        console.error('getTrailAvailabilityById error:'+error);
+        console.error('getTrailAvailabilityById error:' + error);
         // throw exception
         throw error;
     }
@@ -422,16 +422,16 @@ async function getTrailAvailabilityById(trailId, startDate, endDate, seatCount) 
 
 // the function to convert user name to user id
 async function getUserIdByUserName(userName) {
-    try{
+    try {
         const [rows] = await pool.query(`
             SELECT id 
             FROM user
             WHERE username = ?
             `, [userName])
-            return rows[0].id
-    }catch(error){
+        return rows[0].id
+    } catch (error) {
         // print error message if failed
-        console.error('getUserIdByUserName error:'+error);
+        console.error('getUserIdByUserName error:' + error);
         throw error;
     }
 }
@@ -483,13 +483,13 @@ async function getUserIdByUserName(userName) {
 // the function to place the book order the trail
 // TODO: cover all queries with transaction
 async function bookTrailWriteToDb(username, trailId, startDate, endDate, adultCount, childrenCount, parkingNeeded) {
-    try{
+    try {
         // get the user id by username
         const userId = await getUserIdByUserName(username);
 
         // get the available seats
         const maxGroupSize = await getMaxGroupSizeById(trailId);
-    
+
         // generate order number
         const orderNumber = await generateOrderNumber();
 
@@ -503,7 +503,7 @@ async function bookTrailWriteToDb(username, trailId, startDate, endDate, adultCo
             VALUES (?, ?, ?, ?, ?, ?, ?, 0, ?, ?)
             `, [orderNumber, trailId, startDate, endDate, adultCount, childrenCount, parkingNeeded, orderTime, orderTime]);
 
-            console.log('insertresult:', insertresult);
+        console.log('insertresult:', insertresult);
         // look up the order id
         const [orderId] = await pool.query(`
             SELECT \`id\`
@@ -516,7 +516,7 @@ async function bookTrailWriteToDb(username, trailId, startDate, endDate, adultCo
             INSERT INTO \`user_order\` (\`user_id\`, \`order_id\`)
             VALUES (?, ?)
             `, [userId, orderId[0].id]);
-        
+
         // insert or update the available seats on each day
         const days = (endDate - startDate) / (1000 * 60 * 60 * 24) + 1;
         for (let i = 0; i < days; i++) {
@@ -539,10 +539,10 @@ async function bookTrailWriteToDb(username, trailId, startDate, endDate, adultCo
             adultCount: adultCount,
             childrenCount: childrenCount,
             parkingNeeded: parkingNeeded
-        };   
-    }catch(error){
+        };
+    } catch (error) {
         // print error message if failed
-        console.error('bookTrail error:'+error);
+        console.error('bookTrail error:' + error);
         throw error;
     }
 }
@@ -563,7 +563,7 @@ async function generateOrderNumber() {
     // if the order number is not unique, generate a new one
     if (rows.length > 0) {
         return generateOrderNumber();
-    }else{
+    } else {
         // return the order number if it is unique
         return orderNumber;
     }
@@ -578,13 +578,13 @@ async function getAllTrailAvailabilityForCalendarById(trailId) {
     oneYearFromToday.setFullYear(today.getFullYear() + 1);
     let allDates = getDatesInRange(today, oneYearFromToday);
     let availabilityMap = {};
-    try{
+    try {
         let max_seats = await getMaxGroupSizeById(trailId);
 
         const results = await pool.query('SELECT available_seats, date FROM trail_availability WHERE trail_id = ?', [trailId]);
         // console.log(results);
         results.forEach(row => {
-            if (row.available_seats && row.date){
+            if (row.available_seats && row.date) {
                 availabilityMap[row.date.toISOString().split('T')[0]] = {
                     // trail_id: row.trail_id,
                     available_seats: row.available_seats,
@@ -599,15 +599,15 @@ async function getAllTrailAvailabilityForCalendarById(trailId) {
             } else {
                 return {
                     // trail_id: trailId,
-                    available_seats: max_seats, 
+                    available_seats: max_seats,
                     date: date
                 };
             }
         });
         return events;
-    }catch(error){
+    } catch (error) {
         // print error message if failed
-        console.error('getAllTrailAvailabilityForCalendarById error:'+error);
+        console.error('getAllTrailAvailabilityForCalendarById error:' + error);
         throw error;
     }
 }
