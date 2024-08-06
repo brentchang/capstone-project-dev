@@ -6,11 +6,9 @@ WORKDIR /home/node/app
 
 COPY package*.json ./
 
-USER node
-
 RUN npm install
 
-COPY --chown=node . .
+COPY . .
 
 # Set the environment variable
 ENV NODE_ENV=production
