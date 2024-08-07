@@ -17,7 +17,11 @@ jobs:
         username: ${{ secrets.DOCKER_USERNAME }}
         password: ${{ secrets.DOCKER_PASSWORD }}
     - name: Build the web Docker image
-      run: docker build . --file dockerfile.web.prod --tag acegi123/conestoga-provincial-park-web:prod
+      run: docker build . --file dockerfile.web.prod --tag acegi123/conestoga-provincial-park-web:${{ github.sha }}
+    - name: Push the web Docker image
+      run: docker push acegi123/conestoga-provincial-park-web:${{ github.sha }}
+    - name: tag the web Docker image as prod
+      run: docker tag acegi123/conestoga-provincial-park-web:${{ github.sha }} acegi123/conestoga-provincial-park-web:prod
     - name: Push the web Docker image
       run: docker push acegi123/conestoga-provincial-park-web:prod
   deploy-to-cloud-run:
