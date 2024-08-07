@@ -34,7 +34,7 @@ jobs:
     - name: Deploy the web Docker image to Cloud Run
       uses: 'google-github-actions/deploy-cloudrun@v2'
       with:
-        image: 'conestoga-provincial-park-web:prod'
+        image: 'acegi123/conestoga-provincial-park-web:prod'
         service: 'conestogapark-web'
         project_id: '${{ secrets.GCP_PROJECT_ID }}'
         region: 'northamerica-northeast2'
