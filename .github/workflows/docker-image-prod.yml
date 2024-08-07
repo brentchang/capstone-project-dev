@@ -36,3 +36,5 @@ jobs:
       with:
         image: 'conestoga-provincial-park-web:prod'
         service: 'conestogapark-web'
+        project_id: '${{ secrets.GCP_PROJECT_ID }}'
+        region: 'northamerica-northeast2'
