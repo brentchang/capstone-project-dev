@@ -11,8 +11,6 @@ class EmailServices {
             // generate html
             let html = config['shared']['email-content'].html; // basic html
             html += `<p>${validationCode}</p>`
-            // console.log(`html`);
-            // console.log(html); // debug
 
             // 设置邮件内容
             let mailOptions = {
@@ -30,7 +28,7 @@ class EmailServices {
             // console.log(transporter);
             transporter.sendMail(mailOptions, (error, info) => {
                 if (error) {
-                    reject(new Error('send email failed: EmailServices.sendEmailWithValidationCode()'));
+                    reject(new Error('send email failed: EmailServices.sendEmailWithValidationCode()'  + error.message));
                 } else {
                     console.log('Email sent: ' + info.response);
                     resolve({ sended: true, info: info.response });
@@ -45,7 +43,7 @@ class EmailServices {
             this.connection.query(query, [username], (error, results) => {
                 if (error) {
                     // console.log('debug error in 12312313');
-                    reject(new Error('Database query failed'));
+                    reject(new Error('Database query failed' + error.message ));
                 } else if (results.length > 0) {
                     // console.log('debug error in 456456');
                     resolve({ exists: true, record: results[0] });
