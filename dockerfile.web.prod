@@ -16,4 +16,6 @@ ENV NODE_ENV=production
 # Expose the port for web server
 EXPOSE 8080
 
+# No need to expose the port for api server
+
 CMD [ "node", "app.js" ]
