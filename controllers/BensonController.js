@@ -88,6 +88,13 @@ const postLoginAction =  async (req, res) =>  {
     const pass = req.body.password;
     const users = await getUserByUserName(name);
 
+    // if user is not found
+    if (!users) {
+        req.session.message = 'user name or password incorrect, please try again.';
+        res.redirect('/login');
+        return;
+    }
+
     // Smars => 密码解析匹配
     const isPasswordMatched = await Utils.PasswordUtils.verifyPassword(pass, users.password);
     // console.log(pass); // plain password
