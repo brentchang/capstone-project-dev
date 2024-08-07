@@ -105,7 +105,7 @@ const postLoginAction =  async (req, res) =>  {
         console.log('login success.');
         req.session.username = name;
         req.session.userLoggedIn = true;
-        res.redirect('/order-list');
+        res.redirect('/');
     }else{
         //const message = encodeURIComponent('');
         req.session.message = 'user name or password incorrect, please try again.';
