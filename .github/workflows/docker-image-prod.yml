@@ -21,6 +21,8 @@ jobs:
     - name: Push the web Docker image
       run: docker push acegi123/conestoga-provincial-park-web:prod
   deploy-to-cloud-run:
+    # this step will only run if the previous job is successful
+    needs: build-and-push-docker-images
     runs-on: ubuntu-latest
     
     steps:
