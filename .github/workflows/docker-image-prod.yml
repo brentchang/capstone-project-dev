@@ -19,9 +19,18 @@ jobs:
         password: ${{ secrets.DOCKER_PASSWORD }}
     - name: Build the web Docker image
       run: docker build . --file dockerfile.web.prod --tag acegi123/conestoga-provincial-park-web:prod
-    - name: Build the api Docker image
-      run: docker build . --file dockerfile.api.prod --tag acegi123/conestoga-provincial-park-api:prod
     - name: Push the web Docker image
       run: docker push acegi123/conestoga-provincial-park-web:prod
-    - name: Push the api Docker image
-      run: docker push acegi123/conestoga-provincial-park-api:prod
+  deploy-to-cloud-run:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: 'actions/checkout@v4'
+    - name: Log in to Google Cloud
+      uses: 'google-github-actions/auth@v2'
+      with:
+        credentials_json: '${{ secrets.GOOGLE_CREDENTIALS }}'
+    - name: Deploy the web Docker image to Cloud Run
+      uses: 'google-github-actions/deploy-cloudrun@v2'
+      with:
+        image: 'conestoga-provincial-park-web:prod'
+        service: 'conestogapark-web'
